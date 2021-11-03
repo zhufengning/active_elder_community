@@ -2,8 +2,8 @@
 // Created by zfn on 2021/11/3.
 //
 
-#ifndef OLD_COMM_POEPLE_H
-#define OLD_COMM_POEPLE_H
+#ifndef OLD_COMM_PEOPLE_H
+#define OLD_COMM_PEOPLE_H
 
 typedef struct People
 {
@@ -17,4 +17,4 @@ typedef struct PeopleList
     int size;
 } PeopleList;
 
-#endif //OLD_COMM_POEPLE_H
+#endif //OLD_COMM_PEOPLE_H
