@@ -16,7 +16,7 @@ typedef struct FacilityList
     int size;
 } FacilityList;
 
-///新建一个社区会员列表
+///新建一个社区设施列表
 FacilityList facility_list_new(void)
 {
     FacilityList t;
@@ -25,7 +25,7 @@ FacilityList facility_list_new(void)
     return t;
 }
 
-///往一个会员列表中插入一个新会员并分配id
+///往一个设施列表中插入一个新设施并分配id
 void facility_list_push(FacilityList* p, char* name)
 {
     if (p->size == 0)
@@ -42,7 +42,7 @@ void facility_list_push(FacilityList* p, char* name)
     memcpy(p->head[p->size - 1].name, name, strlen(name) * sizeof(char));
 }
 
-///获取列表中第in个会员（从零开始数）
+///获取列表中第in个设施（从零开始数）
 Facility  facility_list_at(FacilityList p, int in)
 {
     Facility r = { -1, "fuck!" };
