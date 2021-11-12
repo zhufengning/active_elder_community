@@ -4,8 +4,6 @@
 
 #ifndef ELDER_COMM_PEOPLE_H
 #define ELDER_COMM_PEOPLE_H
-#include <stdlib.h>
-#include <string.h>
 typedef struct People
 {
     int id;
@@ -32,7 +30,7 @@ void people_list_push(PeopleList *p, char *name)
 {
     if (p->size == 0)
     {
-        p->head = malloc(sizeof(People));
+        p->head = calloc(1, sizeof(People));
         ++p->size;
     } else
     {
@@ -50,4 +48,4 @@ People people_list_at(PeopleList p, int in)
     if (in >= p.size) return r;
     else return p.head[in];
 }
-#endif //ELDER_COMM_PEOPLE_H
+#endif ELDER_COMM_PEOPLE_H
