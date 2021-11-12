@@ -4,6 +4,7 @@
 #include "people.h"
 #include "facility.h"
 #include "servant.h"
+#include "house.h"
 int main() {
     PeopleList l = people_list_new();
     people_list_push(&l, "haha");
