@@ -49,4 +49,4 @@ Facility  facility_list_at(FacilityList p, int in)
     if (in >= p.size) return r;
     else return p.head[in];
 }
-#endif ELDER_COMM_ FACILITY_H
+#endif ELDER_COMM_FACILITY_H
