@@ -17,7 +17,7 @@ typedef struct ServantList
     int size;
 } ServantList;
 
-///新建一个社区会员列表
+///新建一个社区服务人员列表
 ServantList servant_list_new(void)
 {
     ServantList t;
@@ -26,7 +26,7 @@ ServantList servant_list_new(void)
     return t;
 }
 
-///往一个会员列表中插入一个新会员并分配id
+///往一个服务人员列表中插入一个新的服务人员并分配id
 void servant_list_push(ServantList* p, char* name)
 {
     if (p->size == 0)
@@ -43,7 +43,7 @@ void servant_list_push(ServantList* p, char* name)
     memcpy(p->head[p->size - 1].name, name, strlen(name) * sizeof(char));
 }
 
-///获取列表中第in个会员（从零开始数）
+///获取列表中第in个服务人员（从零开始数）
 Servant servant_list_at(ServantList p, int in)
 {
     Servant r = { -1, "fuck!", -1 };
