@@ -17,7 +17,7 @@ typedef struct ServantList
     int size;
 } ServantList;
 
-///ÐÂ½¨Ò»¸öÉçÇø·þÎñÈËÔ±ÁÐ±í
+///æ–°å»ºä¸€ä¸ªç¤¾åŒºæœåŠ¡äººå‘˜åˆ—è¡¨
 ServantList servant_list_new(void)
 {
     ServantList t;
@@ -26,7 +26,7 @@ ServantList servant_list_new(void)
     return t;
 }
 
-///ÍùÒ»¸ö·þÎñÈËÔ±ÁÐ±íÖÐ²åÈëÒ»¸öÐÂµÄ·þÎñÈËÔ±²¢·ÖÅäid
+///å¾€ä¸€ä¸ªæœåŠ¡äººå‘˜åˆ—è¡¨ä¸­æ’å…¥ä¸€ä¸ªæ–°çš„æœåŠ¡äººå‘˜å¹¶åˆ†é…id
 void servant_list_push(ServantList* p, char* name)
 {
     if (p->size == 0)
@@ -43,11 +43,11 @@ void servant_list_push(ServantList* p, char* name)
     memcpy(p->head[p->size - 1].name, name, strlen(name) * sizeof(char));
 }
 
-///»ñÈ¡ÁÐ±íÖÐµÚin¸ö·þÎñÈËÔ±£¨´ÓÁã¿ªÊ¼Êý£©
+///èŽ·å–åˆ—è¡¨ä¸­ç¬¬inä¸ªæœåŠ¡äººå‘˜ï¼ˆä»Žé›¶å¼€å§‹æ•°ï¼‰
 Servant servant_list_at(ServantList p, int in)
 {
     Servant r = { -1, "fuck!", -1 };
     if (in >= p.size) return r;
     else return p.head[in];
 }
-#endif ELDER_COMM_SERVANT_H
+#endif //ELDER_COMM_SERVANT_H

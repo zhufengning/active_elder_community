@@ -16,7 +16,7 @@ typedef struct FacilityList
     int size;
 } FacilityList;
 
-///ĞÂ½¨Ò»¸öÉçÇøÉèÊ©ÁĞ±í
+///æ–°å»ºä¸€ä¸ªç¤¾åŒºè®¾æ–½åˆ—è¡¨
 FacilityList facility_list_new(void)
 {
     FacilityList t;
@@ -25,7 +25,7 @@ FacilityList facility_list_new(void)
     return t;
 }
 
-///ÍùÒ»¸öÉèÊ©ÁĞ±íÖĞ²åÈëÒ»¸öĞÂÉèÊ©²¢·ÖÅäid
+///å¾€ä¸€ä¸ªè®¾æ–½åˆ—è¡¨ä¸­æ’å…¥ä¸€ä¸ªæ–°è®¾æ–½å¹¶åˆ†é…id
 void facility_list_push(FacilityList* p, char* name)
 {
     if (p->size == 0)
@@ -42,7 +42,7 @@ void facility_list_push(FacilityList* p, char* name)
     memcpy(p->head[p->size - 1].name, name, strlen(name) * sizeof(char));
 }
 
-///»ñÈ¡ÁĞ±íÖĞµÚin¸öÉèÊ©£¨´ÓÁã¿ªÊ¼Êı£©
+///è·å–åˆ—è¡¨ä¸­ç¬¬inä¸ªè®¾æ–½ï¼ˆä»é›¶å¼€å§‹æ•°ï¼‰
 Facility  facility_list_at(FacilityList p, int in)
 {
     Facility r = { -1, "fuck!" };

@@ -17,7 +17,7 @@ typedef struct HouseList
     int size;
 } HouseList;
 
-///ĞÂ½¨Ò»¸ö·¿ÎİÁĞ±í
+///æ–°å»ºä¸€ä¸ªæˆ¿å±‹åˆ—è¡¨
 HouseList house_list_new(void)
 {
     HouseList t;
@@ -26,7 +26,7 @@ HouseList house_list_new(void)
     return t;
 }
 
-///ÍùÒ»¸ö·¿ÎİÁĞ±íÖĞ²åÈëÒ»¸öĞÂ·¿Îİ²¢·ÖÅäid
+///å¾€ä¸€ä¸ªæˆ¿å±‹åˆ—è¡¨ä¸­æ’å…¥ä¸€ä¸ªæ–°æˆ¿å±‹å¹¶åˆ†é…id
 void house_list_push(HouseList* p, char* name)
 {
     if (p->size == 0)
@@ -43,7 +43,7 @@ void house_list_push(HouseList* p, char* name)
     memcpy(p->head[p->size - 1].name, name, strlen(name) * sizeof(char));
 }
 
-///»ñÈ¡ÁĞ±íÖĞµÚin¸ö·¿Îİ£¨´ÓÁã¿ªÊ¼Êı£©
+///è·å–åˆ—è¡¨ä¸­ç¬¬inä¸ªæˆ¿å±‹ï¼ˆä»é›¶å¼€å§‹æ•°ï¼‰
 House house_list_at(HouseList p, int in)
 {
     House r = { -1, "fuck!",-1 };
