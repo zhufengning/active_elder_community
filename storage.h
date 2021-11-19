@@ -154,7 +154,7 @@ void data_save(Data d, char *path)
     }
     cJSON_AddItemToObject(j, "facility_list", fl);
 
-    printf("%s\n", cJSON_Print(j));
+    //printf("%s\n", cJSON_Print(j));
     FILE *f = fopen(path, "w");
     fprintf(f, "%s", cJSON_Print(j));
     fclose(f);

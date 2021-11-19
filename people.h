@@ -2,6 +2,8 @@
 // Created by zfn on 2021/11/3.
 //
 
+/* People是用链表写的，其他结构是写的变长数组，别问，问就是想尝试多种写法！！！*/
+
 #ifndef ELDER_COMM_PEOPLE_H
 #define ELDER_COMM_PEOPLE_H
 typedef struct People
@@ -10,9 +12,15 @@ typedef struct People
     char name[100];
 } People;
 
+typedef struct PeopleNode
+{
+    struct PeopleNode *hou;
+    People v;
+} PeopleNode;
+
 typedef struct PeopleList
 {
-    People *head;
+    PeopleNode *root;
     int size;
 } PeopleList;
 
@@ -20,7 +28,7 @@ typedef struct PeopleList
 PeopleList people_list_new(void)
 {
     PeopleList t;
-    t.head = NULL;
+    t.root = NULL;
     t.size = 0;
     return t;
 }
@@ -28,72 +36,126 @@ PeopleList people_list_new(void)
 /// 往一个会员列表中插入一个新会员并分配id
 void people_list_push(PeopleList *p, char *name)
 {
-    if (p->size == 0)
+    p->size += 1;
+    PeopleNode *new_people = (PeopleNode*)calloc(1, sizeof(PeopleNode));
+    new_people->v.id = p->size;
+    strcpy(new_people->v.name, name);
+    if (p->root == NULL)
     {
-        p->head = calloc(1, sizeof(People));
-        ++p->size;
+        p->root = new_people;
     } else
     {
-        ++p->size;
-        p->head = realloc(p->head, sizeof(People) * p->size);
+        PeopleNode *tail = p->root;
+        while(tail->hou != NULL) tail = tail->hou;
+        tail->hou = new_people;
     }
-    p->head[p->size - 1].id = p->size;
-    memcpy(p->head[p->size - 1].name, name, strlen(name) * sizeof(char));
 }
 
 /// 加载数据时使用
 void people_list_load(PeopleList *p, int id, char *name)
 {
-    if (p->size == 0)
+    p->size += 1;
+    PeopleNode *new_people = (PeopleNode*)calloc(1, sizeof(PeopleNode));
+    new_people->v.id = id;
+    strcpy(new_people->v.name, name);
+    if (p->root == NULL)
     {
-        p->head = calloc(1, sizeof(People));
-        ++p->size;
+        p->root = new_people;
     } else
     {
-        ++p->size;
-        p->head = realloc(p->head, sizeof(People) * p->size);
+        PeopleNode *tail = p->root;
+        while(tail->hou != NULL) tail = tail->hou;
+        tail->hou = new_people;
     }
-    p->head[p->size - 1].id = id;
-    strcpy(p->head[p->size - 1].name, name);
 }
 
 /// 删除一个会员
 void people_list_delete(PeopleList *pl, int v)
 {
-    if (v >= pl->size) return;
-    for (int i = v; i < pl->size - 1; ++i)
+    int p = 0;
+    PeopleNode *pt = pl->root;
+    while(pt->hou != NULL)
     {
-        pl->head[i] = pl->head[i + 1];
+        if (p + 1 == v) break;
+        if (p == v)
+        {
+            PeopleNode *tmp = pl->root;
+            pl->root = pl->root->hou;
+            pl->size -= 1;
+            free(tmp);
+            return;
+        }
+        ++p;
+        pt = pt->hou;
     }
-    pl->size -= 1;
+    if (p + 1 == v)
+    {
+        PeopleNode *tmp = pt -> hou;
+        pt -> hou = pt -> hou -> hou;
+        free(tmp);
+        pl->size -= 1;
+    }
 }
 
 /// 按id查找会员
 int people_find_by_id(PeopleList pl, int id)
 {
-    for (int i = 0; i < pl.size; ++i)
+    PeopleNode *pt = pl.root;
+    int r = 0;
+    while(pt != NULL)
     {
-        if (pl.head[i].id == id) return i;
+        if (pt->v.id == id)
+        {
+            break;
+        } else
+        {
+            pt = pt->hou;
+            ++r;
+        }
     }
-    return -1;
+    if(pt != NULL) return r;
+    else return -1;
 }
 
 /// 按名字查找会员
 int people_find_by_name(PeopleList pl, char *name)
 {
-    for (int i = 0; i < pl.size; ++i)
+    PeopleNode *pt = pl.root;
+    int r = 0;
+    while(pt != NULL)
     {
-        if (strcmp(pl.head[i].name, name) == 0) return i;
+        if (strcmp(pt->v.name, name) == 0)
+        {
+            break;
+        } else
+        {
+            pt = pt->hou;
+            ++r;
+        }
     }
-    return -1;
+    if(pt != NULL) return r;
+    else return -1;
 }
 
 ///获取列表中第in个会员（从零开始数）
-People people_list_at(PeopleList p, int in)
+People people_list_at(PeopleList pl, int v)
 {
     People r = {-1, "fuck!"};
-    if (in >= p.size) return r;
-    else return p.head[in];
+    int p = 0;
+    PeopleNode *pt = pl.root;
+    while(pt->hou != NULL)
+    {
+        ++p;
+        pt = pt->hou;
+        if (p == v) break;
+    }
+    if (p == v)
+    {
+        return pt->v;
+    } else
+    {
+        return r;
+    }
 }
 
 #endif //ELDER_COMM_PEOPLE_H

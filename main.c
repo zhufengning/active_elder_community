@@ -1,6 +1,9 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+
+/* People是用链表写的，其他结构是写的变长数组，别问，问就是想尝试多种写法！！！*/
+
 #include "people.h"
 #include "facility.h"
 #include "servant.h"
@@ -8,23 +11,24 @@
 #include "storage.h"
 
 //sz--代表数组
-int main()
-{
+int main() {
+//    Data d = data_from_file("../a.json");
+//    people_list_delete(&d.people_list, 0);
+//    servant_list_delete(&d.servant_list, 0);
+//    data_save(d, "../b.json");
+//    return 0;
     int a;
-    printf("您是否需要读取已保存的数据？"
-           "1.是"
-           "2.否");
-    scanf("%d", &a);
+    printf ("您是否需要读取已保存的数据？"
+            "1.是"
+            "2.否");
+    scanf ("%d",&a);
     char sz[100];
-    if (a == 1)
-    { scanf("%s", sz); }
-    if (a == 2)
-    { printf("请继续！ \n"); }
+    if(a==1){scanf ("%s",sz);}
+    if(a==2){printf ("请继续！ \n");}
     // TODO 陈骁恒的工作
 
     int back = 0;
-    do
-    {
+    do {
         back = 0;
         int n;
         char sz2[100];
@@ -41,8 +45,7 @@ int main()
         scanf("%d", &n);
 
 
-        if (n == 1)
-        {
+        if (n == 1) {
             printf(
                     "您下一步想要干什么？\n"
                     "请输入相应数字：\n"
@@ -52,83 +55,70 @@ int main()
                     "\t4.选择*返回上一级*");
             scanf("%d", &n);
             char name[100];
-            if (n == 4)
-            {
+            if (n == 4) {
                 back = 1;
-            } else
-            {
-                if (n == 1)
-                {
+            } else {
+                if (n == 1) {
                     scanf("%s", name);
                 }
-                if (n == 2)
-                {
+                if (n == 2) {
                     scanf("%s", name);
                     // TODO 陈骁恒的工作
                 }
-                if (n == 3)
-                {
+                if (n == 3) {
                     // TODO 陈骁恒的工作
                 }
 
             }
-        } else if (n == 2)
-        {
+        } else if (n == 2) {
             printf("您下一步想要干什么？\n"
                    "请输入相应数字：\n"
                    "\t1.选择*查看房屋基本情况*\n"
                    "\t2.选择*购买房屋*\n"
                    "\t3.选择*返回上一级*");
             scanf("%d", &n);
-            if (n == 1)
-            { printf("我们的房屋都有权威机构的认证！请您放心！"); }
-            if (n == 2)
-            {
+            if (n == 1) { printf("我们的房屋都有权威机构的认证！请您放心！"); }
+            if (n == 2) {
                 printf("您是否已经成为会员？"
                        "1.是"
                        "2.否");
                 scanf("%d", &n);
-                if (n == 1)
-                {
+                if (n == 1) {
                     printf("您可以开始选择房屋了\n"
                            "您想选择哪一个房屋？\n"
                            "请输入房屋名字！");
                     scanf("%s", sz2);
                 }
                 // TODO 陈骁恒的工作}
-                if (n == 2)
-                {
+                if (n == 2) {
                     printf("您还不是会员！\n"
                            "请返回首页注册会员以购买房屋！");
                     back = 1;
                 }
-                if (n == 3)
-                {
+                if (n == 3) {
                     back = 1;
                 }
             }
-        } else if (n == 3)
-        {
-            printf("您是否已经购买房屋？"
-                   "1.是"
-                   "2.否");
-            scanf("%d", &n);
-            if (n == 1)
-            {
-                printf("请输入您房屋的名字");
-                scanf("%s", sz3);
-            }//sz3是数组名
-            // TODO 陈骁恒的工作
-            //这里还有一个（房屋入住，出租，空置）的代码，没接上后面的工作无法写
-            if (n == 2)
-            { back = 1; }
         }
 
+
+       else if (n==3){ printf("您是否已经购买房屋？"
+                          "1.是"
+                          "2.否");
+            scanf ("%d",&n);
+            if (n==1){printf ("请输入您房屋的名字");
+                        scanf ("%s",sz3);}//sz3是数组名
+            // TODO 陈骁恒的工作
+            //这里还有一个（房屋入住，出租，空置）的代码，没接上后面的工作无法写
+            if (n==2){back =1;}
+            }
+
     } while (back);
+
+
 
 
     PeopleList l = people_list_new();
     people_list_push(&l, "haha");
     printf("%d:%s\n", people_list_at(l, 0).id, people_list_at(l, 0).name);
-    return 0;
-}
+    return 0;}

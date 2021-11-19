@@ -2,6 +2,8 @@
 // Created by hbl on 2021/11/12
 //
 
+/* People是用链表写的，其他结构是写的变长数组，别问，问就是想尝试多种写法！！！*/
+
 #ifndef ELDER_COMM_SERVANT_H
 #define ELDER_COMM_SERVANT_H
 typedef struct Servant
