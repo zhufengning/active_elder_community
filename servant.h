@@ -8,16 +8,16 @@ typedef struct Servant
 {
     int id;
     char name[100];
-    int  target_id;
+    int target_id;
 } Servant;
 
 typedef struct ServantList
 {
-    Servant* head;
+    Servant *head;
     int size;
 } ServantList;
 
-///新建一个社区服务人员列表
+/// 新建一个社区服务人员列表
 ServantList servant_list_new(void)
 {
     ServantList t;
@@ -26,15 +26,14 @@ ServantList servant_list_new(void)
     return t;
 }
 
-///往一个服务人员列表中插入一个新的服务人员并分配id
-void servant_list_push(ServantList* p, char* name)
+/// 往一个服务人员列表中插入一个新的服务人员并分配id
+void servant_list_push(ServantList *p, char *name)
 {
     if (p->size == 0)
     {
         p->head = calloc(1, sizeof(People));
         ++p->size;
-    }
-    else
+    } else
     {
         ++p->size;
         p->head = realloc(p->head, sizeof(Servant) * p->size);
@@ -43,14 +42,14 @@ void servant_list_push(ServantList* p, char* name)
     strcpy(p->head[p->size - 1].name, name);
 }
 
-void servant_list_load(ServantList* p, Servant v)
+/// 加载数据时使用
+void servant_list_load(ServantList *p, Servant v)
 {
     if (p->size == 0)
     {
         p->head = calloc(1, sizeof(Servant));
         ++p->size;
-    }
-    else
+    } else
     {
         ++p->size;
         p->head = realloc(p->head, sizeof(Servant) * p->size);
@@ -61,8 +60,40 @@ void servant_list_load(ServantList* p, Servant v)
 ///获取列表中第in个服务人员（从零开始数）
 Servant servant_list_at(ServantList p, int in)
 {
-    Servant r = { -1, "fuck!", -1 };
+    Servant r = {-1, "fuck!", -1};
     if (in >= p.size) return r;
     else return p.head[in];
 }
+
+/// 删除一个服务人员
+void servant_list_delete(ServantList *pl, int v)
+{
+    if (v >= pl->size) return;
+    for (int i = v; i < pl->size - 1; ++i)
+    {
+        pl->head[i] = pl->head[i + 1];
+    }
+    pl->size -= 1;
+}
+
+/// 按id查找服务人员
+int servant_find_by_id(ServantList pl, int id)
+{
+    for (int i = 0; i < pl.size; ++i)
+    {
+        if (pl.head[i].id == id) return i;
+    }
+    return -1;
+}
+
+/// 按名字查找服务人员
+int servant_find_by_name(ServantList pl, char *name)
+{
+    for (int i = 0; i < pl.size; ++i)
+    {
+        if (strcmp(pl.head[i].name, name) == 0) return i;
+    }
+    return -1;
+}
+
 #endif //ELDER_COMM_SERVANT_H

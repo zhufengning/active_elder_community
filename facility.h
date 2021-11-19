@@ -12,7 +12,7 @@ typedef struct Facility
 
 typedef struct FacilityList
 {
-    Facility* head;
+    Facility *head;
     int size;
 } FacilityList;
 
@@ -26,14 +26,13 @@ FacilityList facility_list_new(void)
 }
 
 ///往一个设施列表中插入一个新设施并分配id
-void facility_list_push(FacilityList* p, char* name)
+void facility_list_push(FacilityList *p, char *name)
 {
     if (p->size == 0)
     {
         p->head = malloc(sizeof(Facility));
         ++p->size;
-    }
-    else
+    } else
     {
         ++p->size;
         p->head = realloc(p->head, sizeof(Facility) * p->size);
@@ -42,14 +41,14 @@ void facility_list_push(FacilityList* p, char* name)
     strcpy(p->head[p->size - 1].name, name);
 }
 
-void facility_list_load(FacilityList* p, Facility v)
+/// 加载数据时使用
+void facility_list_load(FacilityList *p, Facility v)
 {
     if (p->size == 0)
     {
         p->head = malloc(sizeof(Facility));
         ++p->size;
-    }
-    else
+    } else
     {
         ++p->size;
         p->head = realloc(p->head, sizeof(Facility) * p->size);
@@ -57,11 +56,43 @@ void facility_list_load(FacilityList* p, Facility v)
     p->head[p->size - 1] = v;
 }
 
-///获取列表中第in个设施（从零开始数）
-Facility  facility_list_at(FacilityList p, int in)
+/// 获取列表中第in个设施（从零开始数）
+Facility facility_list_at(FacilityList p, int in)
 {
-    Facility r = { -1, "fuck!" };
+    Facility r = {-1, "fuck!"};
     if (in >= p.size) return r;
     else return p.head[in];
 }
+
+/// 删除一个设施
+void facility_list_delete(FacilityList *pl, int v)
+{
+    if (v >= pl->size) return;
+    for (int i = v; i < pl->size - 1; ++i)
+    {
+        pl->head[i] = pl->head[i + 1];
+    }
+    pl->size -= 1;
+}
+
+/// 按id查找设施
+int facility_find_by_id(FacilityList pl, int id)
+{
+    for (int i = 0; i < pl.size; ++i)
+    {
+        if (pl.head[i].id == id) return i;
+    }
+    return -1;
+}
+
+/// 按名字查找设施
+int facility_find_by_name(FacilityList pl, char *name)
+{
+    for (int i = 0; i < pl.size; ++i)
+    {
+        if (strcmp(pl.head[i].name, name) == 0) return i;
+    }
+    return -1;
+}
+
 #endif //ELDER_COMM_FACILITY_H
