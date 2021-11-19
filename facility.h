@@ -39,7 +39,22 @@ void facility_list_push(FacilityList* p, char* name)
         p->head = realloc(p->head, sizeof(Facility) * p->size);
     }
     p->head[p->size - 1].id = p->size;
-    memcpy(p->head[p->size - 1].name, name, strlen(name) * sizeof(char));
+    strcpy(p->head[p->size - 1].name, name);
+}
+
+void facility_list_load(FacilityList* p, Facility v)
+{
+    if (p->size == 0)
+    {
+        p->head = malloc(sizeof(Facility));
+        ++p->size;
+    }
+    else
+    {
+        ++p->size;
+        p->head = realloc(p->head, sizeof(Facility) * p->size);
+    }
+    p->head[p->size - 1] = v;
 }
 
 ///获取列表中第in个设施（从零开始数）
@@ -49,4 +64,4 @@ Facility  facility_list_at(FacilityList p, int in)
     if (in >= p.size) return r;
     else return p.head[in];
 }
-#endif ELDER_COMM_FACILITY_H
+#endif //ELDER_COMM_FACILITY_H

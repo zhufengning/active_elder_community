@@ -40,7 +40,22 @@ void servant_list_push(ServantList* p, char* name)
         p->head = realloc(p->head, sizeof(Servant) * p->size);
     }
     p->head[p->size - 1].id = p->size;
-    memcpy(p->head[p->size - 1].name, name, strlen(name) * sizeof(char));
+    strcpy(p->head[p->size - 1].name, name);
+}
+
+void servant_list_load(ServantList* p, Servant v)
+{
+    if (p->size == 0)
+    {
+        p->head = calloc(1, sizeof(Servant));
+        ++p->size;
+    }
+    else
+    {
+        ++p->size;
+        p->head = realloc(p->head, sizeof(Servant) * p->size);
+    }
+    p->head[p->size - 1] = v;
 }
 
 ///获取列表中第in个服务人员（从零开始数）

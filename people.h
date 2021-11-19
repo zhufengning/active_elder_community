@@ -41,6 +41,21 @@ void people_list_push(PeopleList *p, char *name)
     memcpy(p->head[p->size - 1].name, name, strlen(name) * sizeof(char));
 }
 
+void people_list_load(PeopleList *p, int id, char *name)
+{
+    if (p->size == 0)
+    {
+        p->head = calloc(1, sizeof(People));
+        ++p->size;
+    } else
+    {
+        ++p->size;
+        p->head = realloc(p->head, sizeof(People) * p->size);
+    }
+    p->head[p->size - 1].id = id;
+    strcpy(p->head[p->size - 1].name, name);
+}
+
 ///获取列表中第in个会员（从零开始数）
 People people_list_at(PeopleList p, int in)
 {

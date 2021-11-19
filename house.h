@@ -40,7 +40,22 @@ void house_list_push(HouseList* p, char* name)
         p->head = realloc(p->head, sizeof(House) * p->size);
     }
     p->head[p->size - 1].id = p->size;
-    memcpy(p->head[p->size - 1].name, name, strlen(name) * sizeof(char));
+    strcpy(p->head[p->size - 1].name, name);
+}
+
+void house_list_load(HouseList* p, House v)
+{
+    if (p->size == 0)
+    {
+        p->head = calloc(1, sizeof(House));
+        ++p->size;
+    }
+    else
+    {
+        ++p->size;
+        p->head = realloc(p->head, sizeof(House) * p->size);
+    }
+    p->head[p->size - 1] = v;
 }
 
 ///获取列表中第in个房屋（从零开始数）
@@ -50,4 +65,4 @@ House house_list_at(HouseList p, int in)
     if (in >= p.size) return r;
     else return p.head[in];
 }
-#endif ELDER_COMM_HOUSE_H
+#endif //ELDER_COMM_HOUSE_H
