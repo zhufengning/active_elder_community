@@ -7,6 +7,7 @@
 #include "house.h"
 #include "storage.h"
 
+//sz--代表数组
 int main() {
     int a;
     printf ("您是否需要读取已保存的数据？"
@@ -15,7 +16,7 @@ int main() {
     scanf ("%d",&a);
     char sz[100];
     if(a==1){scanf ("%s",sz);}
-    if(a==2){printf ("请继续！");}
+    if(a==2){printf ("请继续！ \n");}
     // TODO 陈骁恒的工作
 
     int back = 0;
@@ -23,6 +24,7 @@ int main() {
         back = 0;
         int n;
         char sz2[100];
+        char sz3[100];
         printf("********************************\n    欢迎进入活力长者社区系统    \n********************************\n");
         printf(
                 "*亲，请输入数字*\n"
@@ -85,9 +87,23 @@ int main() {
                            "请返回首页注册会员以购买房屋！");
                     back = 1;
                 }
+                if (n == 3) {
+                    back = 1;
+                }
             }
-
         }
+
+
+       else if (n==3){ printf("您是否已经购买房屋？"
+                          "1.是"
+                          "2.否");
+            scanf ("%d",&n);
+            if (n==1){printf ("请输入您房屋的名字");
+                        scanf ("%s",sz3);}//sz3是数组名
+            // TODO 陈骁恒的工作
+            //这里还有一个（房屋入住，出租，空置）的代码，没接上后面的工作无法写
+            if (n==2){back =1;}
+            }
 
     } while (back);
 
@@ -97,5 +113,4 @@ int main() {
     PeopleList l = people_list_new();
     people_list_push(&l, "haha");
     printf("%d:%s\n", people_list_at(l, 0).id, people_list_at(l, 0).name);
-    return 0;
-}
+    return 0;}
