@@ -60,11 +60,11 @@ void servant_list_load(ServantList *p, Servant v)
 }
 
 ///获取列表中第in个服务人员（从零开始数）
-Servant servant_list_at(ServantList p, int in)
+Servant *servant_list_at(ServantList p, int in)
 {
-    Servant r = {-1, "fuck!", -1};
-    if (in >= p.size) return r;
-    else return p.head[in];
+    static Servant r = {-1, "fuck!", -1};
+    if (in >= p.size) return &r;
+    else return &p.head[in];
 }
 
 /// 删除一个服务人员

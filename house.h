@@ -60,11 +60,11 @@ void house_list_load(HouseList *p, House v)
 }
 
 ///获取列表中第in个房屋（从零开始数）
-House house_list_at(HouseList p, int in)
+House *house_list_at(HouseList p, int in)
 {
-    House r = {-1, "fuck!", -1};
-    if (in >= p.size) return r;
-    else return p.head[in];
+    static House r = {-1, "fuck!", -1};
+    if (in >= p.size) return &r;
+    else return &p.head[in];
 }
 
 /// 删除一个房屋

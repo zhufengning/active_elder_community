@@ -59,11 +59,11 @@ void facility_list_load(FacilityList *p, Facility v)
 }
 
 /// 获取列表中第in个设施（从零开始数）
-Facility facility_list_at(FacilityList p, int in)
+Facility *facility_list_at(FacilityList p, int in)
 {
-    Facility r = {-1, "fuck!"};
-    if (in >= p.size) return r;
-    else return p.head[in];
+    static Facility r = {-1, "fuck!"};
+    if (in >= p.size) return &r;
+    else return &p.head[in];
 }
 
 /// 删除一个设施

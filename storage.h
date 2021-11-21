@@ -4,6 +4,7 @@
 
 #ifndef ELDER_COMM_STORAGE_H
 #define ELDER_COMM_STORAGE_H
+
 #include "cJSON.h"
 #include "cJSON.c"
 
@@ -51,7 +52,7 @@ Data data_from_file(char *path)
             cJSON *t = cJSON_GetArrayItem(pp, i);
             cJSON *t2 = cJSON_GetObjectItem(t, "id");
             cJSON *t3 = cJSON_GetObjectItem(t, "name");
-            people_list_load(pl, t2 -> valueint, t3 -> valuestring);
+            people_list_load(pl, t2->valueint, t3->valuestring);
         }
     }
 
@@ -67,9 +68,9 @@ Data data_from_file(char *path)
             cJSON *t3 = cJSON_GetObjectItem(t, "name");
             cJSON *t4 = cJSON_GetObjectItem(t, "sold");
             cJSON *t5 = cJSON_GetObjectItem(t, "owner");
-            new_house.id = t2 -> valueint;
-            new_house.sold = t4 -> valueint;
-            new_house.owner = t5 -> valueint;
+            new_house.id = t2->valueint;
+            new_house.sold = t4->valueint;
+            new_house.owner = t5->valueint;
             strcpy(new_house.name, t3->valuestring);
             house_list_load(pl, new_house);
         }
@@ -86,9 +87,9 @@ Data data_from_file(char *path)
             cJSON *t2 = cJSON_GetObjectItem(t, "id");
             cJSON *t3 = cJSON_GetObjectItem(t, "name");
             cJSON *t4 = cJSON_GetObjectItem(t, "target_id");
-            new_servant.id = t2 -> valueint;
-            new_servant.target_id = t4 -> valueint;
-            strcpy(new_servant.name, t3 -> valuestring);
+            new_servant.id = t2->valueint;
+            new_servant.target_id = t4->valueint;
+            strcpy(new_servant.name, t3->valuestring);
             servant_list_load(pl, new_servant);
         }
     }
@@ -102,8 +103,8 @@ Data data_from_file(char *path)
             cJSON *t = cJSON_GetArrayItem(pp, i);
             cJSON *t2 = cJSON_GetObjectItem(t, "id");
             cJSON *t3 = cJSON_GetObjectItem(t, "name");
-            new_facility.id = t2 -> valueint;
-            strcpy(new_facility.name, t3 -> valuestring);
+            new_facility.id = t2->valueint;
+            strcpy(new_facility.name, t3->valuestring);
             facility_list_load(pl, new_facility);
         }
     }
@@ -121,35 +122,35 @@ void data_save(Data d, char *path)
     for (int i = 0; i < d.people_list.size; ++i)
     {
         cJSON *pt = cJSON_CreateObject();
-        cJSON_AddItemToObject(pt, "id", cJSON_CreateNumber(people_list_at(d.people_list, i).id));
-        cJSON_AddItemToObject(pt, "name", cJSON_CreateString(people_list_at(d.people_list, i).name));
+        cJSON_AddItemToObject(pt, "id", cJSON_CreateNumber(people_list_at(d.people_list, i)->id));
+        cJSON_AddItemToObject(pt, "name", cJSON_CreateString(people_list_at(d.people_list, i)->name));
         cJSON_AddItemToArray(pl, pt);
     }
     cJSON_AddItemToObject(j, "people_list", pl);
     for (int i = 0; i < d.house_list.size; ++i)
     {
         cJSON *ht = cJSON_CreateObject();
-        cJSON_AddItemToObject(ht, "id", cJSON_CreateNumber(house_list_at(d.house_list, i).id));
-        cJSON_AddItemToObject(ht, "sold", cJSON_CreateNumber(house_list_at(d.house_list, i).sold));
-        cJSON_AddItemToObject(ht, "owner", cJSON_CreateNumber(house_list_at(d.house_list, i).owner));
-        cJSON_AddItemToObject(ht, "name", cJSON_CreateString(house_list_at(d.house_list, i).name));
+        cJSON_AddItemToObject(ht, "id", cJSON_CreateNumber(house_list_at(d.house_list, i)->id));
+        cJSON_AddItemToObject(ht, "sold", cJSON_CreateNumber(house_list_at(d.house_list, i)->sold));
+        cJSON_AddItemToObject(ht, "owner", cJSON_CreateNumber(house_list_at(d.house_list, i)->owner));
+        cJSON_AddItemToObject(ht, "name", cJSON_CreateString(house_list_at(d.house_list, i)->name));
         cJSON_AddItemToArray(hl, ht);
     }
     cJSON_AddItemToObject(j, "house_list", hl);
     for (int i = 0; i < d.servant_list.size; ++i)
     {
         cJSON *st = cJSON_CreateObject();
-        cJSON_AddItemToObject(st, "id", cJSON_CreateNumber(servant_list_at(d.servant_list, i).id));
-        cJSON_AddItemToObject(st, "target_id", cJSON_CreateNumber(servant_list_at(d.servant_list, i).target_id));
-        cJSON_AddItemToObject(st, "name", cJSON_CreateString(servant_list_at(d.servant_list, i).name));
+        cJSON_AddItemToObject(st, "id", cJSON_CreateNumber(servant_list_at(d.servant_list, i)->id));
+        cJSON_AddItemToObject(st, "target_id", cJSON_CreateNumber(servant_list_at(d.servant_list, i)->target_id));
+        cJSON_AddItemToObject(st, "name", cJSON_CreateString(servant_list_at(d.servant_list, i)->name));
         cJSON_AddItemToArray(sl, st);
     }
     cJSON_AddItemToObject(j, "servant_list", sl);
     for (int i = 0; i < d.facility_list.size; ++i)
     {
         cJSON *ft = cJSON_CreateObject();
-        cJSON_AddItemToObject(ft, "id", cJSON_CreateNumber(facility_list_at(d.facility_list, i).id));
-        cJSON_AddItemToObject(ft, "name", cJSON_CreateString(facility_list_at(d.facility_list, i).name));
+        cJSON_AddItemToObject(ft, "id", cJSON_CreateNumber(facility_list_at(d.facility_list, i)->id));
+        cJSON_AddItemToObject(ft, "name", cJSON_CreateString(facility_list_at(d.facility_list, i)->name));
         cJSON_AddItemToArray(fl, ft);
     }
     cJSON_AddItemToObject(j, "facility_list", fl);

@@ -37,7 +37,7 @@ PeopleList people_list_new(void)
 void people_list_push(PeopleList *p, char *name)
 {
     p->size += 1;
-    PeopleNode *new_people = (PeopleNode*)calloc(1, sizeof(PeopleNode));
+    PeopleNode *new_people = (PeopleNode *) calloc(1, sizeof(PeopleNode));
     new_people->v.id = p->size;
     strcpy(new_people->v.name, name);
     if (p->root == NULL)
@@ -46,7 +46,7 @@ void people_list_push(PeopleList *p, char *name)
     } else
     {
         PeopleNode *tail = p->root;
-        while(tail->hou != NULL) tail = tail->hou;
+        while (tail->hou != NULL) tail = tail->hou;
         tail->hou = new_people;
     }
 }
@@ -55,7 +55,7 @@ void people_list_push(PeopleList *p, char *name)
 void people_list_load(PeopleList *p, int id, char *name)
 {
     p->size += 1;
-    PeopleNode *new_people = (PeopleNode*)calloc(1, sizeof(PeopleNode));
+    PeopleNode *new_people = (PeopleNode *) calloc(1, sizeof(PeopleNode));
     new_people->v.id = id;
     strcpy(new_people->v.name, name);
     if (p->root == NULL)
@@ -64,7 +64,7 @@ void people_list_load(PeopleList *p, int id, char *name)
     } else
     {
         PeopleNode *tail = p->root;
-        while(tail->hou != NULL) tail = tail->hou;
+        while (tail->hou != NULL) tail = tail->hou;
         tail->hou = new_people;
     }
 }
@@ -74,7 +74,7 @@ void people_list_delete(PeopleList *pl, int v)
 {
     int p = 0;
     PeopleNode *pt = pl->root;
-    while(pt->hou != NULL)
+    while (pt->hou != NULL)
     {
         if (p + 1 == v) break;
         if (p == v)
@@ -90,8 +90,8 @@ void people_list_delete(PeopleList *pl, int v)
     }
     if (p + 1 == v)
     {
-        PeopleNode *tmp = pt -> hou;
-        pt -> hou = pt -> hou -> hou;
+        PeopleNode *tmp = pt->hou;
+        pt->hou = pt->hou->hou;
         free(tmp);
         pl->size -= 1;
     }
@@ -102,7 +102,7 @@ int people_find_by_id(PeopleList pl, int id)
 {
     PeopleNode *pt = pl.root;
     int r = 0;
-    while(pt != NULL)
+    while (pt != NULL)
     {
         if (pt->v.id == id)
         {
@@ -113,7 +113,7 @@ int people_find_by_id(PeopleList pl, int id)
             ++r;
         }
     }
-    if(pt != NULL) return r;
+    if (pt != NULL) return r;
     else return -1;
 }
 
@@ -122,7 +122,7 @@ int people_find_by_name(PeopleList pl, char *name)
 {
     PeopleNode *pt = pl.root;
     int r = 0;
-    while(pt != NULL)
+    while (pt != NULL)
     {
         if (strcmp(pt->v.name, name) == 0)
         {
@@ -133,17 +133,17 @@ int people_find_by_name(PeopleList pl, char *name)
             ++r;
         }
     }
-    if(pt != NULL) return r;
+    if (pt != NULL) return r;
     else return -1;
 }
 
 ///获取列表中第in个会员（从零开始数）
-People people_list_at(PeopleList pl, int v)
+People *people_list_at(PeopleList pl, int v)
 {
-    People r = {-1, "fuck!"};
+    static People r = {-1, "fuck!"};
     int p = 0;
     PeopleNode *pt = pl.root;
-    while(pt->hou != NULL)
+    while (pt->hou != NULL)
     {
         ++p;
         pt = pt->hou;
@@ -151,10 +151,10 @@ People people_list_at(PeopleList pl, int v)
     }
     if (p == v)
     {
-        return pt->v;
+        return &pt->v;
     } else
     {
-        return r;
+        return &r;
     }
 }
 
