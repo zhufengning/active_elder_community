@@ -49,7 +49,7 @@ int main()
                 "\t4.选择*场馆设施管理*\n"
                 "\t5.选择*服务人员管理*\n"
                 "\t6.选择*问题反映*\n"
-                "\t7.退出系统：\n");
+                "\t7.保存数据及退出系统：\n");
         fflush(stdout);
         scanf("%d", &n);
 
@@ -258,6 +258,7 @@ int main()
             fflush(stdout);
         } else if (n == 7)
         {
+            // TODO 陈骁恒的工作 询问是否保存数据、保存文件名
             break;
         }
     }
