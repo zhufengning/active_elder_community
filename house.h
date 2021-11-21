@@ -10,7 +10,7 @@ typedef struct House
 {
     int id;
     char name[100];
-    int sold, owner;
+    int sold, owner, type, tenant; //type: 1,业主入住;2,租客入住
 } House;
 
 typedef struct HouseList
@@ -62,7 +62,7 @@ void house_list_load(HouseList *p, House v)
 ///获取列表中第in个房屋（从零开始数）
 House *house_list_at(HouseList p, int in)
 {
-    static House r = {-1, "fuck!", -1};
+    static House r = {-1, "fuck!", -1, -1, -1, -1};
     if (in >= p.size) return &r;
     else return &p.head[in];
 }
