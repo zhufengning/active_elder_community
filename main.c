@@ -11,6 +11,7 @@
 #include "storage.h"
 
 //sz--代表数组
+//readme里的代码规范形同虚设了是吧--zfn
 int main()
 {
 //    Data d = data_from_file("../a.json");
