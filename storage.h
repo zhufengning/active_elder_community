@@ -15,6 +15,7 @@ typedef struct Data
     HouseList house_list;
     ServantList servant_list;
     FacilityList facility_list;
+    BusChainList buschain_list;
 } Data;
 
 /// 新建一个DATA
@@ -25,6 +26,7 @@ Data data_new()
     t.house_list = house_list_new();
     t.servant_list = servant_list_new();
     t.facility_list = facility_list_new();
+    t.buschain_list = buschainlist_chain_create();
     return t;
 }
 
@@ -108,6 +110,22 @@ Data data_from_file(char *path)
             facility_list_load(pl, new_facility);
         }
     }
+    {
+        cJSON *pp = cJSON_GetObjectItem(json, "buschain_list");
+        BusChainList *bcl = &ret.buschain_list;
+
+        for (int i = cJSON_GetArraySize(pp) - 1; i >= 0 ; --i)
+        {
+            cJSON *t = cJSON_GetArrayItem(pp, i);
+            BusChain bc = buschain_create();
+            for (int j = cJSON_GetArraySize(t) - 1; j >= 0; --j)
+            {
+                cJSON *t2 = cJSON_GetArrayItem(t, j);
+                buschain_insert(bc.root, t2->valuestring);
+            }
+            buschainlist_insert(bcl->root, bc);
+        }
+    }
     return ret;
 }
 
@@ -154,6 +172,22 @@ void data_save(Data d, char *path)
         cJSON_AddItemToArray(fl, ft);
     }
     cJSON_AddItemToObject(j, "facility_list", fl);
+
+    cJSON *bcl = cJSON_CreateArray();
+    {
+
+        for (BusChainNode* it = d.buschain_list.root->hou; it != NULL; it = it->hou)
+        {
+            cJSON *bc = cJSON_CreateArray();
+            for (BusStop* jt = it->value.root->hou; jt != NULL; jt = jt->hou)
+            {
+                cJSON_AddItemToArray(bc, cJSON_CreateString(jt->value));
+            }
+            cJSON_AddItemToArray(bcl, bc);
+        }
+    }
+
+    cJSON_AddItemToObject(j, "buschain_list", bcl);
 
     //printf("%s\n", cJSON_Print(j));
     FILE *f = fopen(path, "w");

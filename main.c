@@ -8,6 +8,7 @@
 #include "facility.h"
 #include "servant.h"
 #include "house.h"
+#include "bus.h"
 #include "storage.h"
 
 //sz--代表数组
@@ -17,6 +18,8 @@ int main()
 //    Data d = data_from_file("../a.json");
 //    people_list_delete(&d.people_list, 0);
 //    servant_list_delete(&d.servant_list, 0);
+//    buschainlist_remove(d.buschain_list.root);
+//    buschain_remove(d.buschain_list.root->hou->value.root);
 //    strcpy(people_list_at(d.people_list, 0)->name, "zzz");
 //    data_save(d, "../b.json");
 //    return 0;
