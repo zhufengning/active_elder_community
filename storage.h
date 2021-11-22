@@ -114,7 +114,7 @@ Data data_from_file(char *path)
         cJSON *pp = cJSON_GetObjectItem(json, "buschain_list");
         BusChainList *bcl = &ret.buschain_list;
 
-        for (int i = cJSON_GetArraySize(pp) - 1; i >= 0 ; --i)
+        for (int i = cJSON_GetArraySize(pp) - 1; i >= 0; --i)
         {
             cJSON *t = cJSON_GetArrayItem(pp, i);
             BusChain bc = buschain_create();
@@ -176,10 +176,10 @@ void data_save(Data d, char *path)
     cJSON *bcl = cJSON_CreateArray();
     {
 
-        for (BusChainNode* it = d.buschain_list.root->hou; it != NULL; it = it->hou)
+        for (BusChainNode *it = d.buschain_list.root->hou; it != NULL; it = it->hou)
         {
             cJSON *bc = cJSON_CreateArray();
-            for (BusStop* jt = it->value.root->hou; jt != NULL; jt = jt->hou)
+            for (BusStop *jt = it->value.root->hou; jt != NULL; jt = jt->hou)
             {
                 cJSON_AddItemToArray(bc, cJSON_CreateString(jt->value));
             }
