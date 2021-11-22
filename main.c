@@ -56,7 +56,8 @@ int main()
                 "\t4.选择*场馆设施管理*\n"
                 "\t5.选择*服务人员管理*\n"
                 "\t6.选择*问题反映*\n"
-                "\t7.保存数据及退出系统：\n");
+                "\t7.选择*班车线路管理\n"
+                "\t8.保存数据及退出系统：\n");
         fflush(stdout);
         scanf("%d", &n);
 
@@ -263,8 +264,18 @@ int main()
         {
             printf("登陆 https://www.icourse163.org/learn/NEU-1002745019 获得更多帮助\n"
                    "添加客服微信：川酱今天吃什么：zhangyichuan_33获取一对一帮助\n");
+        }else if (n==7){printf ("您想进行什么操作？\n"
+                                "1.制定班车路线\n"
+                                "2.查找班车路线\n"
+                                );
             fflush(stdout);
-        } else if (n == 7)
+            scanf ("%d",n);
+          if (n==1){printf ("请输入车站的名字：\n"
+                            );
+              fflush(stdout);}
+          if(n==2){printf("请输入路线名：\n");
+              fflush(stdout);} }
+        else if (n == 8)
         {
             // TODO 陈骁恒的工作 询问是否保存数据、保存文件名
             break;
