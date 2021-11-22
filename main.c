@@ -58,7 +58,7 @@ int main()
                 "\t4.选择*场馆设施管理*\n"
                 "\t5.选择*服务人员管理*\n"
                 "\t6.选择*问题反映*\n"
-                "\t7.选择*班车线路管理\n"
+                "\t7.选择*班车线路管理*\n"
                 "\t8.保存数据及退出系统：\n");
         fflush(stdout);
         scanf("%d", &n);
@@ -267,16 +267,41 @@ int main()
             printf("登陆 https://www.icourse163.org/learn/NEU-1002745019 获得更多帮助\n"
                    "添加客服微信：川酱今天吃什么：zhangyichuan_33获取一对一帮助\n");
         }else if (n==7){printf ("您想进行什么操作？\n"
-                                "1.制定班车路线\n"
-                                "2.查找班车路线\n"
+                                "1.查看班车路线\n"
+                                "2.添加班车路线\n"
+                                "3.删除班车路线\n"
+                                "4.修改班车路线\n"
                                 );
             fflush(stdout);
             scanf ("%d",n);
-          if (n==1){printf ("请输入车站的名字：\n"
-                            );
+          if (n==1){printf ("1.*查看某条班车路线*\n"
+                            "2.*查看全部路线*\n");
               fflush(stdout);}
-          if(n==2){printf("请输入路线名：\n");
-              fflush(stdout);} }
+          if(n==2){printf("请输入站点数量：\n");
+              fflush(stdout);
+                 scanf ("%d %s",&n,);//TODO ZHUFENGNING 站点名存在哪啊
+             printf ( "请输入站点名字：\n");
+              fflush(stdout);}
+
+          if (n==3){printf ("");//TODO 陈骁恒的WORK，输出目前有的线路
+              fflush(stdout);
+          printf ("请问您要删除第几条线路\n");
+              fflush(stdout);
+          scanf ("%d",&n);}
+          if (n==4){printf ("");//TODO 陈骁恒的WORK，输出目前有的线路(带编号）
+              fflush(stdout);
+          printf ("请问您要修改第几条线路\n");
+              fflush(stdout);
+          scanf ("%d",&n);
+          printf ("您选择的是%d,n\n"
+                  "您想要：\n"
+                  "1.*删除*\n"
+                  "2.*插入*\n"
+                  "3.*修改*\n");
+              fflush(stdout);
+          scanf ("%d",&n);
+          printf ("您是否选择继续修改当前线路？\n");
+              fflush(stdout);}}//TODO 这里有很多陈骁恒的工作
         else if (n == 8)
         {
             // TODO 陈骁恒的工作 询问是否保存数据、保存文件名
