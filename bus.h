@@ -16,7 +16,7 @@
 
 typedef struct BusStop//链表的一个节点
 {
-    struct BusStop* hou;//指向下一项的指针
+    struct BusStop *hou;//指向下一项的指针
     char *value;//这个节点保存的值
 } BusStop;
 
@@ -33,14 +33,14 @@ BusChain buschain_create(void)//创建并初始化一个链表
     return t;
 }
 
-void buschain_insert(BusStop* p, char *v)//在节点p后面插入v
+void buschain_insert(BusStop *p, char *v)//在节点p后面插入v
 {
     if (p == NULL) return;//不能对NULL操作，保险
     BusStop *t = malloc(sizeof(BusStop));//为新的节点分配内存
-    t -> value = v;//设置值
+    t->value = v;//设置值
     //一个插入过程
-    t -> hou = p -> hou;//这一项的下一项设置为前一项的下一项
-    p -> hou = t;//前一项的下一项设置为这一项
+    t->hou = p->hou;//这一项的下一项设置为前一项的下一项
+    p->hou = t;//前一项的下一项设置为这一项
 }
 
 void buschain_remove(BusStop *p)//删除p之后的节点
@@ -51,7 +51,7 @@ void buschain_remove(BusStop *p)//删除p之后的节点
 }
 
 //查找，虽然不用讲，但有这么个函数方便演示，
-BusStop* buschain_find(BusChain c, char *v)//返回的是查找结果的前一个节点
+BusStop *buschain_find(BusChain c, char *v)//返回的是查找结果的前一个节点
 {
     for (BusStop *it = c.root; it->hou != NULL; it = it->hou)
         if (strcmp(it->hou->value, v) == 0)
@@ -62,7 +62,7 @@ BusStop* buschain_find(BusChain c, char *v)//返回的是查找结果的前一个节点
 
 typedef struct BusChainNode//链表的一个节点
 {
-    struct BusChainNode* hou;//指向下一项的指针
+    struct BusChainNode *hou;//指向下一项的指针
     BusChain value;//这个节点保存的值
 } BusChainNode;
 
@@ -79,14 +79,14 @@ BusChainList buschainlist_chain_create(void)//创建并初始化一个链表
     return t;
 }
 
-void buschainlist_insert(BusChainNode* p, BusChain v)//在节点p后面插入v
+void buschainlist_insert(BusChainNode *p, BusChain v)//在节点p后面插入v
 {
     if (p == NULL) return;//不能对NULL操作，保险
     BusChainNode *t = malloc(sizeof(BusChainNode));//为新的节点分配内存
-    t -> value = v;//设置值
+    t->value = v;//设置值
     //一个插入过程
-    t -> hou = p -> hou;//这一项的下一项设置为前一项的下一项
-    p -> hou = t;//前一项的下一项设置为这一项
+    t->hou = p->hou;//这一项的下一项设置为前一项的下一项
+    p->hou = t;//前一项的下一项设置为这一项
 }
 
 void buschainlist_remove(BusChainNode *p)//删除p之后的节点

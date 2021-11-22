@@ -2,12 +2,14 @@
 #include <stdlib.h>
 #include <string.h>
 
-/* People是用链表写的，其他结构是写的变长数组，别问，问就是想尝试多种写法！！！*/
+/* People是用链表写的，其他结构是写的变长数组，别问，问就是想尝试多种写法！！！ */
 
 #include "people.h"
 #include "facility.h"
 #include "servant.h"
 #include "house.h"
+
+// 然而bus也是用的链表，还是二维链表
 #include "bus.h"
 #include "storage.h"
 
