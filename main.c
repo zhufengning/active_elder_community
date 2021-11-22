@@ -20,6 +20,7 @@ int main()
 //    strcpy(people_list_at(d.people_list, 0)->name, "zzz");
 //    data_save(d, "../b.json");
 //    return 0;
+    Data d = data_new();
     int a;
     printf("您是否需要读取已保存的数据？\n"
            "1.是\n"
@@ -31,6 +32,8 @@ int main()
     {
         printf("请输入文件名：\n");
         scanf("%s", sz);
+        d = data_from_file(sz);
+
     }
     if (a == 2)
     { printf("请继续！ \n"); }
@@ -77,6 +80,7 @@ int main()
                     printf("输入会员名字：\n");
                     fflush(stdout);
                     scanf("%s", name);
+                    people_list_push(&d.people_list, name);
                 }
                 if (n == 2)//2.选择*查询会员*
                 {
