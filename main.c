@@ -11,6 +11,7 @@
 
 // 然而bus也是用的链表，还是二维链表
 #include "bus.h"
+
 #include "storage.h"
 
 //sz--代表数组
@@ -266,42 +267,71 @@ int main()
         {
             printf("登陆 https://www.icourse163.org/learn/NEU-1002745019 获得更多帮助\n"
                    "添加客服微信：川酱今天吃什么：zhangyichuan_33获取一对一帮助\n");
-        }else if (n==7){printf ("您想进行什么操作？\n"
-                                "1.查看班车路线\n"
-                                "2.添加班车路线\n"
-                                "3.删除班车路线\n"
-                                "4.修改班车路线\n"
-                                );
+        } else if (n == 7)
+        {
+            printf("您想进行什么操作？\n"
+                   "1.查看班车路线\n"
+                   "2.添加班车路线\n"
+                   "3.删除班车路线\n"
+                   "4.修改班车路线\n"
+            );
             fflush(stdout);
-            scanf ("%d",n);
-          if (n==1){printf ("1.*查看某条班车路线*\n"
-                            "2.*查看全部路线*\n");
-              fflush(stdout);}
-          if(n==2){printf("请输入站点数量：\n");
-              fflush(stdout);
-                 scanf ("%d %s",&n,);//TODO ZHUFENGNING 站点名存在哪啊
-             printf ( "请输入站点名字：\n");
-              fflush(stdout);}
+            scanf("%d", n);
+            if (n == 1)
+            {
+                printf("1.*查看某条班车路线*\n"
+                       "2.*查看全部路线*\n");
+                fflush(stdout);
+            }
+            if (n == 2)
+            {
+                printf("请输入站点数量：\n");
+                fflush(stdout);
+                scanf("%d", &n);
 
-          if (n==3){printf ("");//TODO 陈骁恒的WORK，输出目前有的线路
-              fflush(stdout);
-          printf ("请问您要删除第几条线路\n");
-              fflush(stdout);
-          scanf ("%d",&n);}
-          if (n==4){printf ("");//TODO 陈骁恒的WORK，输出目前有的线路(带编号）
-              fflush(stdout);
-          printf ("请问您要修改第几条线路\n");
-              fflush(stdout);
-          scanf ("%d",&n);
-          printf ("您选择的是%d,n\n"
-                  "您想要：\n"
-                  "1.*删除*\n"
-                  "2.*插入*\n"
-                  "3.*修改*\n");
-              fflush(stdout);
-          scanf ("%d",&n);
-          printf ("您是否选择继续修改当前线路？\n");
-              fflush(stdout);}}//TODO 这里有很多陈骁恒的工作
+                printf("请输入站点名字：\n");
+                fflush(stdout); // TODO 陈晓恒，这里根据输入的数量循环读入站点名字
+            }
+
+            if (n == 3)
+            {
+                printf("");//TODO 陈骁恒的WORK，输出目前有的线路
+                fflush(stdout);
+                printf("请问您要删除第几条线路\n");
+                fflush(stdout);
+                scanf("%d", &n);
+            }
+            if (n == 4)
+            {
+                printf("");//TODO 陈骁恒的WORK，输出目前有的线路(带编号）
+                fflush(stdout);
+                printf("请问您要修改第几条线路\n");
+                fflush(stdout);
+                scanf("%d", &n);
+                while (1)
+                {
+                    printf("您选择的是%d,n\n"
+                           "您想要：\n"
+                           "1.*删除*\n"
+                           "2.*插入*\n"
+                           "3.*修改*\n");
+                    fflush(stdout);
+                    scanf("%d", &n);
+                    // TODO cxh
+                    printf("您是否选择继续修改当前线路？\n"
+                           "1.退出\n"
+                           "2.继续\n");
+                    fflush(stdout);
+                    int flag;
+                    scanf("%d", &flag);
+                    if (flag == 1)
+                    {
+                        break;
+                    }
+                }
+
+            }
+        }//TODO 这里有很多陈骁恒的工作
         else if (n == 8)
         {
             // TODO 陈骁恒的工作 询问是否保存数据、保存文件名
