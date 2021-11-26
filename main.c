@@ -28,21 +28,34 @@ int main()
 //    return 0;
     Data d = data_new();
     int a;
-    printf("您是否需要读取已保存的数据？\n"
-           "1.是\n"
-           "2.否\n");
-    fflush(stdout);
-    scanf("%d", &a);
-    char sz[100];
-    if (a == 1)
+    while (1)
     {
-        printf("请输入文件名：\n");
-        scanf("%s", sz);
-        d = data_from_file(sz);
+        printf("您是否需要读取已保存的数据？\n"
+               "1.是\n"
+               "2.否\n");
+        fflush(stdout);
+        scanf("%d", &a);
+        char sz[100];
+        if (a == 1)
+        {
+            printf("请输入文件名：\n");
+            scanf("%s", sz);
+            d = data_from_file(sz);
+            if (d.error != 0)
+            {
+                printf("文件加载失败\n");
+                continue;
+            } else
+            {
+                break;
+            };
 
-    } else if (a == 2)
-    { printf("请继续！ \n"); }
-
+        } else if (a == 2)
+        {
+            printf("请继续！ \n");
+            break;
+        }
+    }
     while (1)
     {
         int n;
@@ -203,6 +216,7 @@ int main()
             }
             if (n == 2)//2.选择*购买房屋*
             {
+                //TODO 这里有大病
                 printf("您是否已经成为会员？\n"
                        "1.是\n"
                        "2.否\n");
@@ -262,6 +276,7 @@ int main()
                     }
                 }
             }
+
         } else if (n == 3)//选择*入住管理*
         {
             printf("您是否已经购买房屋？\n"
@@ -431,6 +446,26 @@ int main()
         else if (n == 8)
         {
             // TODO 陈骁恒的工作 询问是否保存数据、保存文件名
+            printf("是否保存数据？ 1.是\t2.否\n");
+            fflush(stdout);
+            int new_number;
+            scanf("%d\n", &new_number);
+            if (new_number == 1)
+            {
+
+                printf("请输入文件名\n");
+                fflush(stdout);
+                char new_file[100];
+                scanf("%s\n", new_file);
+                data_save(d, new_file);
+                printf("数据已保存至名为%s的文件\n", new_file);
+                fflush(stdout);
+            } else
+            {
+                printf("数据为保存，请退出");
+                fflush(stdout);
+            }
+
             break;
         }
     }
