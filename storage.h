@@ -16,6 +16,7 @@ typedef struct Data
     ServantList servant_list;
     FacilityList facility_list;
     BusChainList buschain_list;
+    int error;
 } Data;
 
 /// 新建一个DATA
@@ -27,6 +28,7 @@ Data data_new()
     t.servant_list = servant_list_new();
     t.facility_list = facility_list_new();
     t.buschain_list = buschainlist_chain_create();
+    t.error = 0;
     return t;
 }
 
@@ -35,6 +37,11 @@ Data data_from_file(char *path)
 {
     Data ret = data_new();
     FILE *f = fopen(path, "rb");
+    if (f == NULL)
+    {
+        ret.error = -1;
+        return ret;
+    }
     fseek(f, 0, SEEK_END);
     long fsize = ftell(f);
     fseek(f, 0, SEEK_SET);  /* same as rewind(f); */
@@ -43,7 +50,11 @@ Data data_from_file(char *path)
     fclose(f);
     string[fsize] = 0;
     cJSON *json = cJSON_Parse(string);
-
+    if (json == NULL)
+    {
+        ret.error = -1;
+        return ret;
+    }
     {
         cJSON *pp = cJSON_GetObjectItem(json, "people_list");
         cJSON_GetArrayItem(pp, 0);
