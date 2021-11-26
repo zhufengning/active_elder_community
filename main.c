@@ -16,7 +16,8 @@
 
 //sz--代表数组
 //readme里的代码规范形同虚设了是吧--zfn
-int main() {
+int main()
+{
 //    Data d = data_from_file("../a.json");
 //    people_list_delete(&d.people_list, 0);
 //    servant_list_delete(&d.servant_list, 0);
@@ -33,18 +34,18 @@ int main() {
     fflush(stdout);
     scanf("%d", &a);
     char sz[100];
-    if (a == 1) {
+    if (a == 1)
+    {
         printf("请输入文件名：\n");
         scanf("%s", sz);
         d = data_from_file(sz);
 
-    }
-    else if (a == 2) { printf("请继续！ \n"); }
+    } else if (a == 2)
+    { printf("请继续！ \n"); }
 
-    while (1) {
+    while (1)
+    {
         int n;
-        char sz2[100];
-        char sz3[100];
         printf("********************************\n    欢迎进入活力长者社区系统    \n********************************\n");
         printf(
                 "*亲，请输入数字*\n"
@@ -71,9 +72,11 @@ int main() {
                     "\t4.选择*返回上一级*\n");
             fflush(stdout);
             scanf("%d", &n);
-            if (n == 4) {
+            if (n == 4)
+            {
 
-            } else {
+            } else
+            {
                 if (n == 1)//1.选择*新建会员
                 {
                     char name[100];
@@ -90,56 +93,96 @@ int main() {
                            "3.输出所有会员\n");
                     fflush(stdout);
                     scanf("%d", &n);
-                    if (n == 1) {
-                        int ID,xiabiao;
+                    if (n == 1)
+                    {
+                        int ID, xiabiao;
                         printf("请输入您查询的ID:\n");
                         fflush(stdout);
-                        scanf("%d",&ID);
-                        xiabiao= people_find_by_id(d.people_list,ID);
-                        if(xiabiao<0){
+                        scanf("%d", &ID);
+                        xiabiao = people_find_by_id(d.people_list, ID);
+                        if (xiabiao < 0)
+                        {
                             printf("该用户不存在\n");
-                        }
-                        else{
-                            printf("用户ID:%d\n姓名:%s\n",ID,people_list_at(d.people_list,xiabiao)->name);
+                        } else
+                        {
+                            printf("用户ID:%d\n姓名:%s\n", ID, people_list_at(d.people_list, xiabiao)->name);
                         }
                     }
-                    // TODO 陈骁恒的工作,调用数组
-                    else if (n == 2) {
+                        // TODO 陈骁恒的工作,调用数组
+                    else if (n == 2)
+                    {
                         char name[100];
                         int xiabiao;
                         printf("请输入您的名字：\n");
                         fflush(stdout);
                         scanf("", name);
-                        xiabiao= people_find_by_name(d.people_list,name);
-                        if(xiabiao<0){
+                        xiabiao = people_find_by_name(d.people_list, name);
+                        if (xiabiao < 0)
+                        {
                             printf("该用户不存在\n");
-                        }
-                        else{
-                            printf("用户ID:%d\n姓名:%s\n",people_list_at(d.people_list,xiabiao)->id,name);
+                        } else
+                        {
+                            printf("用户ID:%d\n姓名:%s\n", people_list_at(d.people_list, xiabiao)->id, name);
                         }
                     }
-                    // TODO 陈骁恒的工作
-                    else if (n == 3) {
-                        while(1) {
-                            for (int i = 0; i < d.people_list.size; i++) {
+                        // TODO 陈骁恒的工作
+                    else if (n == 3)
+                    {
+                        while (1)
+                        {
+                            for (int i = 0; i < d.people_list.size; i++)
+                            {
                                 printf("第%d个用户\n\tID:%d\n\t姓名:%s\n", i + 1, people_list_at(d.people_list, i)->id,
                                        people_list_at(d.people_list, i)->name);
                             }
                             printf("您是否要再看一遍？1.确认\t2.取消\n");
                             int one_more_time;
                             scanf("%d", &one_more_time);
-                            if(one_more_time==2){
+                            if (one_more_time == 2)
+                            {
                                 break;
+                            } else if (one_more_time == 1)
+                            {
+                                //do nothing
+                            } else
+                            {
+                                printf("输入错误，我猜您不想看了\n");
                             }
                         }
                     }//TODO 陈骁恒的工作,输出所有会员
-                }
-                else if (n == 3)//会员的删除与修改
+                } else if (n == 3)//会员的删除与修改
                 {
-                    printf("请输出您的ID:\n");
+                    printf("请输入会员ID:\n");
                     fflush(stdout);
                     //  根据编号选择要修改的会员
-                    // TODO 陈骁恒的工作 （选择修改的会员之后先输出该会员的信息）
+                    int xiabiao, ID, name;
+                    scanf("%d\n", ID);
+                    xiabiao = people_find_by_id(d.people_list, ID);
+                    if (xiabiao < 0)
+                    {
+                        printf("该用户不存在\n");
+                    } else
+                    {
+                        printf("用户ID:%d\n姓名:%s\n", people_list_at(d.people_list, xiabiao)->id, name);
+                        printf("是否确认修改? 1.确认\t2.取消\n");
+                        int confirm;
+                        scanf("%d\n", &confirm);
+                        if (confirm == 2)
+                        {
+
+                        } else if (confirm == 1)
+                        {
+                            int new_name;
+                            printf("请输入新的姓名\n");
+                            scanf("%d\n", new_name);
+                            strcpy(people_list_at(d.people_list, xiabiao)->name, new_name);
+                        } else
+                        {
+                            printf("输入错误，我猜您不想改了\n");
+                        }
+                    }
+
+
                 }
 
             }
@@ -149,7 +192,8 @@ int main() {
                    "请输入相应数字：\n"
                    "\t1.选择*查看房屋基本情况*\n"
                    "\t2.选择*购买房屋*\n"
-                   "\t3.选择*返回上一级*\n");
+                   "\t3.选择*查询会员名下的房屋*\n"
+                   "\t4.选择*返回上一级*\n");
             fflush(stdout);
             scanf("%d", &n);
             if (n == 1)//1.选择*查看房屋基本情况*
@@ -164,26 +208,58 @@ int main() {
                        "2.否\n");
                 fflush(stdout);
                 scanf("%d", &n);
-                if (n == 1) {
+                if (n == 1)
+                {
                     printf("请输入您的ID：\n");
                     fflush(stdout);
                     int people_id;
                     scanf("%d", &people_id);
-                    if (1)
-                        // TODO 陈骁恒，查询会员是否存在，不存在就什么都不做（这样会自动会主页）
+                    int xiabiao = people_id;
+                    if (xiabiao < 0)
                     {
+                        printf("该ID对应的会员不存在\n");
+                    } else
+                    {
+                        int name;
+                        name = people_list_at(d.people_list, xiabiao);
+                        printf("欢迎您，尊敬的会员:%s\n", name);
                         printf("您可以开始选择房屋了\n"
                                "请输入房屋名字！\n");
                         fflush(stdout);
-                        scanf("%s", sz2);
+                        char house_name;
+                        scanf("%s\n", house_name);
+                        house_list_push(&d.house_list, house_name, people_id);
+                        printf("购买成功，感谢您的购买\n");
                     }
-
                 }
                     // TODO 陈骁恒的工作
-                else if (n == 2) {
+                else if (n == 2)
+                {
                     printf("您还不是会员！\n"
                            "请返回首页注册会员以购买房屋！\n");
                     fflush(stdout);
+                }
+            } else if (n == 3)//3.选择*查询房屋*
+            {
+                int ID;
+                printf("请输入您的ID\n");
+                fflush(stdout);
+                int people_id;
+                scanf("%d", &people_id);
+                int xiabiao = people_id;
+                if (xiabiao < 0)
+                {
+                    printf("该ID对应的会员不存在\n");
+                } else
+                {
+                    for (int i = 0; i < d.house_list.size; i++)
+                    {
+                        if (house_list_at(d.house_list, i)->owner == ID)
+                        {
+                            printf("第%d间房屋\n\tID:%d\n\t姓名:%s\n", i + 1, house_list_at(d.house_list, i)->id,
+                                   house_list_at(d.house_list, i)->name);
+                        }
+                    }
                 }
             }
         } else if (n == 3)//选择*入住管理*
@@ -193,10 +269,12 @@ int main() {
                    "2.否\n");
             fflush(stdout);
             scanf("%d", &n);
-            if (n == 1) {
-                printf("请输入您房屋的名字\n");
+            if (n == 1)
+            {
+                printf("请输入您房屋的ID\n");
                 fflush(stdout);
-                scanf("%s", sz3);
+                char house_id[100];
+                scanf("%s", house_id);
                 // TODO 陈骁恒的工作
                 printf("您接下来希望您的房屋？\n"
                        "1.*入住*\n"
@@ -204,10 +282,14 @@ int main() {
                        "3.*空置*: \n");
                 fflush(stdout);
                 scanf("%d", &n);
-                if (n == 1) {}// TODO 陈骁恒的工作
-                if (n == 2) {}// TODO 陈骁恒的工作
-                if (n == 3) {}// TODO 陈骁恒的工作
-            } else if (n == 2) {
+                if (n == 1)
+                {}// TODO 陈骁恒的工作
+                if (n == 2)
+                {}// TODO 陈骁恒的工作
+                if (n == 3)
+                {}// TODO 陈骁恒的工作
+            } else if (n == 2)
+            {
 
             }
         } else if (n == 4)//4.选择*场馆设施管理*
@@ -217,19 +299,22 @@ int main() {
                    "2.*我是管理人员*\n");
             fflush(stdout);
             scanf("%d", &n);
-            if (n == 1) {
+            if (n == 1)
+            {
                 printf("您想要使用申请娱乐设施吗？\n"
                        "1.是\n"
                        "2.否\n");
                 fflush(stdout);
                 scanf("%d", &n);
-                if (n == 1) {
+                if (n == 1)
+                {
                     printf("您想要申请使用什么娱乐设施？\n"
                            "请输入娱乐设施的名字\n");
                     fflush(stdout);
                 }//TODO 陈骁恒的工作（输入，查找并判断是否有该娱乐设施，如果有则输出使用成功，否则输出无次设施，如有需要，请先申请）
             }
-            if (n == 2) {
+            if (n == 2)
+            {
                 printf("您想要申请使用什么娱乐设施？\n"
                        "请输入娱乐设施的名字\n");
                 fflush(stdout);
@@ -243,7 +328,8 @@ int main() {
                    "2.用户\n");
             fflush(stdout);
             char name2[100];
-            if (n == 1) {
+            if (n == 1)
+            {
                 printf("您下一步想干什么？\n"
                        "1.*注册服务人员*\n"
                        "2.*修改服务人员信息*\n"
@@ -251,29 +337,34 @@ int main() {
                        "4.*点错了*\n");
                 fflush(stdout);
                 scanf("%d", &n);
-                if (n == 1) {
+                if (n == 1)
+                {
                     printf("请输入您的姓名：\n");
                     fflush(stdout);
                     scanf("%s", name2);
                 }
 
                     // TODO 陈骁恒的工作
-                else if (n == 2) {
+                else if (n == 2)
+                {
                     printf("请输入您的姓名：\n");
                     fflush(stdout);
-                } else if (n == 3) {
+                } else if (n == 3)
+                {
                     printf("请输入您的姓名：\n");
                     fflush(stdout);
                 }
                     // TODO 陈骁恒的工作
                     //见servant.h
-                else if (n == 4) {}
+                else if (n == 4)
+                {}
             }
         } else if (n == 6)//6.选择*问题反映*
         {
             printf("登陆 https://www.icourse163.org/learn/NEU-1002745019 获得更多帮助\n"
                    "添加客服微信：川酱今天吃什么：zhangyichuan_33获取一对一帮助\n");
-        } else if (n == 7) {
+        } else if (n == 7)
+        {
             printf("您想进行什么操作？\n"
                    "1.查看班车路线\n"
                    "2.添加班车路线\n"
@@ -282,12 +373,14 @@ int main() {
             );
             fflush(stdout);
             scanf("%d", n);
-            if (n == 1) {
+            if (n == 1)
+            {
                 printf("1.*查看某条班车路线*\n"
                        "2.*查看全部路线*\n");
                 fflush(stdout);
             }
-            if (n == 2) {
+            if (n == 2)
+            {
                 printf("请输入站点数量：\n");
                 fflush(stdout);
                 scanf("%d", &n);
@@ -296,20 +389,23 @@ int main() {
                 fflush(stdout); // TODO 陈晓恒，这里根据输入的数量循环读入站点名字
             }
 
-            if (n == 3) {
+            if (n == 3)
+            {
                 printf("");//TODO 陈骁恒的WORK，输出目前有的线路
                 fflush(stdout);
                 printf("请问您要删除第几条线路\n");
                 fflush(stdout);
                 scanf("%d", &n);
             }
-            if (n == 4) {
+            if (n == 4)
+            {
                 printf("");//TODO 陈骁恒的WORK，输出目前有的线路(带编号）
                 fflush(stdout);
                 printf("请问您要修改第几条线路\n");
                 fflush(stdout);
                 scanf("%d", &n);
-                while (1) {
+                while (1)
+                {
                     printf("您选择的是%d,n\n"
                            "您想要：\n"
                            "1.*删除*\n"
@@ -324,14 +420,16 @@ int main() {
                     fflush(stdout);
                     int flag;
                     scanf("%d", &flag);
-                    if (flag == 1) {
+                    if (flag == 1)
+                    {
                         break;
                     }
                 }
 
             }
         }//TODO 这里有很多陈骁恒的工作
-        else if (n == 8) {
+        else if (n == 8)
+        {
             // TODO 陈骁恒的工作 询问是否保存数据、保存文件名
             break;
         }
