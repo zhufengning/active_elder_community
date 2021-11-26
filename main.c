@@ -120,8 +120,17 @@ int main() {
                     }
                     // TODO 陈骁恒的工作
                     else if (n == 3) {
-                        for(int i=0;i<d.people_list.size;i++){
-                            printf("第%d个用户\n\tID:%d\n\t姓名:%s\n",i+1,people_list_at(d.people_list,i)->id,people_list_at(d.people_list,i)->name);
+                        while(1) {
+                            for (int i = 0; i < d.people_list.size; i++) {
+                                printf("第%d个用户\n\tID:%d\n\t姓名:%s\n", i + 1, people_list_at(d.people_list, i)->id,
+                                       people_list_at(d.people_list, i)->name);
+                            }
+                            printf("您是否要再看一遍？1.确认\t2.取消\n");
+                            int one_more_time;
+                            scanf("%d", &one_more_time);
+                            if(one_more_time==2){
+                                break;
+                            }
                         }
                     }//TODO 陈骁恒的工作,输出所有会员
                 }
