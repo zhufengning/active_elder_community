@@ -119,13 +119,13 @@ int main() {
                         }
                     }
                     // TODO 陈骁恒的工作
-                    if (n == 3) {
+                    else if (n == 3) {
                         for(int i=0;i<d.people_list.size;i++){
                             printf("第%d个用户\n\tID:%d\n\t姓名:%s\n",i+1,people_list_at(d.people_list,i)->id,people_list_at(d.people_list,i)->name);
                         }
                     }//TODO 陈骁恒的工作,输出所有会员
                 }
-                if (n == 3)//会员的删除与修改
+                else if (n == 3)//会员的删除与修改
                 {
                     printf("请输出您的ID:\n");
                     fflush(stdout);

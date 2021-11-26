@@ -145,9 +145,9 @@ People *people_list_at(PeopleList pl, int v)
     PeopleNode *pt = pl.root;
     while (pt->hou != NULL)
     {
+        if (p == v) break;
         ++p;
         pt = pt->hou;
-        if (p == v) break;
     }
     if (p == v)
     {
