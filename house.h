@@ -16,7 +16,7 @@ typedef struct House
 typedef struct HouseList
 {
     House *head;
-    int size;
+    int size, maxid;
 } HouseList;
 
 ///新建一个房屋列表
@@ -25,12 +25,14 @@ HouseList house_list_new(void)
     HouseList t;
     t.head = NULL;
     t.size = 0;
+    t.maxid = 0;
     return t;
 }
 
 ///往一个房屋列表中插入一个新房屋并分配id
-void house_list_push(HouseList *p, char *name)
+void house_list_push(HouseList *p, char *name, int owner)
 {
+    ++p->maxid;
     if (p->size == 0)
     {
         p->head = calloc(1, sizeof(House));
@@ -40,13 +42,18 @@ void house_list_push(HouseList *p, char *name)
         ++p->size;
         p->head = realloc(p->head, sizeof(House) * p->size);
     }
-    p->head[p->size - 1].id = p->size;
+    p->head[p->size - 1].owner = owner;
+    p->head[p->size - 1].id = p->maxid;
     strcpy(p->head[p->size - 1].name, name);
 }
 
 /// 加载数据时使用
 void house_list_load(HouseList *p, House v)
 {
+    if (v.id >= p->maxid)
+    {
+        p->maxid = v.id + 1;
+    }
     if (p->size == 0)
     {
         p->head = calloc(1, sizeof(House));

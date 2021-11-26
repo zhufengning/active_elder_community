@@ -15,7 +15,7 @@ typedef struct Facility
 typedef struct FacilityList
 {
     Facility *head;
-    int size;
+    int size, maxid;
 } FacilityList;
 
 ///新建一个社区设施列表
@@ -24,12 +24,14 @@ FacilityList facility_list_new(void)
     FacilityList t;
     t.head = NULL;
     t.size = 0;
+    t.maxid = 0;
     return t;
 }
 
 ///往一个设施列表中插入一个新设施并分配id
 void facility_list_push(FacilityList *p, char *name)
 {
+    ++p->maxid;
     if (p->size == 0)
     {
         p->head = malloc(sizeof(Facility));
@@ -46,6 +48,10 @@ void facility_list_push(FacilityList *p, char *name)
 /// 加载数据时使用
 void facility_list_load(FacilityList *p, Facility v)
 {
+    if (v.id >= p->maxid)
+    {
+        p->maxid = v.id + 1;
+    }
     if (p->size == 0)
     {
         p->head = malloc(sizeof(Facility));

@@ -16,7 +16,7 @@ typedef struct Servant
 typedef struct ServantList
 {
     Servant *head;
-    int size;
+    int size, maxid;
 } ServantList;
 
 /// 新建一个社区服务人员列表
@@ -25,12 +25,14 @@ ServantList servant_list_new(void)
     ServantList t;
     t.head = NULL;
     t.size = 0;
+    t.maxid = 0;
     return t;
 }
 
 /// 往一个服务人员列表中插入一个新的服务人员并分配id
 void servant_list_push(ServantList *p, char *name)
 {
+    ++p->maxid;
     if (p->size == 0)
     {
         p->head = calloc(1, sizeof(People));
@@ -47,6 +49,10 @@ void servant_list_push(ServantList *p, char *name)
 /// 加载数据时使用
 void servant_list_load(ServantList *p, Servant v)
 {
+    if (v.id >= p->maxid)
+    {
+        p->maxid = v.id + 1;
+    }
     if (p->size == 0)
     {
         p->head = calloc(1, sizeof(Servant));
