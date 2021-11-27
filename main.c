@@ -26,6 +26,22 @@ int main()
 //    strcpy(people_list_at(d.people_list, 0)->name, "zzz");
 //    data_save(d, "../b.json");
 //    return 0;
+
+    printf("系统加载中。。。\n");
+    fflush(stdout);
+    for (int i = 1; i <= 3e8; ++i);
+    printf("本系统由最优秀的工程师经过多年研发，倾力打造，只求给您最完美的体验。。\n");
+    for (int i = 1; i <= 5e8; ++i);
+    fflush(stdout);
+    printf("3..");
+    fflush(stdout);
+    for (int i = 1; i <= 5e8; ++i);
+    printf("2..");
+    fflush(stdout);
+    for (int i = 1; i <= 5e8; ++i);
+    printf("1..\n");
+    fflush(stdout);
+    for (int i = 1; i <= 5e8; ++i);
     Data d = data_new();
     int a;
     while (1)
@@ -69,7 +85,7 @@ int main()
             scanf("%d", &sz);
             if (sz == 1)
             {
-                printf("********************************\n    欢迎进入活力长者社区系统    \n********************************\n");
+                printf("********************************\n    欢迎进入活力长者社区后台系统系统    \n********************************\n请确保在管理员的监督下使用本系统，否则将被视为非法操作\n");
                 printf(
                         "*亲，请输入数字*\n"
                         "\t1.选择*会员管理*\n"
@@ -132,7 +148,7 @@ int main()
                 if (n == 2)//2.选择*查询会员*
                 {
                     printf("请的选择查询的方式\n"
-                           "1.ID查询\n"
+                           "1.按ID查询\n"
                            "2.按名字查询\n"
                            "3.输出所有会员\n");
                     fflush(stdout);
@@ -152,12 +168,11 @@ int main()
                             printf("用户ID:%d\n姓名:%s\n", ID, people_list_at(d.people_list, xiabiao)->name);
                         }
                     }
-                        // TODO 陈骁恒的工作,调用数组
                     else if (n == 2)
                     {
                         char name[100];
                         int xiabiao;
-                        printf("请输入您的名字：\n");
+                        printf("请输入需要查询的名字：\n");
                         fflush(stdout);
                         scanf("", name);
                         xiabiao = people_find_by_name(d.people_list, name);
@@ -169,7 +184,6 @@ int main()
                             printf("用户ID:%d\n姓名:%s\n", people_list_at(d.people_list, xiabiao)->id, name);
                         }
                     }
-                        // TODO 陈骁恒的工作
                     else if (n == 3)
                     {
                         while (1)
@@ -193,7 +207,7 @@ int main()
                                 printf("输入错误，我猜您不想看了\n");
                             }
                         }
-                    }//TODO 陈骁恒的工作,输出所有会员
+                    }
                 } else if (n == 3)//会员的删除与修改
                 {
                     printf("请输入会员ID:\n");
@@ -208,7 +222,7 @@ int main()
                     } else
                     {
                         printf("用户ID:%d\n姓名:%s\n", people_list_at(d.people_list, xiabiao)->id, name);
-                        printf("是否确认修改? 1.确认\t2.取消\n");
+                        printf("是否确认修改? 1.确认\t2.取消\n");//TODO 这里少了个删除
                         int confirm;
                         scanf("%d\n", &confirm);
                         if (confirm == 2)
@@ -225,17 +239,14 @@ int main()
                             printf("输入错误，我猜您不想改了\n");
                         }
                     }
-
-
                 }
-
             }
         } else if (n == 2)//选择*房屋管理*
         {
             printf("您下一步想要干什么？\n"
                    "请输入相应数字：\n"
                    "\t1.选择*查看房屋基本情况*\n"
-                   "\t2.选择*购买房屋*\n"
+                   "\t2.选择*会员购买房屋办理*\n"
                    "\t3.选择*查询会员名下的房屋*\n"
                    "\t4.选择*返回上一级*\n");
             fflush(stdout);
@@ -247,7 +258,7 @@ int main()
             }
             if (n == 2)//2.选择*购买房屋*
             {
-                printf("您是否已经成为会员？\n"
+                printf("购房者是否已经成为会员？\n"
                        "1.是\n"
                        "2.否\n");
                 fflush(stdout);
@@ -268,19 +279,18 @@ int main()
                         strcpy(name, people_list_at(d.people_list, xiabiao)->name);
                         printf("欢迎您，尊敬的会员:%s\n", name);
                         printf("您可以开始选择房屋了\n"
-                               "请输入房屋名字！\n");
+                               "请输入您购买的房屋的名字！（名字请参见宣传手册）\n");
                         fflush(stdout);
                         char house_name[100];
                         scanf("%s", house_name);
                         house_list_push(&d.house_list, house_name, people_id);
-                        printf("购买成功，感谢您的购买\n");
+                        printf("操作成功，感谢您的购买\n");
                     }
                 }
-                    // TODO 陈骁恒的工作
                 else if (n == 2)
                 {
                     printf("您还不是会员！\n"
-                           "请返回首页注册会员以购买房屋！\n");
+                           "请返回首页注册会员以办理房屋购买！\n");
                     fflush(stdout);
                 }
             } else if (n == 3)//3.选择*查询房屋*
@@ -326,9 +336,9 @@ int main()
                     printf("该房屋不存在\n");
                     continue;
                 }
-                // TODO 陈骁恒的工作
-                printf("您接下来希望您的房屋？\n"
-                       "1.*入住*\n"
+                // TODO 只有在拥有专属服务人员的情况下才能入住房屋
+                printf("您将更新房屋的入住信息\n"
+                       "1.*本人入住*\n"
                        "2.*出租*\n"
                        "3.*空置*: \n");
                 fflush(stdout);
@@ -337,8 +347,7 @@ int main()
                 {
                     house_list_at(d.house_list, xiabiao)->type = 1;
                     printf("欢迎入住\n");
-                }// TODO 陈骁恒的工作
-                else if (n == 2)
+                } else if (n == 2)
                 {
                     printf("请输入您希望出租对象的ID\n");
                     fflush(stdout);
@@ -354,12 +363,12 @@ int main()
                         house_list_at(d.house_list, xiabiao)->tenant = rent_id;
                         printf("操作成功，您的房屋信息已更改为出租中，出租对象的ID为%d\n", rent_id);
                     }
-                }// TODO 陈骁恒的工作
+                }
                 else if (n == 3)
                 {
                     house_list_at(d.house_list, xiabiao)->type = 0;
                     printf("操作成功，您的ID为%d的房屋信息已更改为闲置中\n", house_id);
-                }// TODO 陈骁恒的工作
+                }
             } else if (n == 2)//在是否购买房屋中选择否
             {
             }
@@ -390,8 +399,6 @@ int main()
                        "请输入娱乐设施的名字\n");
                 fflush(stdout);
             }//TODO 陈骁恒的工作
-
-
         } else if (n == 5)//5.选择*服务人员管理*
         {
             printf("请选择您的身份：\n"
