@@ -56,22 +56,53 @@ int main()
             break;
         }
     }
+    int fst_time = 1;
     while (1)
     {
+
         int n;
-        printf("********************************\n    欢迎进入活力长者社区系统    \n********************************\n");
-        printf(
-                "*亲，请输入数字*\n"
-                "\t1.选择*会员管理*\n"
-                "\t2.选择*房屋管理*\n"
-                "\t3.选择*入住管理*\n"
-                "\t4.选择*场馆设施管理*\n"
-                "\t5.选择*服务人员管理*\n"
-                "\t6.选择*问题反映*\n"
-                "\t7.选择*班车线路管理*\n"
-                "\t8.保存数据及退出系统：\n");
-        fflush(stdout);
-        scanf("%d", &n);
+        if (!fst_time)
+        {
+            printf("输入1继续使用本系统，输入其他数字保存并退出\n");
+            fflush(stdout);
+            int sz;
+            scanf("%d", &sz);
+            if (sz == 1)
+            {
+                printf("********************************\n    欢迎进入活力长者社区系统    \n********************************\n");
+                printf(
+                        "*亲，请输入数字*\n"
+                        "\t1.选择*会员管理*\n"
+                        "\t2.选择*房屋管理*\n"
+                        "\t3.选择*入住管理*\n"
+                        "\t4.选择*场馆设施管理*\n"
+                        "\t5.选择*服务人员管理*\n"
+                        "\t6.选择*问题反映*\n"
+                        "\t7.选择*班车线路管理*\n"
+                        "\t8.保存数据及退出系统：\n");
+                fflush(stdout);
+                scanf("%d", &n);
+            } else
+            {
+                n = 8;
+            }
+        } else
+        {
+            fst_time = 0;
+            printf("********************************\n    欢迎进入活力长者社区系统    \n********************************\n");
+            printf(
+                    "*亲，请输入数字*\n"
+                    "\t1.选择*会员管理*\n"
+                    "\t2.选择*房屋管理*\n"
+                    "\t3.选择*入住管理*\n"
+                    "\t4.选择*场馆设施管理*\n"
+                    "\t5.选择*服务人员管理*\n"
+                    "\t6.选择*问题反映*\n"
+                    "\t7.选择*班车线路管理*\n"
+                    "\t8.保存数据及退出系统：\n");
+            fflush(stdout);
+            scanf("%d", &n);
+        }
 
 
         if (n == 1) //会员管理
@@ -228,20 +259,20 @@ int main()
                     fflush(stdout);
                     int people_id;
                     scanf("%d", &people_id);
-                    int xiabiao = people_id;
+                    int xiabiao = people_find_by_id(d.people_list, people_id);
                     if (xiabiao < 0)
                     {
                         printf("该ID对应的会员不存在\n");
                     } else
                     {
-                        int name;
-                        name = people_list_at(d.people_list, xiabiao);
+                        char name[100];
+                        strcpy(name, people_list_at(d.people_list, xiabiao)->name);
                         printf("欢迎您，尊敬的会员:%s\n", name);
                         printf("您可以开始选择房屋了\n"
                                "请输入房屋名字！\n");
                         fflush(stdout);
-                        char house_name;
-                        scanf("%s\n", house_name);
+                        char house_name[100];
+                        scanf("%s", house_name);
                         house_list_push(&d.house_list, house_name, people_id);
                         printf("购买成功，感谢您的购买\n");
                     }
@@ -449,20 +480,20 @@ int main()
             printf("是否保存数据？ 1.是\t2.否\n");
             fflush(stdout);
             int new_number;
-            scanf("%d\n", &new_number);
+            scanf("%d", &new_number);
             if (new_number == 1)
             {
 
                 printf("请输入文件名\n");
                 fflush(stdout);
                 char new_file[100];
-                scanf("%s\n", new_file);
+                scanf("%s", new_file);
                 data_save(d, new_file);
                 printf("数据已保存至名为%s的文件\n", new_file);
                 fflush(stdout);
             } else
             {
-                printf("数据为保存，请退出");
+                printf("数据未保存");
                 fflush(stdout);
             }
 
