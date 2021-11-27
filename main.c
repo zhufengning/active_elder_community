@@ -27,10 +27,25 @@ int main()
 //    data_save(d, "../b.json");
 //    return 0;
 
-    printf("系统加载中。。。\n");
+    printf("系统加载中");
     fflush(stdout);
     for (int i = 1; i <= 3e8; ++i);
-    printf("本系统由最优秀的工程师经过多年研发，倾力打造，只求给您最完美的体验。。\n");
+    printf(".");
+    fflush(stdout);
+    for (int i = 1; i <= 3e8; ++i);
+    printf(".");
+    fflush(stdout);
+    for (int i = 1; i <= 3e8; ++i);
+    printf(".\n");
+    fflush(stdout);
+    for (int i = 1; i <= 5e8; ++i);
+    printf("本系统由最优秀的工程师");
+    fflush(stdout);
+    for (int i = 1; i <= 5e8; ++i);
+    printf("经过多年研发，倾力打造，");
+    fflush(stdout);
+    for (int i = 1; i <= 5e8; ++i);
+    printf("只求给您最完美的体验。。\n");
     for (int i = 1; i <= 5e8; ++i);
     fflush(stdout);
     printf("3..");
@@ -42,6 +57,7 @@ int main()
     printf("1..\n");
     fflush(stdout);
     for (int i = 1; i <= 5e8; ++i);
+    printf("加载完成\n");
     Data d = data_new();
     int a;
     while (1)
