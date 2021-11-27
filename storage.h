@@ -82,7 +82,6 @@ Data data_from_file(char *path)
             cJSON *t4 = cJSON_GetObjectItem(t, "sold");
             cJSON *t5 = cJSON_GetObjectItem(t, "owner");
             new_house.id = t2->valueint;
-            new_house.sold = t4->valueint;
             new_house.owner = t5->valueint;
             strcpy(new_house.name, t3->valuestring);
             house_list_load(pl, new_house);
@@ -160,7 +159,6 @@ void data_save(Data d, char *path)
     {
         cJSON *ht = cJSON_CreateObject();
         cJSON_AddItemToObject(ht, "id", cJSON_CreateNumber(house_list_at(d.house_list, i)->id));
-        cJSON_AddItemToObject(ht, "sold", cJSON_CreateNumber(house_list_at(d.house_list, i)->sold));
         cJSON_AddItemToObject(ht, "owner", cJSON_CreateNumber(house_list_at(d.house_list, i)->owner));
         cJSON_AddItemToObject(ht, "name", cJSON_CreateString(house_list_at(d.house_list, i)->name));
         cJSON_AddItemToArray(hl, ht);
