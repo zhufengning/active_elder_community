@@ -229,27 +229,32 @@ int main()
                     printf("请输入会员ID:\n");
                     fflush(stdout);
                     //  根据编号选择要修改的会员
-                    int xiabiao, ID, name;
-                    scanf("%d\n", ID);
+                    int xiabiao, ID;
+                    scanf("%d", &ID);
                     xiabiao = people_find_by_id(d.people_list, ID);
                     if (xiabiao < 0)
                     {
                         printf("该用户不存在\n");
                     } else
                     {
-                        printf("用户ID:%d\n姓名:%s\n", people_list_at(d.people_list, xiabiao)->id, name);
-                        printf("是否确认修改? 1.确认\t2.取消\n");//TODO 这里少了个删除
+                        printf("用户ID:%d\n姓名:%s\n", people_list_at(d.people_list, xiabiao)->id,
+                               people_list_at(d.people_list, xiabiao)->name);
+                        printf("请选择您的操作? 1.修改\t2.删除\t3.取消\n");
                         int confirm;
-                        scanf("%d\n", &confirm);
-                        if (confirm == 2)
+                        scanf("%d", &confirm);
+                        if (confirm == 1)
                         {
-
-                        } else if (confirm == 1)
-                        {
-                            int new_name;
+                            char new_name[100];
                             printf("请输入新的姓名\n");
-                            scanf("%d\n", new_name);
+                            scanf("%s", new_name);
                             strcpy(people_list_at(d.people_list, xiabiao)->name, new_name);
+                        } else if (confirm == 2)
+                        {
+                            people_list_delete(&d.people_list, xiabiao);
+                            printf("删除成功\n");
+                        } else if (confirm == 3)
+                        {
+                            printf("取消成功\n");
                         } else
                         {
                             printf("输入错误，我猜您不想改了\n");
