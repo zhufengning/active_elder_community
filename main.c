@@ -183,8 +183,7 @@ int main()
                         {
                             printf("用户ID:%d\n姓名:%s\n", ID, people_list_at(d.people_list, xiabiao)->name);
                         }
-                    }
-                    else if (n == 2)
+                    } else if (n == 2)
                     {
                         char name[100];
                         int xiabiao;
@@ -199,8 +198,7 @@ int main()
                         {
                             printf("用户ID:%d\n姓名:%s\n", people_list_at(d.people_list, xiabiao)->id, name);
                         }
-                    }
-                    else if (n == 3)
+                    } else if (n == 3)
                     {
                         while (1)
                         {
@@ -306,9 +304,9 @@ int main()
                         scanf("%s", house_name);
                         house_list_push(&d.house_list, house_name, people_id);
                         printf("操作成功，感谢您的购买\n");
+                        //TODO 您的新房屋的ID是：
                     }
-                }
-                else if (n == 2)
+                } else if (n == 2)
                 {
                     printf("您还不是会员！\n"
                            "请返回首页注册会员以办理房屋购买！\n");
@@ -343,55 +341,98 @@ int main()
             printf("您是否已经购买房屋？\n"
                    "1.是\n"
                    "2.否\n");
-            fflush(stdout);
+
             scanf("%d", &n);
-            if (n == 1)
+            if (n == 1)//已购买房屋
             {
-                printf("请输入您房屋的ID\n");
+                printf("请输入您的会员ID\n");
+                int people_id;
                 fflush(stdout);
-                int house_id;
-                scanf("%d", &house_id);
-                int xiabiao = house_find_by_id(d.house_list, house_id);
+                scanf("%d", &people_id);
+                int xiabiao = people_find_by_id(d.people_list, people_id);
                 if (xiabiao < 0)
                 {
-                    printf("该房屋不存在\n");
-                    continue;
-                }
-                // TODO 只有在拥有专属服务人员的情况下才能入住房屋
-                printf("您将更新房屋的入住信息\n"
-                       "1.*本人入住*\n"
-                       "2.*出租*\n"
-                       "3.*空置*: \n");
-                fflush(stdout);
-                scanf("%d", &n);
-                if (n == 1)
+                    printf("该ID对应的会员不存在\n");
+                } else
                 {
-                    house_list_at(d.house_list, xiabiao)->type = 1;
-                    printf("欢迎入住\n");
-                } else if (n == 2)
-                {
-                    printf("请输入您希望出租对象的ID\n");
+                    printf("请输入您名下房产的ID\n");
                     fflush(stdout);
-                    int rent_id, xiabiao;
-                    scanf("%d", &rent_id);
-                    xiabiao = people_find_by_id(d.people_list, rent_id);
+                    int house_id;
+                    scanf("%d", &house_id);
+                    int xiabiao = house_find_by_id(d.house_list, house_id);
                     if (xiabiao < 0)
                     {
-                        printf("该用户不存在\n");
+                        printf("该房屋不存在\n");
                     } else
                     {
-                        house_list_at(d.house_list, xiabiao)->type = 2;
-                        house_list_at(d.house_list, xiabiao)->tenant = rent_id;
-                        printf("操作成功，您的房屋信息已更改为出租中，出租对象的ID为%d\n", rent_id);
+                        int is_his = 1;
+                        for (int i = 0; i < d.house_list.size; i++)
+                        {
+                            if (house_list_at(d.house_list, i)->owner != people_id)
+                            {
+                                printf("这根本就不是您的房子\n");
+                                is_his = 0;
+                                break;
+                            }
+                        }// TODO 只有在拥有专属服务人员的情况下才能入住房屋
+                        if (!is_his)
+                            continue;
+                        int servant_xiabiao = -1;
+
+                        for (int i = 0; i < d.servant_list.size; i++)
+                        {
+                            if (servant_list_at(d.servant_list, i)->target_id == people_id)
+                            {
+                                servant_xiabiao = i;
+                                break;
+                            }
+                        }
+                        if (servant_xiabiao < 0)
+                        {
+                            printf("您还没有专属服务人员\n"
+                                   "本公司提供优质的专属服务\n"
+                                   "时刻保障您的财产安全\n"
+                                   "请先选择您的服务人员以享受我们的服务\n");
+                            continue;
+                        }
+                        printf("%d号服务人员%s竭诚为您服务\n", servant_list_at(d.servant_list, servant_xiabiao)->id,
+                               servant_list_at(d.servant_list, servant_xiabiao)->name);
+                        printf("您将更新房屋的入住信息\n"
+                               "1.*本人入住*\n"
+                               "2.*出租*\n"
+                               "3.*空置*: \n");
+                        fflush(stdout);
+                        scanf("%d", &n);
+                        if (n == 1)
+                        {
+                            house_list_at(d.house_list, xiabiao)->type = 1;
+                            printf("欢迎入住\n");
+                        } else if (n == 2)
+                        {
+                            printf("请输入您希望出租对象的ID\n");
+                            fflush(stdout);
+                            int rent_id, xiabiao;
+                            scanf("%d", &rent_id);
+                            xiabiao = people_find_by_id(d.people_list, rent_id);
+                            if (xiabiao < 0)
+                            {
+                                printf("该用户不存在\n");
+                            } else
+                            {
+                                house_list_at(d.house_list, xiabiao)->type = 2;
+                                house_list_at(d.house_list, xiabiao)->tenant = rent_id;
+                                printf("操作成功，您的房屋信息已更改为出租中，出租对象的ID为%d\n", rent_id);
+                            }
+                        } else if (n == 3)
+                        {
+                            house_list_at(d.house_list, xiabiao)->type = 0;
+                            printf("操作成功，您的ID为%d的房屋信息已更改为闲置中\n", house_id);
+                        }
                     }
-                }
-                else if (n == 3)
-                {
-                    house_list_at(d.house_list, xiabiao)->type = 0;
-                    printf("操作成功，您的ID为%d的房屋信息已更改为闲置中\n", house_id);
                 }
             } else if (n == 2)//在是否购买房屋中选择否
             {
+                printf("滚去买\n");
             }
         } else if (n == 4)//4.选择*场馆设施管理*
         {
@@ -553,5 +594,6 @@ int main()
             break;
         }
     }
+
     return 0;
 }
