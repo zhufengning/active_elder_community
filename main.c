@@ -95,7 +95,7 @@ int main()
                         "\t8.保存数据及退出系统：\n");
                 fflush(stdout);
                 say_sentence();
-                scanf("%s", str);
+                scanf("%104s", str);
                 the_n = strtol(str, NULL, 10);
             } else
             {
@@ -183,7 +183,7 @@ int main()
                             int xiabiao;
                             printf("请输入需要查询的名字：\n");
                             fflush(stdout);
-                            scanf("%s", name);
+                            scanf("%99s", name);
                             xiabiao = people_find_by_name(d.people_list, name);
                             if (xiabiao < 0)
                             {
@@ -191,7 +191,7 @@ int main()
                                 fflush(stdout);
                             } else
                             {
-                                printf("用户ID:%d\n姓名:%s\n", people_list_at(d.people_list, xiabiao)->id, name);
+                                printf("用户ID:%d\n姓名:%99s\n", people_list_at(d.people_list, xiabiao)->id, name);
                                 fflush(stdout);
                             }
                         } else if (n == 3)
@@ -200,7 +200,7 @@ int main()
                             {
                                 for (int i = 0; i < d.people_list.size; i++)
                                 {
-                                    printf("第%d个用户\n\tID:%d\n\t姓名:%s\n", i + 1, people_list_at(d.people_list, i)->id,
+                                    printf("第%d个用户\n\tID:%d\n\t姓名:%99s\n", i + 1, people_list_at(d.people_list, i)->id,
                                            people_list_at(d.people_list, i)->name);
                                     fflush(stdout);
                                 }
@@ -250,7 +250,7 @@ int main()
                                 char new_name[100];
                                 printf("请输入新的姓名\n");
                                 fflush(stdout);
-                                scanf("%s", new_name);
+                                scanf("%99s", new_name);
                                 strcpy(people_list_at(d.people_list, xiabiao)->name, new_name);
                                 printf("操作成功，已重命名为%s\n", new_name);
                             } else if (confirm == 2)
@@ -317,7 +317,7 @@ int main()
                                    "请输入您购买的房屋的名字！（名字请参见宣传手册）\n");
                             fflush(stdout);
                             char house_name[100];
-                            scanf("%s", house_name);
+                            scanf("%99s", house_name);
                             house_list_push(&d.house_list, house_name, people_id);
                             int new_id = house_list_push(&d.house_list, house_name, people_id);
                             printf("操作成功，感谢您的购买\n"
@@ -497,7 +497,7 @@ int main()
                                "请输入娱乐设施的名字\n");
                         fflush(stdout);
                         char f_name[100];
-                        scanf("%s", f_name);
+                        scanf("%99s", f_name);
                         int xiabiao = facility_find_by_name(d.facility_list, f_name);
                         if (xiabiao < 0)
                         {
@@ -551,7 +551,7 @@ int main()
                             printf("请输入您想查询的娱乐设施名称\n");
                             fflush(stdout);
                             char f_name[100];
-                            scanf("%s", f_name);
+                            scanf("%99s", f_name);
                             printf("下面是查询结果\n");
                             fflush(stdout);
                             for (int i = 0; i < d.facility_list.size; i++)
@@ -579,7 +579,7 @@ int main()
                         char f_name[100];
                         printf("请输入您想要添加的娱乐设施的名称\n");
                         fflush(stdout);
-                        scanf("%s", f_name);
+                        scanf("%99s", f_name);
                         int new_id = facility_list_push(&d.facility_list, f_name);
                         printf("已成功添加名为%s的设施,其ID为%d\n", f_name, new_id);
                     } else if (confirm_number == 3)//3.修改或删除
@@ -607,7 +607,7 @@ int main()
                                 char new_name[100];
                                 printf("请输入新的设施名称\n");
                                 fflush(stdout);
-                                scanf("%s", new_name);
+                                scanf("%99s", new_name);
                                 strcpy(facility_list_at(d.facility_list, xiabiao)->name, new_name);
                                 printf("操作成功，设施已重命名为%s\n", new_name);
                             } else if (confirm == 2)
@@ -647,7 +647,7 @@ int main()
                     {
                         printf("请输入您的姓名：\n");
                         fflush(stdout);
-                        scanf("%s", name2);
+                        scanf("%99s", name2);
                         int new_id = servant_list_push(&d.servant_list, name2);
                         printf("注册成功，您的ID为%d", new_id);
                     }
@@ -671,7 +671,7 @@ int main()
                             char new_name[100];
                             printf("请输入新的名称\n");
                             fflush(stdout);
-                            scanf("%s", new_name);
+                            scanf("%99s", new_name);
                             strcpy(facility_list_at(d.facility_list, xiabiao)->name, new_name);
                             printf("操作成功，ID为%d的服务人员已重命名为%s\n", s_id, new_name);
                         }
@@ -680,7 +680,7 @@ int main()
                         printf("请输入您的姓名：\n");
                         fflush(stdout);
                         char your_name[100];
-                        scanf("%s", your_name);
+                        scanf("%99s", your_name);
                         int xiabiao = servant_find_by_name(d.servant_list, your_name);
                         if (xiabiao < 0)
                         {
@@ -793,7 +793,7 @@ int main()
                     printf("请输入文件名\n");
                     fflush(stdout);
                     char new_file[100];
-                    scanf("%s", new_file);
+                    scanf("%99s", new_file);
                     data_save(d, new_file);
                     printf("数据已保存至名为%s的文件\n", new_file);
                     fflush(stdout);
