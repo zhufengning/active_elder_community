@@ -200,7 +200,7 @@ int main()
                             {
                                 for (int i = 0; i < d.people_list.size; i++)
                                 {
-                                    printf("第%d个用户\n\tID:%d\n\t姓名:%99s\n", i + 1, people_list_at(d.people_list, i)->id,
+                                    printf("第%d个用户\n\tID:%d\n\t姓名:%s\n", i + 1, people_list_at(d.people_list, i)->id,
                                            people_list_at(d.people_list, i)->name);
                                     fflush(stdout);
                                 }

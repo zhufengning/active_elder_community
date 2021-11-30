@@ -30,6 +30,7 @@ PeopleList people_list_new(void)
     PeopleList t;
     t.root = NULL;
     t.size = 0;
+    t.maxid = 0;
     return t;
 }
 
