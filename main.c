@@ -796,20 +796,19 @@ int main()
                     n = strtol(str, NULL, 10);
                     printf("请输入站点名字：\n");
                     fflush(stdout); // TODO 陈骁恒，这里根据输入的数量循环读入站点名字
-                    BusChain *new_bus_stations = malloc(sizeof(BusChain));
-                    *new_bus_stations = buschain_create();
+                    BusChain new_bus_stations = buschain_create();
                     for (int i = 1; i <= n; i++)
                     {
                         char station_name[100];
                         scanf("%99s", station_name);
-                        BusStop *p = new_bus_stations->root;
+                        BusStop *p = new_bus_stations.root;
                         while (p->hou != NULL)
                         {
                             p = p->hou;
                         }
                         buschain_insert(p, station_name);
                     }
-                    buschainlist_insert(&d.buschain_list, *new_bus_stations);
+                    buschainlist_insert(d.buschain_list.root, new_bus_stations);
                 } else if (n == 3)//3.删除班车路线
                 {
                     printf("");//TODO 陈骁恒的WORK，输出目前有的线路
