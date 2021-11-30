@@ -18,64 +18,65 @@
 //readme里的代码规范形同虚设了是吧--zfn
 int main()
 {
-//    Data d = data_from_file("../a.json");
-//    people_list_delete(&d.people_list, 0);
-//    servant_list_delete(&d.servant_list, 0);
-//    buschainlist_remove(d.buschain_list.root);
-//    buschain_remove(d.buschain_list.root->hou->value.root);
-//    strcpy(people_list_at(d.people_list, 0)->name, "zzz");
-//    data_save(d, "../b.json");
-//    return 0;
+    printf("您是否想观看我们的宣传动画？\n\t1.观看\n\t2.取消\n");
+    fflush(stdout);
+    int watch;
+    scanf("%d", &watch);
+    if (watch == 1)
+    {
+        printf("系统加载中");
+        fflush(stdout);
+        for (int i = 1; i <= 3e8; ++i);
+        printf(".");
+        fflush(stdout);
+        for (int i = 1; i <= 3e8; ++i);
+        printf(".");
+        fflush(stdout);
+        for (int i = 1; i <= 3e8; ++i);
+        printf(".\n");
+        fflush(stdout);
+        for (int i = 1; i <= 5e8; ++i);
+        printf("本系统由最优秀的工程师");
+        fflush(stdout);
+        for (int i = 1; i <= 5e8; ++i);
+        printf("经过多年研发，倾力打造，");
+        fflush(stdout);
+        for (int i = 1; i <= 5e8; ++i);
+        printf("只求给您最完美的体验。。\n");
+        for (int i = 1; i <= 5e8; ++i);
+        fflush(stdout);
+        printf("3..");
+        fflush(stdout);
+        for (int i = 1; i <= 5e8; ++i);
+        printf("2..");
+        fflush(stdout);
+        for (int i = 1; i <= 5e8; ++i);
+        printf("1..\n");
+        fflush(stdout);
+        for (int i = 1; i <= 5e8; ++i);
+        printf("加载完成\n");
+    }
 
-    printf("系统加载中");
-    fflush(stdout);
-    for (int i = 1; i <= 3e8; ++i);
-    printf(".");
-    fflush(stdout);
-    for (int i = 1; i <= 3e8; ++i);
-    printf(".");
-    fflush(stdout);
-    for (int i = 1; i <= 3e8; ++i);
-    printf(".\n");
-    fflush(stdout);
-    for (int i = 1; i <= 5e8; ++i);
-    printf("本系统由最优秀的工程师");
-    fflush(stdout);
-    for (int i = 1; i <= 5e8; ++i);
-    printf("经过多年研发，倾力打造，");
-    fflush(stdout);
-    for (int i = 1; i <= 5e8; ++i);
-    printf("只求给您最完美的体验。。\n");
-    for (int i = 1; i <= 5e8; ++i);
-    fflush(stdout);
-    printf("3..");
-    fflush(stdout);
-    for (int i = 1; i <= 5e8; ++i);
-    printf("2..");
-    fflush(stdout);
-    for (int i = 1; i <= 5e8; ++i);
-    printf("1..\n");
-    fflush(stdout);
-    for (int i = 1; i <= 5e8; ++i);
-    printf("加载完成\n");
     Data d = data_new();
     int a;
     while (1)
     {
         printf("您是否需要读取已保存的数据？\n"
-               "1.是\n"
-               "2.否\n");
+               "\t1.是\n"
+               "\t2.否\n");
         fflush(stdout);
         scanf("%d", &a);
         char sz[100];
         if (a == 1)
         {
             printf("请输入文件名：\n");
+            fflush(stdout);
             scanf("%s", sz);
             d = data_from_file(sz);
             if (d.error != 0)
             {
                 printf("文件加载失败\n");
+                fflush(stdout);
                 continue;
             } else
             {
@@ -85,6 +86,7 @@ int main()
         } else if (a == 2)
         {
             printf("请继续！ \n");
+            fflush(stdout);
             break;
         }
     }
@@ -164,9 +166,9 @@ int main()
                 if (n == 2)//2.选择*查询会员*
                 {
                     printf("请的选择查询的方式\n"
-                           "1.按ID查询\n"
-                           "2.按名字查询\n"
-                           "3.输出所有会员\n");
+                           "\t1.按ID查询\n"
+                           "\t2.按名字查询\n"
+                           "\t3.输出所有会员\n");
                     fflush(stdout);
                     scanf("%d", &n);
                     if (n == 1)
@@ -179,9 +181,11 @@ int main()
                         if (xiabiao < 0)
                         {
                             printf("该用户不存在\n");
+                            fflush(stdout);
                         } else
                         {
                             printf("用户ID:%d\n姓名:%s\n", ID, people_list_at(d.people_list, xiabiao)->name);
+                            fflush(stdout);
                         }
                     } else if (n == 2)
                     {
@@ -194,9 +198,11 @@ int main()
                         if (xiabiao < 0)
                         {
                             printf("该用户不存在\n");
+                            fflush(stdout);
                         } else
                         {
                             printf("用户ID:%d\n姓名:%s\n", people_list_at(d.people_list, xiabiao)->id, name);
+                            fflush(stdout);
                         }
                     } else if (n == 3)
                     {
@@ -206,8 +212,10 @@ int main()
                             {
                                 printf("第%d个用户\n\tID:%d\n\t姓名:%s\n", i + 1, people_list_at(d.people_list, i)->id,
                                        people_list_at(d.people_list, i)->name);
+                                fflush(stdout);
                             }
                             printf("您是否要再看一遍？1.确认\t2.取消\n");
+                            fflush(stdout);
                             int one_more_time;
                             scanf("%d", &one_more_time);
                             if (one_more_time == 2)
@@ -219,6 +227,7 @@ int main()
                             } else
                             {
                                 printf("输入错误，我猜您不想看了\n");
+                                fflush(stdout);
                             }
                         }
                     }
@@ -233,29 +242,35 @@ int main()
                     if (xiabiao < 0)
                     {
                         printf("该用户不存在\n");
+                        fflush(stdout);
                     } else
                     {
                         printf("用户ID:%d\n姓名:%s\n", people_list_at(d.people_list, xiabiao)->id,
                                people_list_at(d.people_list, xiabiao)->name);
                         printf("请选择您的操作? 1.修改\t2.删除\t3.取消\n");
+                        fflush(stdout);
                         int confirm;
                         scanf("%d", &confirm);
                         if (confirm == 1)
                         {
                             char new_name[100];
                             printf("请输入新的姓名\n");
+                            fflush(stdout);
                             scanf("%s", new_name);
                             strcpy(people_list_at(d.people_list, xiabiao)->name, new_name);
                         } else if (confirm == 2)
                         {
                             people_list_delete(&d.people_list, xiabiao);
                             printf("删除成功\n");
+                            fflush(stdout);
                         } else if (confirm == 3)
                         {
                             printf("取消成功\n");
+                            fflush(stdout);
                         } else
                         {
                             printf("输入错误，我猜您不想改了\n");
+                            fflush(stdout);
                         }
                     }
                 }
@@ -278,13 +293,13 @@ int main()
             if (n == 2)//2.选择*购买房屋*
             {
                 printf("购房者是否已经成为会员？\n"
-                       "1.是\n"
-                       "2.否\n");
+                       "\t1.是\n"
+                       "\t2.否\n");
                 fflush(stdout);
                 scanf("%d", &n);
                 if (n == 1)
                 {
-                    printf("请输入您的ID：\n");
+                    printf("请输入会员ID：\n");
                     fflush(stdout);
                     int people_id;
                     scanf("%d", &people_id);
@@ -292,6 +307,7 @@ int main()
                     if (xiabiao < 0)
                     {
                         printf("该ID对应的会员不存在\n");
+                        fflush(stdout);
                     } else
                     {
                         char name[100];
@@ -304,6 +320,7 @@ int main()
                         scanf("%s", house_name);
                         house_list_push(&d.house_list, house_name, people_id);
                         printf("操作成功，感谢您的购买\n");
+                        fflush(stdout);
                         //TODO 您的新房屋的ID是：
                     }
                 } else if (n == 2)
@@ -323,6 +340,7 @@ int main()
                 if (xiabiao < 0)
                 {
                     printf("该ID对应的会员不存在\n");
+                    fflush(stdout);
                 } else
                 {
                     for (int i = 0; i < d.house_list.size; i++)
@@ -331,6 +349,7 @@ int main()
                         {
                             printf("第%d间房屋\n\tID:%d\n\t姓名:%s\n", i + 1, house_list_at(d.house_list, i)->id,
                                    house_list_at(d.house_list, i)->name);
+                            fflush(stdout);
                         }
                     }
                 }
@@ -339,8 +358,9 @@ int main()
         } else if (n == 3)//选择*入住管理*
         {
             printf("您是否已经购买房屋？\n"
-                   "1.是\n"
-                   "2.否\n");
+                   "\t1.是\n"
+                   "\t2.否\n");
+            fflush(stdout);
 
             scanf("%d", &n);
             if (n == 1)//已购买房屋
@@ -353,6 +373,7 @@ int main()
                 if (xiabiao < 0)
                 {
                     printf("该ID对应的会员不存在\n");
+                    fflush(stdout);
                 } else
                 {
                     printf("请输入您名下房产的ID\n");
@@ -363,6 +384,7 @@ int main()
                     if (xiabiao < 0)
                     {
                         printf("该房屋不存在\n");
+                        fflush(stdout);
                     } else
                     {
                         int is_his = 1;
@@ -370,7 +392,8 @@ int main()
                         {
                             if (house_list_at(d.house_list, i)->owner != people_id)
                             {
-                                printf("这根本就不是您的房子\n");
+                                printf("这根本就不是您的房子( ^ω^)\n");
+                                fflush(stdout);
                                 is_his = 0;
                                 break;
                             }
@@ -393,20 +416,22 @@ int main()
                                    "本公司提供优质的专属服务\n"
                                    "时刻保障您的财产安全\n"
                                    "请先选择您的服务人员以享受我们的服务\n");
+                            fflush(stdout);
                             continue;
                         }
                         printf("%d号服务人员%s竭诚为您服务\n", servant_list_at(d.servant_list, servant_xiabiao)->id,
                                servant_list_at(d.servant_list, servant_xiabiao)->name);
                         printf("您将更新房屋的入住信息\n"
-                               "1.*本人入住*\n"
-                               "2.*出租*\n"
-                               "3.*空置*: \n");
+                               "\t1.*本人入住*\n"
+                               "\t2.*出租*\n"
+                               "\t3.*空置*: \n");
                         fflush(stdout);
                         scanf("%d", &n);
                         if (n == 1)
                         {
                             house_list_at(d.house_list, xiabiao)->type = 1;
                             printf("欢迎入住\n");
+                            fflush(stdout);
                         } else if (n == 2)
                         {
                             printf("请输入您希望出租对象的ID\n");
@@ -417,28 +442,32 @@ int main()
                             if (xiabiao < 0)
                             {
                                 printf("该用户不存在\n");
+                                fflush(stdout);
                             } else
                             {
                                 house_list_at(d.house_list, xiabiao)->type = 2;
                                 house_list_at(d.house_list, xiabiao)->tenant = rent_id;
                                 printf("操作成功，您的房屋信息已更改为出租中，出租对象的ID为%d\n", rent_id);
+                                fflush(stdout);
                             }
                         } else if (n == 3)
                         {
                             house_list_at(d.house_list, xiabiao)->type = 0;
                             printf("操作成功，您的ID为%d的房屋信息已更改为闲置中\n", house_id);
+                            fflush(stdout);
                         }
                     }
                 }
             } else if (n == 2)//在是否购买房屋中选择否
             {
                 printf("滚去买\n");
+                fflush(stdout);
             }
         } else if (n == 4)//4.选择*场馆设施管理*
         {
-            printf("请选择您的身份：\n"
-                   "1.*我是用户*\n"
-                   "2.*我是管理人员*\n");
+            printf("请选择您的操作：\n"
+                   "\t1.*用户：申请使用娱乐设施*\n"
+                   "\t2.*管理人员：管理娱乐设施*\n");
             fflush(stdout);
             scanf("%d", &n);
             if (n == 1)
@@ -566,6 +595,7 @@ int main()
         {
             printf("登陆 https://www.icourse163.org/learn/NEU-1002745019 获得更多帮助\n"
                    "添加客服微信：川酱今天吃什么：zhangyichuan_33获取一对一帮助\n");
+            fflush(stdout);
         } else if (n == 7)
         {
             printf("您想进行什么操作？\n"
@@ -609,6 +639,7 @@ int main()
                 scanf("%d", &n);
                 while (1)
                 {
+                    //TODO 这里让选择一站，然后执行操作
                     printf("您选择的是%d,n\n"
                            "您想要：\n"
                            "1.*删除*\n"
