@@ -49,4 +49,18 @@ void play_ani()
     printf("加载完成\n");
 }
 
+
+void say_sentence()
+{
+    const static char a[][1005] = {
+            "想翠竹、碧梧风采，旧游何处\n\t——张宁《满江红·题碧梧翠竹送李阳春》 ",
+            "回首昭阳离落日，伤心铜雀迎秋月\n\t——文天祥《满江红·代王夫人作》 ",
+            "梳洗罢，独倚望江楼\n\t——温庭筠《望江南·梳洗罢》 ",
+            "吾生如寄，尚想三径菊花丛\n\t——杨炎正《水调歌头·把酒对斜日》 ",
+            "昨日入城市，归来泪满巾\n\t——张俞《蚕妇》 ",
+    };
+    int p = rand() % (sizeof(a) / sizeof(char[1005]));
+    printf("%s\n", a[p]);
+    fflush(stdout);
+}
 #endif //ELDER_COMM_SAY_H

@@ -19,6 +19,7 @@
 
 int main()
 {
+    srand(time(NULL));
     printf("您是否想观看我们的宣传动画？\n\t1.观看\n\t2.取消\n");
     fflush(stdout);
     int watch;
@@ -65,7 +66,7 @@ int main()
     while (1)
     {
 
-        int n;
+        int the_n;
         if (!fst_time)
         {
             printf("输入1继续使用本系统，输入其他数字保存并退出\n");
@@ -86,10 +87,11 @@ int main()
                         "\t7.选择*班车线路管理*\n"
                         "\t8.保存数据及退出系统：\n");
                 fflush(stdout);
-                scanf("%d", &n);
+                say_sentence();
+                scanf("%d", &the_n);
             } else
             {
-                n = 8;
+                the_n = 8;
             }
         } else
         {
@@ -105,16 +107,14 @@ int main()
                     "\t6.选择*问题反映*\n"
                     "\t7.选择*班车线路管理*\n"
                     "\t8.保存数据及退出系统：\n");
+            say_sentence();
             fflush(stdout);
-            scanf("%d", &n);
+            scanf("%d", &the_n);
         }
 
-
-        switch (n)
+        switch(the_n)
         {
-
             case 1: //会员管理
-
                 printf(
                         "您下一步想要干什么？\n"
                         "请输入相应数字：\n"
@@ -123,6 +123,7 @@ int main()
                         "\t3.选择*会员的删除与修改*\n"
                         "\t4.选择*返回上一级*\n");
                 fflush(stdout);
+                int n;
                 scanf("%d", &n);
                 if (n == 4)
                 {
@@ -251,6 +252,7 @@ int main()
                     }
                 }
                 break;
+
             case 2://选择*房屋管理*
 
                 printf("您下一步想要干什么？\n"
@@ -658,7 +660,7 @@ int main()
                     printf("请问您要修改第几条线路\n");
                     fflush(stdout);
                     scanf("%d", &n);
-                    
+
 
                     while (1)
                     {
@@ -685,9 +687,8 @@ int main()
 
                 }
                 break;
-            //TODO 这里有很多陈骁恒的工作
+                //TODO 这里有很多陈骁恒的工作
             case 8:
-
                 // TODO 陈骁恒的工作 询问是否保存数据、保存文件名
                 printf("是否保存数据？ 1.是\t2.否\n");
                 fflush(stdout);
@@ -708,23 +709,23 @@ int main()
                     printf("数据未保存");
                     fflush(stdout);
                 }
-
+                return 0;
                 break;
+
             default:
-                printf ("*************FBI WARING*********\n"
-                        "*你故意找茬是吧?                 *\n"
-                        "*也不看看这个代码是谁写出来的！     *\n"
-                        "*跟我宁丰猪的狗斗，你有这个实力吗？  *\n"
-                        "********************************\n"
-                        "#丰#\n#宁#\n#我#\n#真#\n#的#\n#好#\n"
-                        "#喜#\n#欢#\n#你#\n#啊#\n#为#\n#了#\n"
-                        "#你#\n#我#\n#要#\n#在#\n#大#\n#作#\n"
-                        "#业#\n#里#\n#发#\n#病#\n@ZFN");
+                printf("*************FBI WARING*********\n"
+                       "*你故意找茬是吧?                 *\n"
+                       "*也不看看这个代码是谁写出来的！     *\n"
+                       "*跟我宁丰猪的狗斗，你有这个实力吗？  *\n"
+                       "********************************\n"
+                       "#丰#\t#宁#\t#我#\t#真#\t#的#\t#好#\t"
+                       "#喜#\t#欢#\t#你#\t#啊#\t#为#\t#了#\t"
+                       "#你#\t#我#\t#要#\t#在#\t#大#\t#作#\t"
+                       "#业#\t#里#\t#发#\n#病#\n@ZFN");
                 fflush(stdout);
                 break;
-
         }
-
-        return 0;
     }
+
+    return 0;
 }
