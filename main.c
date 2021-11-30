@@ -12,12 +12,10 @@
 #include "say.h"
 // 然而bus也是用的链表，还是二维链表
 #include "bus.h"
-
 #include "storage.h"
 
 //sz--代表数组
 //readme里的代码规范形同虚设了是吧--zfn
-
 
 int main()
 {
@@ -166,7 +164,7 @@ int main()
                         int xiabiao;
                         printf("请输入需要查询的名字：\n");
                         fflush(stdout);
-                        scanf("", name);
+                        scanf("%s", name);
                         xiabiao = people_find_by_name(d.people_list, name);
                         if (xiabiao < 0)
                         {
@@ -231,6 +229,7 @@ int main()
                             fflush(stdout);
                             scanf("%s", new_name);
                             strcpy(people_list_at(d.people_list, xiabiao)->name, new_name);
+                            printf("操作成功，已重命名为%s\n", new_name);
                         } else if (confirm == 2)
                         {
                             people_list_delete(&d.people_list, xiabiao);
@@ -304,7 +303,6 @@ int main()
                 }
             } else if (n == 3)//3.选择*查询房屋*
             {
-                int ID;
                 printf("请输入您的ID\n");
                 fflush(stdout);
                 int people_id;
@@ -524,6 +522,45 @@ int main()
                 } else if (confirm_number == 2)//2.添加娱乐设施
                 {
 
+                } else if (confirm_number == 3)//3.修改或删除
+                {
+                    printf("请输入设施ID:\n");
+                    fflush(stdout);
+                    int xiabiao, ID;
+                    scanf("%d", &ID);
+                    xiabiao = facility_find_by_id(d.facility_list, ID);
+                    if (xiabiao < 0)
+                    {
+                        printf("该设施不存在\n");
+                    } else
+                    {
+                        printf("设施ID:%d\n名称:%s\n", facility_list_at(d.facility_list, xiabiao)->id,
+                               facility_list_at(d.facility_list, xiabiao)->name);
+                        printf("请选择您的操作? 1.修改\t2.删除\t3.取消\n");
+                        fflush(stdout);
+                        int confirm;
+                        scanf("%d", &confirm);
+                        if (confirm == 1)
+                        {
+                            char new_name[100];
+                            printf("请输入新的设施名称\n");
+                            fflush(stdout);
+                            scanf("%s", new_name);
+                            strcpy(facility_list_at(d.facility_list, xiabiao)->name, new_name);
+                            printf("操作成功，设施已重命名为%S\n", new_name);
+                        } else if (confirm == 2)
+                        {
+                            facility_list_delete(&d.facility_list, xiabiao);
+                            printf("删除成功\n");
+                            fflush(stdout);
+                        } else if (confirm == 3)
+                        {
+
+                        } else
+                        {
+                            printf("输入错误，我猜您不想改了\n");
+                        }
+                    }
                 }
             }//TODO 陈骁恒的工作
         } else if (n == 5)//5.选择*服务人员管理*
