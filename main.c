@@ -14,7 +14,7 @@
 #include "bus.h"
 #include "storage.h"
 
-//sz--代表数组
+//array--代表数组
 //readme里的代码规范形同虚设了是吧--zfn
 
 #pragma clang diagnostic push
@@ -44,13 +44,13 @@ int main()
         scanf("%104s", str);
         a = strtol(str, NULL, 10);
 
-        char sz[105];
+        char array[105];
         if (a == 1)
         {
             printf("请输入文件名：\n");
             fflush(stdout);
-            scanf("%104s", sz);
-            d = data_from_file(sz);
+            scanf("%104s", array);
+            d = data_from_file(array);
             if (d.error != 0)
             {
                 printf("文件加载失败\n");
@@ -77,10 +77,10 @@ int main()
         {
             printf("输入1继续使用本系统，输入其他数字保存并退出\n");
             fflush(stdout);
-            long sz;
+            long array;
             scanf("%104s", str);
-            sz = strtol(str, NULL, 10);
-            if (sz == 1)
+            array = strtol(str, NULL, 10);
+            if (array == 1)
             {
                 printf("********************************\n    欢迎进入活力长者社区后台系统系统    \n********************************\n请确保在管理员的监督下使用本系统，否则将被视为非法操作\n");
                 printf(
