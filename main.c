@@ -674,7 +674,6 @@ int main()
                         int new_id = servant_list_push(&d.servant_list, name2);
                         printf("注册成功，您的ID为%d", new_id);
                     }
-
                         // TODO 陈骁恒的工作
                     else if (n == 2)
                     {
