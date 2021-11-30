@@ -9,7 +9,7 @@
 #include "facility.h"
 #include "servant.h"
 #include "house.h"
-
+#include "say.h"
 // 然而bus也是用的链表，还是二维链表
 #include "bus.h"
 
@@ -18,11 +18,6 @@
 //sz--代表数组
 //readme里的代码规范形同虚设了是吧--zfn
 
-void mysleep(double t)
-{
-    clock_t st = clock();
-    while ((double) (clock() - st) / CLOCKS_PER_SEC < t);
-}
 
 int main()
 {
@@ -32,37 +27,7 @@ int main()
     scanf("%d", &watch);
     if (watch == 1)
     {
-        printf("系统加载中");
-        fflush(stdout);
-        mysleep(0.6);
-        printf(".");
-        fflush(stdout);
-        mysleep(0.6);
-        printf(".");
-        fflush(stdout);
-        mysleep(0.6);
-        printf(".\n");
-        fflush(stdout);
-        mysleep(0.6);
-        printf("本系统由最优秀的工程师");
-        fflush(stdout);
-        mysleep(0.6);
-        printf("经过多年研发，倾力打造，");
-        fflush(stdout);
-        mysleep(0.6);
-        printf("只求给您最完美的体验。。\n");
-        mysleep(0.6);
-        fflush(stdout);
-        printf("3..");
-        fflush(stdout);
-        mysleep(0.6);
-        printf("2..");
-        fflush(stdout);
-        mysleep(0.6);
-        printf("1..\n");
-        fflush(stdout);
-        mysleep(0.6);
-        printf("加载完成\n");
+        play_ani();
     }
 
     Data d = data_new();
