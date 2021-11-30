@@ -17,33 +17,39 @@
 //sz--代表数组
 //readme里的代码规范形同虚设了是吧--zfn
 
+#pragma clang diagnostic push
+#pragma ide diagnostic ignored "LocalValueEscapesScope"
 int main()
 {
+    char str[105];
     srand(time(NULL));
     printf("您是否想观看我们的宣传动画？\n\t1.观看\n\t2.取消\n");
     fflush(stdout);
-    int watch;
-    scanf("%d", &watch);
+    long watch;
+    scanf("%104s", str);
+    watch = strtol(str, NULL, 10);
     if (watch == 1)
     {
         play_ani();
     }
 
     Data d = data_new();
-    int a;
+    long a;
     while (1)
     {
         printf("您是否需要读取已保存的数据？\n"
                "\t1.是\n"
                "\t2.否\n");
         fflush(stdout);
-        scanf("%d", &a);
-        char sz[100];
+        scanf("%104s", str);
+        a = strtol(str, NULL, 10);
+
+        char sz[105];
         if (a == 1)
         {
             printf("请输入文件名：\n");
             fflush(stdout);
-            scanf("%s", sz);
+            scanf("%104s", sz);
             d = data_from_file(sz);
             if (d.error != 0)
             {
@@ -66,13 +72,14 @@ int main()
     while (1)
     {
 
-        int the_n;
+        long the_n;
         if (!fst_time)
         {
             printf("输入1继续使用本系统，输入其他数字保存并退出\n");
             fflush(stdout);
-            int sz;
-            scanf("%d", &sz);
+            long sz;
+            scanf("%104s", str);
+            sz = strtol(str, NULL, 10);
             if (sz == 1)
             {
                 printf("********************************\n    欢迎进入活力长者社区后台系统系统    \n********************************\n请确保在管理员的监督下使用本系统，否则将被视为非法操作\n");
@@ -88,7 +95,8 @@ int main()
                         "\t8.保存数据及退出系统：\n");
                 fflush(stdout);
                 say_sentence();
-                scanf("%d", &the_n);
+                scanf("%s", str);
+                the_n = strtol(str, NULL, 10);
             } else
             {
                 the_n = 8;
@@ -109,9 +117,12 @@ int main()
                     "\t8.保存数据及退出系统：\n");
             say_sentence();
             fflush(stdout);
-            scanf("%d", &the_n);
+
+            scanf("%104s", str);
+            the_n = strtol(str, NULL, 10);
         }
 
+        long n;
         switch(the_n)
         {
             case 1: //会员管理
@@ -123,8 +134,8 @@ int main()
                         "\t3.选择*会员的删除与修改*\n"
                         "\t4.选择*返回上一级*\n");
                 fflush(stdout);
-                int n;
-                scanf("%d", &n);
+                scanf("%104s", str);
+                n = strtol(str, NULL, 10);
                 if (n == 4)
                 {
 
@@ -132,10 +143,10 @@ int main()
                 {
                     if (n == 1)//1.选择*新建会员
                     {
-                        char name[100];
+                        char name[100]="";
                         printf("输入会员名字：\n");
                         fflush(stdout);
-                        scanf("%s", name);
+                        scanf("%99s", name);
                         int new_id = people_list_push(&d.people_list, name);
                         printf("操作成功，您的会员ID为：%d\n", new_id);
                         fflush(stdout);
@@ -147,13 +158,15 @@ int main()
                                "\t2.按名字查询\n"
                                "\t3.输出所有会员\n");
                         fflush(stdout);
-                        scanf("%d", &n);
+                        scanf("%104s", str);
+                        n = strtol(str, NULL, 10);
                         if (n == 1)
                         {
-                            int ID, xiabiao;
+                            long ID, xiabiao;
                             printf("请输入您查询的ID:\n");
                             fflush(stdout);
-                            scanf("%d", &ID);
+                            scanf("%104s", str);
+                            ID = strtol(str, NULL, 10);
                             xiabiao = people_find_by_id(d.people_list, ID);
                             if (xiabiao < 0)
                             {
@@ -161,7 +174,7 @@ int main()
                                 fflush(stdout);
                             } else
                             {
-                                printf("用户ID:%d\n姓名:%s\n", ID, people_list_at(d.people_list, xiabiao)->name);
+                                printf("用户ID:%ld\n姓名:%s\n", ID, people_list_at(d.people_list, xiabiao)->name);
                                 fflush(stdout);
                             }
                         } else if (n == 2)
@@ -193,8 +206,9 @@ int main()
                                 }
                                 printf("您是否要再看一遍？1.确认\t2.取消\n");
                                 fflush(stdout);
-                                int one_more_time;
-                                scanf("%d", &one_more_time);
+                                long one_more_time;
+                                scanf("%104s", str);
+                                one_more_time = strtol(str, NULL, 10);
                                 if (one_more_time == 2)
                                 {
                                     break;
@@ -213,8 +227,10 @@ int main()
                         printf("请输入会员ID:\n");
                         fflush(stdout);
                         //  根据编号选择要修改的会员
-                        int xiabiao, ID;
-                        scanf("%d", &ID);
+                        long xiabiao, ID;
+
+                        scanf("%104s", str);
+                        ID = strtol(str, NULL, 10);
                         xiabiao = people_find_by_id(d.people_list, ID);
                         if (xiabiao < 0)
                         {
@@ -227,7 +243,8 @@ int main()
                             printf("请选择您的操作? 1.修改\t2.删除\t3.取消\n");
                             fflush(stdout);
                             int confirm;
-                            scanf("%d", &confirm);
+                            scanf("%104s", str);
+                            confirm = strtol(str, NULL, 10);
                             if (confirm == 1)
                             {
                                 char new_name[100];
@@ -264,7 +281,8 @@ int main()
                        "\t3.选择*查询会员名下的房屋*\n"
                        "\t4.选择*返回上一级*\n");
                 fflush(stdout);
-                scanf("%d", &n);
+                scanf("%104s", str);
+                n = strtol(str, NULL, 10);
                 if (n == 1)//1.选择*查看房屋基本情况*
                 {
                     printf("我们的房屋都有权威机构的认证！请您放心！\n");
@@ -276,13 +294,15 @@ int main()
                            "\t1.是\n"
                            "\t2.否\n");
                     fflush(stdout);
-                    scanf("%d", &n);
+                    scanf("%104s", str);
+                    n = strtol(str, NULL, 10);
                     if (n == 1)
                     {
                         printf("请输入会员ID：\n");
                         fflush(stdout);
                         int people_id;
-                        scanf("%d", &people_id);
+                        scanf("%104s", str);
+                        people_id = strtol(str, NULL, 10);
                         int xiabiao = people_find_by_id(d.people_list, people_id);
                         if (xiabiao < 0)
                         {
@@ -316,7 +336,8 @@ int main()
                     printf("请输入您的ID\n");
                     fflush(stdout);
                     int people_id;
-                    scanf("%d", &people_id);
+                    scanf("%104s", str);
+                    people_id = strtol(str, NULL, 10);
                     int xiabiao = people_find_by_id(d.people_list, people_id);
                     if (xiabiao < 0)
                     {
@@ -346,13 +367,16 @@ int main()
                        "\t2.否\n");
                 fflush(stdout);
 
-                scanf("%d", &n);
+                scanf("%104s", str);
+                n = strtol(str, NULL, 10);
+
                 if (n == 1)//已购买房屋
                 {
                     printf("请输入您的会员ID\n");
                     int people_id;
                     fflush(stdout);
-                    scanf("%d", &people_id);
+                    scanf("%104s", str);
+                    people_id = strtol(str, NULL, 10);
                     int xiabiao = people_find_by_id(d.people_list, people_id);
                     if (xiabiao < 0)
                     {
@@ -363,7 +387,8 @@ int main()
                         printf("请输入您名下房产的ID\n");
                         fflush(stdout);
                         int house_id;
-                        scanf("%d", &house_id);
+                        scanf("%104s", str);
+                        house_id = strtol(str, NULL, 10);
                         int xiabiao = house_find_by_id(d.house_list, house_id);
                         if (xiabiao < 0)
                         {
@@ -410,7 +435,8 @@ int main()
                                    "\t2.*出租*\n"
                                    "\t3.*空置*: \n");
                             fflush(stdout);
-                            scanf("%d", &n);
+                            scanf("%104s", str);
+                            n = strtol(str, NULL, 10);
                             if (n == 1)
                             {
                                 house_list_at(d.house_list, xiabiao)->type = 1;
@@ -421,7 +447,8 @@ int main()
                                 printf("请输入您希望出租对象的ID\n");
                                 fflush(stdout);
                                 int rent_id, xiabiao;
-                                scanf("%d", &rent_id);
+                                scanf("%104s", str);
+                                rent_id = strtol(str, NULL, 10);
                                 xiabiao = people_find_by_id(d.people_list, rent_id);
                                 if (xiabiao < 0)
                                 {
@@ -454,14 +481,16 @@ int main()
                        "\t1.*用户：申请使用娱乐设施*\n"
                        "\t2.*管理人员：管理娱乐设施*\n");
                 fflush(stdout);
-                scanf("%d", &n);
+                scanf("%104s", str);
+                n = strtol(str, NULL, 10);
                 if (n == 1)
                 {
                     printf("您想要使用申请娱乐设施吗？\n"
                            "1.是\n"
                            "2.否\n");
                     fflush(stdout);
-                    scanf("%d", &n);
+                    scanf("%104s", str);
+                    n = strtol(str, NULL, 10);
                     if (n == 1)
                     {
                         printf("您想要申请使用什么娱乐设施？\n"
@@ -486,7 +515,8 @@ int main()
                            "\t3.修改或删除\n");
                     fflush(stdout);
                     int confirm_number;
-                    scanf("%d", &confirm_number);
+                    scanf("%104s", str);
+                    confirm_number = strtol(str, NULL, 10);
                     if (confirm_number == 1)//1.查询设施
                     {
                         printf("您想以哪种方式查询娱乐设施？\n"
@@ -496,13 +526,15 @@ int main()
                                "注意：输入其它数字将返回上一级\n");
                         fflush(stdout);
                         int c_number;
-                        scanf("%d", &c_number);
+                        scanf("%104s", str);
+                        c_number = strtol(str, NULL, 10);
                         if (c_number == 1)//1.按ID查询
                         {
                             printf("请输入您想查询的娱乐设施ID\n");
                             fflush(stdout);
                             int f_id;
-                            scanf("%d", &f_id);
+                            scanf("%104s", str);
+                            f_id = strtol(str, NULL, 10);
                             int xiabiao = facility_find_by_id(d.facility_list, f_id);
                             if (xiabiao < 0)
                             {
@@ -548,14 +580,15 @@ int main()
                         printf("请输入您想要添加的娱乐设施的名称\n");
                         fflush(stdout);
                         scanf("%s", f_name);
-                        int new_id = facility_list_push(d.facility_list.size, f_name);
+                        int new_id = facility_list_push(&d.facility_list, f_name);
                         printf("已成功添加名为%s的设施,其ID为%d\n", f_name, new_id);
                     } else if (confirm_number == 3)//3.修改或删除
                     {
                         printf("请输入设施ID:\n");
                         fflush(stdout);
                         int xiabiao, ID;
-                        scanf("%d", &ID);
+                        scanf("%104s", str);
+                        ID = strtol(str, NULL, 10);
                         xiabiao = facility_find_by_id(d.facility_list, ID);
                         if (xiabiao < 0)
                         {
@@ -567,7 +600,8 @@ int main()
                             printf("请选择您的操作? 1.修改\t2.删除\t3.取消\n");
                             fflush(stdout);
                             int confirm;
-                            scanf("%d", &confirm);
+                            scanf("%104s", str);
+                            confirm = strtol(str, NULL, 10);
                             if (confirm == 1)
                             {
                                 char new_name[100];
@@ -607,13 +641,14 @@ int main()
                            "3.*删除服务人员*\n"
                            "4.*点错了*\n");
                     fflush(stdout);
-                    scanf("%d", &n);
+                    scanf("%104s", str);
+                    n = strtol(str, NULL, 10);
                     if (n == 1)
                     {
                         printf("请输入您的姓名：\n");
                         fflush(stdout);
                         scanf("%s", name2);
-                        int new_id = servant_list_push(d.servant_list.size, name2);
+                        int new_id = servant_list_push(&d.servant_list, name2);
                         printf("注册成功，您的ID为%d", new_id);
                     }
 
@@ -623,7 +658,9 @@ int main()
                         printf("请输入您的ID：\n");
                         fflush(stdout);
                         int s_id;
-                        scanf("%d", &s_id);
+
+                        scanf("%104s", str);
+                        s_id = strtol(str, NULL, 10);
                         int xiabiao = servant_find_by_id(d.servant_list, s_id);
                         if (xiabiao < 0)
                         {
@@ -677,7 +714,8 @@ int main()
                        "4.修改班车路线\n"
                 );
                 fflush(stdout);
-                scanf("%d", &n);
+                scanf("%104s", str);
+                n = strtol(str, NULL, 10);
                 if (n == 1)
                 {
                     printf("1.*查看某条班车路线*\n"
@@ -688,7 +726,8 @@ int main()
                 {
                     printf("请输入站点数量：\n");
                     fflush(stdout);
-                    scanf("%d", &n);
+                    scanf("%104s", str);
+                    n = strtol(str, NULL, 10);
 
                     printf("请输入站点名字：\n");
                     fflush(stdout); // TODO 陈晓恒，这里根据输入的数量循环读入站点名字
@@ -700,7 +739,8 @@ int main()
                     fflush(stdout);
                     printf("请问您要删除第几条线路\n");
                     fflush(stdout);
-                    scanf("%d", &n);
+                    scanf("%104s", str);
+                    n = strtol(str, NULL, 10);
                 }
                 if (n == 4)
                 {
@@ -708,26 +748,29 @@ int main()
                     fflush(stdout);
                     printf("请问您要修改第几条线路\n");
                     fflush(stdout);
-                    scanf("%d", &n);
+                    scanf("%104s", str);
+                    n = strtol(str, NULL, 10);
 
 
                     while (1)
                     {
                         //TODO 这里让选择一站，然后执行操作
-                        printf("您选择的是%d,n\n"
+                        printf("您选择的是%ld\n"
                                "您想要：\n"
                                "1.*删除*\n"
                                "2.*插入*\n"
-                               "3.*修改*\n");
+                               "3.*修改*\n", n);
                         fflush(stdout);
-                        scanf("%d", &n);
+                        scanf("%104s", str);
+                        n = strtol(str, NULL, 10);
                         // TODO cxh
                         printf("您是否选择继续修改当前线路？\n"
                                "1.退出\n"
                                "2.继续\n");
                         fflush(stdout);
                         int flag;
-                        scanf("%d", &flag);
+                        scanf("%104s", str);
+                        flag = strtol(str, NULL, 10);
                         if (flag == 1)
                         {
                             break;
@@ -742,7 +785,8 @@ int main()
                 printf("是否保存数据？ 1.是\t2.否\n");
                 fflush(stdout);
                 int new_number;
-                scanf("%d", &new_number);
+                scanf("%104s", str);
+                new_number = strtol(str, NULL, 10);
                 if (new_number == 1)
                 {
 
