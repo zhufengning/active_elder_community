@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <time.h>
 
 /* People是用链表写的，其他结构是写的变长数组，别问，问就是想尝试多种写法！！！ */
 
@@ -16,6 +17,13 @@
 
 //sz--代表数组
 //readme里的代码规范形同虚设了是吧--zfn
+
+void mysleep(double t)
+{
+    clock_t st = clock();
+    while ((double) (clock() - st) / CLOCKS_PER_SEC < t);
+}
+
 int main()
 {
     printf("您是否想观看我们的宣传动画？\n\t1.观看\n\t2.取消\n");
@@ -26,34 +34,34 @@ int main()
     {
         printf("系统加载中");
         fflush(stdout);
-        for (int i = 1; i <= 3e8; ++i);
+        mysleep(0.6);
         printf(".");
         fflush(stdout);
-        for (int i = 1; i <= 3e8; ++i);
+        mysleep(0.6);
         printf(".");
         fflush(stdout);
-        for (int i = 1; i <= 3e8; ++i);
+        mysleep(0.6);
         printf(".\n");
         fflush(stdout);
-        for (int i = 1; i <= 5e8; ++i);
+        mysleep(0.6);
         printf("本系统由最优秀的工程师");
         fflush(stdout);
-        for (int i = 1; i <= 5e8; ++i);
+        mysleep(0.6);
         printf("经过多年研发，倾力打造，");
         fflush(stdout);
-        for (int i = 1; i <= 5e8; ++i);
+        mysleep(0.6);
         printf("只求给您最完美的体验。。\n");
-        for (int i = 1; i <= 5e8; ++i);
+        mysleep(0.6);
         fflush(stdout);
         printf("3..");
         fflush(stdout);
-        for (int i = 1; i <= 5e8; ++i);
+        mysleep(0.6);
         printf("2..");
         fflush(stdout);
-        for (int i = 1; i <= 5e8; ++i);
+        mysleep(0.6);
         printf("1..\n");
         fflush(stdout);
-        for (int i = 1; i <= 5e8; ++i);
+        mysleep(0.6);
         printf("加载完成\n");
     }
 
