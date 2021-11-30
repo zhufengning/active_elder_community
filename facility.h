@@ -29,7 +29,7 @@ FacilityList facility_list_new(void)
 }
 
 ///往一个设施列表中插入一个新设施并分配id
-void facility_list_push(FacilityList *p, char *name)
+int facility_list_push(FacilityList *p, char *name)
 {
     ++p->maxid;
     if (p->size == 0)
@@ -43,6 +43,7 @@ void facility_list_push(FacilityList *p, char *name)
     }
     p->head[p->size - 1].id = p->size;
     strcpy(p->head[p->size - 1].name, name);
+    return p->maxid;
 }
 
 /// 加载数据时使用

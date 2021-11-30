@@ -30,7 +30,7 @@ HouseList house_list_new(void)
 }
 
 ///往一个房屋列表中插入一个新房屋并分配id
-void house_list_push(HouseList *p, char *name, int owner)
+int house_list_push(HouseList *p, char *name, int owner)
 {
     ++p->maxid;
     if (p->size == 0)
@@ -45,6 +45,7 @@ void house_list_push(HouseList *p, char *name, int owner)
     p->head[p->size - 1].owner = owner;
     p->head[p->size - 1].id = p->maxid;
     strcpy(p->head[p->size - 1].name, name);
+    return p->maxid;
 }
 
 /// 加载数据时使用

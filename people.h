@@ -21,7 +21,7 @@ typedef struct PeopleNode
 typedef struct PeopleList
 {
     PeopleNode *root;
-    int size;
+    int size, maxid;
 } PeopleList;
 
 /// 新建一个社区会员列表
@@ -34,11 +34,11 @@ PeopleList people_list_new(void)
 }
 
 /// 往一个会员列表中插入一个新会员并分配id
-void people_list_push(PeopleList *p, char *name)
+int people_list_push(PeopleList *p, char *name)
 {
     p->size += 1;
     PeopleNode *new_people = (PeopleNode *) calloc(1, sizeof(PeopleNode));
-    new_people->v.id = p->size;
+    new_people->v.id = p->maxid + 1;
     strcpy(new_people->v.name, name);
     if (p->root == NULL)
     {
@@ -49,6 +49,8 @@ void people_list_push(PeopleList *p, char *name)
         while (tail->hou != NULL) tail = tail->hou;
         tail->hou = new_people;
     }
+    p->maxid += 1;
+    return new_people->v.id;
 }
 
 /// 加载数据时使用
@@ -57,6 +59,10 @@ void people_list_load(PeopleList *p, int id, char *name)
     p->size += 1;
     PeopleNode *new_people = (PeopleNode *) calloc(1, sizeof(PeopleNode));
     new_people->v.id = id;
+    if (id >= p->maxid)
+    {
+        p->maxid = id + 1;
+    }
     strcpy(new_people->v.name, name);
     if (p->root == NULL)
     {

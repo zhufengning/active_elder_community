@@ -462,7 +462,7 @@ int main()
                 printf("您想要对娱乐设施进行哪项操作？\n"
                        "\t1.查询\n"
                        "\t2.添加\n"
-                       "\t3.修改\n");
+                       "\t3.修改或删除\n");
                 fflush(stdout);
                 int confirm_number;
                 scanf("%d", &confirm_number);
