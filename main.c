@@ -241,6 +241,9 @@ int main()
                                     fflush(stdout);
                                 }
                             }
+                        } else
+                        {
+                            on_error();
                         }
                     } else if (n == 3)//会员的删除与修改
                     {
@@ -285,6 +288,7 @@ int main()
                             } else
                             {
                                 printf("输入错误，我猜您不想改了\n");
+                                on_error();
                                 fflush(stdout);
                             }
                         }
@@ -350,6 +354,9 @@ int main()
                         printf("您还不是会员！\n"
                                "请返回首页注册会员以办理房屋购买！\n");
                         fflush(stdout);
+                    }else
+                    {
+                        on_error();
                     }
                 } else if (n == 3)//3.选择*查询房屋*
                 {
@@ -486,6 +493,9 @@ int main()
                                 house_list_at(d.house_list, xiabiao)->type = 0;
                                 printf("操作成功，您的ID为%d的房屋信息已更改为闲置中\n", house_id);
                                 fflush(stdout);
+                            }else
+                            {
+                                on_error();
                             }
                         }
                     }
@@ -493,6 +503,9 @@ int main()
                 {
                     printf("滚去买\n");
                     fflush(stdout);
+                }else
+                {
+                    on_error();
                 }
                 break;
             case 4://4.选择*场馆设施管理*
@@ -644,10 +657,14 @@ int main()
                             } else
                             {
                                 printf("输入错误，我猜您不想改了\n");
+                                on_error();
                             }
                         }
+                    } else
+                    {
+                        on_error();
                     }
-                }//TODO 陈骁恒的工作
+                }
                 break;
             case 5://5.选择*服务人员管理*
 
@@ -674,7 +691,6 @@ int main()
                         int new_id = servant_list_push(&d.servant_list, name2);
                         printf("注册成功，您的ID为%d", new_id);
                     }
-                        // TODO 陈骁恒的工作
                     else if (n == 2)
                     {
                         printf("请输入您的ID：\n");
@@ -715,10 +731,13 @@ int main()
                             fflush(stdout);
                         }
                     }
-                        // TODO 陈骁恒的工作
-                        //见servant.h
                     else if (n == 4)
-                    {}
+                    {
+
+                    } else
+                    {
+                        on_error();
+                    }
                 }
                 break;
             case 6://6.选择*问题反映*
@@ -873,13 +892,15 @@ int main()
                     scanf("%99s", new_file);
                     data_save(d, new_file);
                     printf("数据已保存至名为%s的文件\n", new_file);
-                    fflush(stdout);
-                } else
+                    fflush(stdout);return 0;
+                } else if(new_number == 2)
                 {
                     printf("数据未保存");
-                    fflush(stdout);
+                    fflush(stdout);return 0;
+                } else
+                {
+                    on_error();
                 }
-                return 0;
                 break;
 
             default:
@@ -888,6 +909,6 @@ int main()
                 break;
         }
     }
-
-    return 0;
+    // 程序只会在while中退出(return 0;)，所以不需要在结尾return
+    // return 0;
 }
