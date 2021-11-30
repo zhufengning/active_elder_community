@@ -17,8 +17,21 @@
 //sz--代表数组
 //readme里的代码规范形同虚设了是吧--zfn
 
-#pragma clang diagnostic push
-#pragma ide diagnostic ignored "LocalValueEscapesScope"
+void on_error()
+{
+    //printf("请好好地对待本系统，不然会被玩坏的哟\n");
+    printf("*************FBI WARING**************\n"
+           "*你故意找茬是吧?                    *\n"
+           "*也不看看这个代码是谁写出来的！     *\n"
+           "*跟我宁丰猪的狗斗，你有这个实力吗？ *\n"
+           "*************************************\n"
+           "#丰#\t#宁#\t#我#\t#真#\t#的#\t#好#\n"
+           "#喜#\t#欢#\t#你#\t#啊#\t#为#\t#了#\n"
+           "#你#\t#我#\t#要#\t#在#\t#大#\t#作#\n"
+           "#业#\t#里#\t#发#\t#病#\t2@ZFN\n");
+    fflush(stdout);
+}
+
 int main()
 {
     char str[105];
@@ -31,6 +44,9 @@ int main()
     if (watch == 1)
     {
         play_ani();
+    } else if (watch != 2)
+    {
+        on_error();
     }
 
     Data d = data_new();
@@ -54,6 +70,7 @@ int main()
             if (d.error != 0)
             {
                 printf("文件加载失败\n");
+                on_error();
                 fflush(stdout);
                 continue;
             } else
@@ -66,6 +83,9 @@ int main()
             printf("请继续！ \n");
             fflush(stdout);
             break;
+        } else
+        {
+            on_error();
         }
     }
     int fst_time = 1;
@@ -123,7 +143,7 @@ int main()
         }
 
         long n;
-        switch(the_n)
+        switch (the_n)
         {
             case 1: //会员管理
                 printf(
@@ -143,7 +163,7 @@ int main()
                 {
                     if (n == 1)//1.选择*新建会员
                     {
-                        char name[100]="";
+                        char name[100] = "";
                         printf("输入会员名字：\n");
                         fflush(stdout);
                         scanf("%99s", name);
@@ -573,6 +593,9 @@ int main()
                                 printf("设施ID:%d\t设施名称:%s\n", t->id, t->name);
                                 fflush(stdout);
                             }
+                        } else
+                        {
+                            on_error();
                         }
                     } else if (confirm_number == 2)//2.添加娱乐设施
                     {
@@ -716,24 +739,79 @@ int main()
                 fflush(stdout);
                 scanf("%104s", str);
                 n = strtol(str, NULL, 10);
-                if (n == 1)
+                if (n == 1)//1.查看班车路线
                 {
                     printf("1.*查看某条班车路线*\n"
                            "2.*查看全部路线*\n");
                     fflush(stdout);
-                }
-                if (n == 2)
+                    scanf("%104s", str);
+                    long c_number = strtol(str, NULL, 10);
+                    if (c_number == 1)
+                    {
+                        printf("请输入你要查看的班车路线\n");
+                        fflush(stdout);
+                        scanf("%104s", str);
+                        long list_number = strtol(str, NULL, 10);
+                        int i = 0;
+                        for (BusChainNode *it = d.buschain_list.root->hou; it != NULL; it = it->hou)
+                        {
+                            ++i;
+                            if (i == list_number)
+                            {
+                                for (BusStop *jt = it->value.root->hou; jt != NULL; jt = jt->hou)
+                                {
+                                    printf("%s", jt->value);
+                                    if (jt->hou != NULL)
+                                    {
+                                        printf("->");
+                                    }
+                                }
+                                printf("\n");
+                                break;
+                            }
+                        }
+                    } else if (c_number == 2)
+                    {
+                        for (BusChainNode *it = d.buschain_list.root->hou; it != NULL; it = it->hou)
+                        {
+                            for (BusStop *jt = it->value.root->hou; jt != NULL; jt = jt->hou)
+                            {
+                                printf("%s", jt->value);
+                                if (jt->hou != NULL)
+                                {
+                                    printf("->");
+                                }
+                            }
+                            printf("\n");
+                            break;
+                        }
+                    } else
+                    {
+                        on_error();
+                    }
+                } else if (n == 2)//2.添加班车路线
                 {
                     printf("请输入站点数量：\n");
                     fflush(stdout);
                     scanf("%104s", str);
                     n = strtol(str, NULL, 10);
-
                     printf("请输入站点名字：\n");
-                    fflush(stdout); // TODO 陈晓恒，这里根据输入的数量循环读入站点名字
-                }
-
-                if (n == 3)
+                    fflush(stdout); // TODO 陈骁恒，这里根据输入的数量循环读入站点名字
+                    BusChain *new_bus_stations = malloc(sizeof(BusChain));
+                    *new_bus_stations = buschain_create();
+                    for (int i = 1; i <= n; i++)
+                    {
+                        char station_name[100];
+                        scanf("%99s", station_name);
+                        BusStop *p = new_bus_stations->root;
+                        while (p->hou != NULL)
+                        {
+                            p = p->hou;
+                        }
+                        buschain_insert(p, station_name);
+                    }
+                    buschainlist_insert(&d.buschain_list, *new_bus_stations);
+                } else if (n == 3)//3.删除班车路线
                 {
                     printf("");//TODO 陈骁恒的WORK，输出目前有的线路
                     fflush(stdout);
@@ -741,8 +819,7 @@ int main()
                     fflush(stdout);
                     scanf("%104s", str);
                     n = strtol(str, NULL, 10);
-                }
-                if (n == 4)
+                } else if (n == 4)//4.修改班车路线
                 {
                     printf("");//TODO 陈骁恒的WORK，输出目前有的线路(带编号）
                     fflush(stdout);
@@ -776,7 +853,9 @@ int main()
                             break;
                         }
                     }
-
+                } else
+                {
+                    on_error();
                 }
                 break;
                 //TODO 这里有很多陈骁恒的工作
@@ -806,15 +885,7 @@ int main()
                 break;
 
             default:
-                printf("*************FBI WARING*********\n"
-                       "*你故意找茬是吧?                 *\n"
-                       "*也不看看这个代码是谁写出来的！     *\n"
-                       "*跟我宁丰猪的狗斗，你有这个实力吗？  *\n"
-                       "********************************\n"
-                       "#丰#\t#宁#\t#我#\t#真#\t#的#\t#好#\t"
-                       "#喜#\t#欢#\t#你#\t#啊#\t#为#\t#了#\t"
-                       "#你#\t#我#\t#要#\t#在#\t#大#\t#作#\t"
-                       "#业#\t#里#\t#发#\n#病#\n@ZFN");
+                on_error();
                 fflush(stdout);
                 break;
         }

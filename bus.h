@@ -17,7 +17,7 @@
 typedef struct BusStop//链表的一个节点
 {
     struct BusStop *hou;//指向下一项的指针
-    char *value;//这个节点保存的值
+    char value[100];//这个节点保存的值
 } BusStop;
 
 typedef struct BusChain//链表本表
@@ -37,7 +37,7 @@ void buschain_insert(BusStop *p, char *v)//在节点p后面插入v
 {
     if (p == NULL) return;//不能对NULL操作，保险
     BusStop *t = malloc(sizeof(BusStop));//为新的节点分配内存
-    t->value = v;//设置值
+    strcpy(t->value, v);//设置值
     //一个插入过程
     t->hou = p->hou;//这一项的下一项设置为前一项的下一项
     p->hou = t;//前一项的下一项设置为这一项

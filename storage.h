@@ -79,7 +79,6 @@ Data data_from_file(char *path)
             cJSON *t = cJSON_GetArrayItem(pp, i);
             cJSON *t2 = cJSON_GetObjectItem(t, "id");
             cJSON *t3 = cJSON_GetObjectItem(t, "name");
-            cJSON *t4 = cJSON_GetObjectItem(t, "sold");
             cJSON *t5 = cJSON_GetObjectItem(t, "owner");
             new_house.id = t2->valueint;
             new_house.owner = t5->valueint;
