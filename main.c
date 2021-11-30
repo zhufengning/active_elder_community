@@ -135,7 +135,9 @@ int main()
                         printf("输入会员名字：\n");
                         fflush(stdout);
                         scanf("%s", name);
-                        people_list_push(&d.people_list, name);
+                        int new_id = people_list_push(&d.people_list, name);
+                        printf("操作成功，您的会员ID为：%d\n", new_id);
+                        fflush(stdout);
                     }
                     if (n == 2)//2.选择*查询会员*
                     {
@@ -295,7 +297,9 @@ int main()
                             char house_name[100];
                             scanf("%s", house_name);
                             house_list_push(&d.house_list, house_name, people_id);
-                            printf("操作成功，感谢您的购买\n");
+                            int new_id = house_list_push(&d.house_list, house_name, people_id);
+                            printf("操作成功，感谢您的购买\n"
+                                   "您的新房屋ID为%d\n", new_id);
                             fflush(stdout);
                             //TODO 您的新房屋的ID是：
                         }
@@ -461,7 +465,16 @@ int main()
                         printf("您想要申请使用什么娱乐设施？\n"
                                "请输入娱乐设施的名字\n");
                         fflush(stdout);
-
+                        char f_name[100];
+                        scanf("%s", f_name);
+                        int xiabiao = facility_find_by_name(d.facility_list, f_name);
+                        if (xiabiao < 0)
+                        {
+                            printf("该娱乐设施不存在，如有需要请先申请\n");
+                        } else
+                        {
+                            printf("使用成功\n");
+                        }
                     }//TODO 陈骁恒的工作（输入，查找并判断是否有该娱乐设施，如果有则输出使用成功，否则输出无次设施，如有需要，请先申请）
                 } else if (n == 2)
                 {
@@ -529,7 +542,12 @@ int main()
                         }
                     } else if (confirm_number == 2)//2.添加娱乐设施
                     {
-
+                        char f_name[100];
+                        printf("请输入您想要添加的娱乐设施的名称\n");
+                        fflush(stdout);
+                        scanf("%s", f_name);
+                        int new_id = facility_list_push(d.facility_list.size, f_name);
+                        printf("已成功添加名为%s的设施,其ID为%d\n", f_name, new_id);
                     } else if (confirm_number == 3)//3.修改或删除
                     {
                         printf("请输入设施ID:\n");
@@ -555,7 +573,7 @@ int main()
                                 fflush(stdout);
                                 scanf("%s", new_name);
                                 strcpy(facility_list_at(d.facility_list, xiabiao)->name, new_name);
-                                printf("操作成功，设施已重命名为%S\n", new_name);
+                                printf("操作成功，设施已重命名为%s\n", new_name);
                             } else if (confirm == 2)
                             {
                                 facility_list_delete(&d.facility_list, xiabiao);
@@ -593,17 +611,48 @@ int main()
                         printf("请输入您的姓名：\n");
                         fflush(stdout);
                         scanf("%s", name2);
+                        int new_id = servant_list_push(d.servant_list.size, name2);
+                        printf("注册成功，您的ID为%d", new_id);
                     }
 
                         // TODO 陈骁恒的工作
                     else if (n == 2)
                     {
-                        printf("请输入您的姓名：\n");
+                        printf("请输入您的ID：\n");
                         fflush(stdout);
+                        int s_id;
+                        scanf("%d", &s_id);
+                        int xiabiao = servant_find_by_id(d.servant_list, s_id);
+                        if (xiabiao < 0)
+                        {
+                            printf("该服务人员不存在\n");
+                            fflush(stdout);
+                        } else
+                        {
+                            char new_name[100];
+                            printf("请输入新的名称\n");
+                            fflush(stdout);
+                            scanf("%s", new_name);
+                            strcpy(facility_list_at(d.facility_list, xiabiao)->name, new_name);
+                            printf("操作成功，ID为%d的服务人员已重命名为%s\n", s_id, new_name);
+                        }
                     } else if (n == 3)
                     {
                         printf("请输入您的姓名：\n");
                         fflush(stdout);
+                        char your_name[100];
+                        scanf("%s", your_name);
+                        int xiabiao = servant_find_by_name(d.servant_list, your_name);
+                        if (xiabiao < 0)
+                        {
+                            printf("该服务人员不存在\n");
+                            fflush(stdout);
+                        } else
+                        {
+                            facility_list_delete(&d.facility_list, xiabiao);
+                            printf("删除成功\n");
+                            fflush(stdout);
+                        }
                     }
                         // TODO 陈骁恒的工作
                         //见servant.h
@@ -626,7 +675,7 @@ int main()
                        "4.修改班车路线\n"
                 );
                 fflush(stdout);
-                scanf("%d", n);
+                scanf("%d", &n);
                 if (n == 1)
                 {
                     printf("1.*查看某条班车路线*\n"
