@@ -453,13 +453,76 @@ int main()
                     printf("您想要申请使用什么娱乐设施？\n"
                            "请输入娱乐设施的名字\n");
                     fflush(stdout);
+
                 }//TODO 陈骁恒的工作（输入，查找并判断是否有该娱乐设施，如果有则输出使用成功，否则输出无次设施，如有需要，请先申请）
-            }
-            if (n == 2)
+            } else if (n == 2)
             {
-                printf("您想要申请使用什么娱乐设施？\n"
-                       "请输入娱乐设施的名字\n");
+                printf("您想要对娱乐设施进行哪项操作？\n"
+                       "\t1.查询\n"
+                       "\t2.添加\n"
+                       "\t3.修改\n");
                 fflush(stdout);
+                int confirm_number;
+                scanf("%d", &confirm_number);
+                if (confirm_number == 1)//1.查询设施
+                {
+                    printf("您想以哪种方式查询娱乐设施？\n"
+                           "\t1.按ID查询\n"
+                           "\t2.按名称查询\n"
+                           "\t3.输出所有设施\n"
+                           "注意：输入其它数字将返回上一级\n");
+                    fflush(stdout);
+                    int c_number;
+                    scanf("%d", &c_number);
+                    if (c_number == 1)//1.按ID查询
+                    {
+                        printf("请输入您想查询的娱乐设施ID\n");
+                        fflush(stdout);
+                        int f_id;
+                        scanf("%d", &f_id);
+                        int xiabiao = facility_find_by_id(d.facility_list, f_id);
+                        if (xiabiao < 0)
+                        {
+                            printf("该ID对应的娱乐设施不存在\n");
+                            fflush(stdout);
+                        } else
+                        {
+                            Facility *t = facility_list_at(d.facility_list, xiabiao);
+                            printf("设施ID:%d\t设施名称:%s\n", t->id, t->name);
+                            fflush(stdout);
+                        }
+                    } else if (c_number == 2)//2.按名称查询
+                    {
+                        printf("请输入您想查询的娱乐设施名称\n");
+                        fflush(stdout);
+                        char f_name[100];
+                        scanf("%s", f_name);
+                        printf("下面是查询结果\n");
+                        fflush(stdout);
+                        for (int i = 0; i < d.facility_list.size; i++)
+                        {
+                            if (strcmp(facility_list_at(d.facility_list, i)->name, f_name) == 0)
+                            {
+                                Facility *t = facility_list_at(d.facility_list, i);
+                                printf("设施ID:%d\t设施名称:%s\n", t->id, t->name);
+                                fflush(stdout);
+                            }
+                        }
+                        printf("查询完毕，以上为所有查询结果\n");
+                        fflush(stdout);
+                    } else if (c_number == 3)//3.输出所有设施
+                    {
+                        for (int i = 0; i < d.facility_list.size; i++)
+                        {
+                            Facility *t = facility_list_at(d.facility_list, i);
+                            printf("设施ID:%d\t设施名称:%s\n", t->id, t->name);
+                            fflush(stdout);
+                        }
+                    }
+                } else if (confirm_number == 2)//2.添加娱乐设施
+                {
+
+                }
             }//TODO 陈骁恒的工作
         } else if (n == 5)//5.选择*服务人员管理*
         {
