@@ -53,8 +53,6 @@ int main()
         }
     }
 
-
-
     Data d = data_new();
     long a;
     while (1)

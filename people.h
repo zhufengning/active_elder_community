@@ -105,43 +105,45 @@ void people_list_delete(PeopleList *pl, int v)
 }
 
 /// 按id查找会员
-int people_find_by_id(PeopleList pl, int id)
+int* people_find_by_id(PeopleList pl, int id)
 {
+    int *ret = calloc(1, sizeof(int));
+    ret[0] = 0;
     PeopleNode *pt = pl.root;
     int r = 0;
     while (pt != NULL)
     {
         if (pt->v.id == id)
         {
-            break;
-        } else
-        {
-            pt = pt->hou;
-            ++r;
+            ++ret[0];
+            ret = realloc(ret, ret[0] + 1);
+            ret[ret[0]] = r;
         }
+        pt = pt->hou;
+        ++r;
     }
-    if (pt != NULL) return r;
-    else return -1;
+    return ret;
 }
 
 /// 按名字查找会员
-int people_find_by_name(PeopleList pl, char *name)
+int *people_find_by_name(PeopleList pl, char *name)
 {
+    int *ret = calloc(1, sizeof(int));
+    ret[0] = 0;
     PeopleNode *pt = pl.root;
     int r = 0;
     while (pt != NULL)
     {
         if (strcmp(pt->v.name, name) == 0)
         {
-            break;
-        } else
-        {
-            pt = pt->hou;
-            ++r;
+            ++ret[0];
+            ret = realloc(ret, ret[0] + 1);
+            ret[ret[0]] = r;
         }
+        pt = pt->hou;
+        ++r;
     }
-    if (pt != NULL) return r;
-    else return -1;
+    return ret;
 }
 
 ///获取列表中第in个会员（从零开始数）

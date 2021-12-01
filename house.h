@@ -87,23 +87,37 @@ void house_list_delete(HouseList *pl, int v)
 }
 
 /// 按id查找房屋
-int house_find_by_id(HouseList pl, int id)
+int* house_find_by_id(HouseList pl, int id)
 {
+    int *ret = calloc(1, sizeof(int));
+    ret[0] = 0;
     for (int i = 0; i < pl.size; ++i)
     {
-        if (pl.head[i].id == id) return i;
+        if (pl.head[i].id == id)
+        {
+            ++ret[0];
+            ret = realloc(ret, ret[0] + 1);
+            ret[ret[0]] = i;
+        }
     }
-    return -1;
+    return ret;
 }
 
 /// 按名字查找房屋
-int house_find_by_name(HouseList pl, char *name)
+int* house_find_by_name(HouseList pl, char *name)
 {
+    int *ret = calloc(1, sizeof(int));
+    ret[0] = 0;
     for (int i = 0; i < pl.size; ++i)
     {
-        if (strcmp(pl.head[i].name, name) == 0) return i;
+        if (strcmp(pl.head[i].name, name) == 0)
+        {
+            ++ret[0];
+            ret = realloc(ret, ret[0] + 1);
+            ret[ret[0]] = i;
+        }
     }
-    return -1;
+    return ret;
 }
 
 /// 按名字查找房屋
