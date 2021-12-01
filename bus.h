@@ -45,6 +45,7 @@ void buschain_insert(BusStop *p, char *v)//在节点p后面插入v
 
 void buschain_remove(BusStop *p)//删除p之后的节点
 {
+    if (p == NULL) return;
     BusStop *t = p->hou;//先记录下要删的节点的地址，free用
     p->hou = t->hou;//让链子跨过要删除的节点
     free(t);//free掉没用的节点
@@ -89,11 +90,13 @@ void buschainlist_insert(BusChainNode *p, BusChain v)//在节点p后面插入v
     p->hou = t;//前一项的下一项设置为这一项
 }
 
-void buschainlist_remove(BusChainNode *p)//删除p之后的节点
+int buschainlist_remove(BusChainNode *p)//删除p之后的节点
 {
+    if (p == NULL) return -1;
     BusChainNode *t = p->hou;//先记录下要删的节点的地址，free用
     p->hou = t->hou;//让链子跨过要删除的节点
     free(t);//free掉没用的节点
+    return 1;
 }
 
 #endif //ELDER_COMM_BUS_H

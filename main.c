@@ -354,7 +354,7 @@ int main()
                         printf("您还不是会员！\n"
                                "请返回首页注册会员以办理房屋购买！\n");
                         fflush(stdout);
-                    }else
+                    } else
                     {
                         on_error();
                     }
@@ -493,7 +493,7 @@ int main()
                                 house_list_at(d.house_list, xiabiao)->type = 0;
                                 printf("操作成功，您的ID为%d的房屋信息已更改为闲置中\n", house_id);
                                 fflush(stdout);
-                            }else
+                            } else
                             {
                                 on_error();
                             }
@@ -503,7 +503,7 @@ int main()
                 {
                     printf("滚去买\n");
                     fflush(stdout);
-                }else
+                } else
                 {
                     on_error();
                 }
@@ -668,30 +668,33 @@ int main()
                 break;
             case 5://5.选择*服务人员管理*
 
-                printf("请选择您的身份：\n"
-                       "1.服务人员或工作人员\n"
-                       "2.用户\n");
+                printf("请选择您的操作：\n"
+                       "1.编辑服务人员信息\n"
+                       "2.修改用户的服务人员\n");
                 fflush(stdout);
                 char name2[100];
                 if (n == 1)
                 {
                     printf("您下一步想干什么？\n"
-                           "1.*注册服务人员*\n"
-                           "2.*修改服务人员信息*\n"
-                           "3.*删除服务人员*\n"
-                           "4.*点错了*\n");
+                           "1.*查询服务人员信息*\n"
+                           "2.*注册服务人员*\n"
+                           "3.*修改服务人员信息*\n"
+                           "4.*删除服务人员*\n"
+                           "5.*点错了*\n");
                     fflush(stdout);
                     scanf("%104s", str);
                     n = strtol(str, NULL, 10);
                     if (n == 1)
+                    {
+
+                    } else if (n == 2)
                     {
                         printf("请输入您的姓名：\n");
                         fflush(stdout);
                         scanf("%99s", name2);
                         int new_id = servant_list_push(&d.servant_list, name2);
                         printf("注册成功，您的ID为%d", new_id);
-                    }
-                    else if (n == 2)
+                    } else if (n == 3)
                     {
                         printf("请输入您的ID：\n");
                         fflush(stdout);
@@ -713,7 +716,7 @@ int main()
                             strcpy(facility_list_at(d.facility_list, xiabiao)->name, new_name);
                             printf("操作成功，ID为%d的服务人员已重命名为%s\n", s_id, new_name);
                         }
-                    } else if (n == 3)
+                    } else if (n == 4)
                     {
                         printf("请输入您的姓名：\n");
                         fflush(stdout);
@@ -730,14 +733,47 @@ int main()
                             printf("删除成功\n");
                             fflush(stdout);
                         }
-                    }
-                    else if (n == 4)
+                    } else if (n == 5)
                     {
-
                     } else
                     {
                         on_error();
                     }
+                } else if (n == 2)
+                {
+                    printf("请选择您的操作\n"
+                           "\t1.查询您的服务人员\n"
+                           "\t2.修改您的服务人员\n"
+                           "\t3.删除您的服务人员\n"
+                           "\t4.退出\n");
+                    scanf("%104s", str);
+                    long x = strtol(str, NULL, 0);
+                    switch (x)
+                    {
+                        case 1://1.查询您的服务人员
+                        {
+                            //for()
+                            break;
+                        }
+                        case 2://2.修改您的服务人员
+                        {
+                            break;
+                        }
+                        case 3://删除您的服务人员
+                        {
+                            break;
+                        }
+                        case 4:
+                        {
+                            //do nothing
+                            break;
+                        }
+                        default:
+                            on_error();
+                    }
+                } else
+                {
+                    on_error();
                 }
                 break;
             case 6://6.选择*问题反映*
@@ -766,30 +802,39 @@ int main()
                     long c_number = strtol(str, NULL, 10);
                     if (c_number == 1)
                     {
-                        printf("请输入你要查看的班车路线\n");
+                        printf("你要查看第几条的班车路线？（不清楚的话可以输入-1返回并查询全部路线）\n");
                         fflush(stdout);
                         scanf("%104s", str);
                         long list_number = strtol(str, NULL, 10);
                         int i = 0;
-                        for (BusChainNode *it = d.buschain_list.root->hou; it != NULL; it = it->hou)
+                        if (list_number == -1)
+                        {}
+                        else if (list_number < 1)
+                            on_error();
+                        else
                         {
-                            ++i;
-                            if (i == list_number)
+                            for (BusChainNode *it = d.buschain_list.root->hou; it != NULL; it = it->hou)
                             {
-                                for (BusStop *jt = it->value.root->hou; jt != NULL; jt = jt->hou)
+                                ++i;
+                                if (i == list_number)
                                 {
-                                    printf("%s", jt->value);
-                                    if (jt->hou != NULL)
+                                    for (BusStop *jt = it->value.root->hou; jt != NULL; jt = jt->hou)
                                     {
-                                        printf("->");
+                                        printf("%s", jt->value);
+                                        if (jt->hou != NULL)
+                                        {
+                                            printf("->");
+                                        }
                                     }
+                                    printf("\n");
+                                    break;
                                 }
-                                printf("\n");
-                                break;
                             }
+                            if (i < list_number)on_error();
                         }
                     } else if (c_number == 2)
                     {
+                        int i = 0;
                         for (BusChainNode *it = d.buschain_list.root->hou; it != NULL; it = it->hou)
                         {
                             ++i;
@@ -803,7 +848,6 @@ int main()
                                 }
                             }
                             printf("\n");
-                            break;
                         }
                     } else
                     {
@@ -1037,9 +1081,7 @@ int main()
                     on_error();
                 }
                 break;
-                //TODO 这里有很多陈骁恒的工作
             case 8:
-                // TODO 陈骁恒的工作 询问是否保存数据、保存文件名
                 printf("是否保存数据？ 1.是\t2.否\n");
                 fflush(stdout);
                 int new_number;
@@ -1054,11 +1096,13 @@ int main()
                     scanf("%99s", new_file);
                     data_save(d, new_file);
                     printf("数据已保存至名为%s的文件\n", new_file);
-                    fflush(stdout);return 0;
-                } else if(new_number == 2)
+                    fflush(stdout);
+                    return 0;
+                } else if (new_number == 2)
                 {
                     printf("数据未保存");
-                    fflush(stdout);return 0;
+                    fflush(stdout);
+                    return 0;
                 } else
                 {
                     on_error();
