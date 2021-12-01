@@ -792,6 +792,8 @@ int main()
                     {
                         for (BusChainNode *it = d.buschain_list.root->hou; it != NULL; it = it->hou)
                         {
+                            ++i;
+                            printf("第%d条线路：", i);
                             for (BusStop *jt = it->value.root->hou; jt != NULL; jt = jt->hou)
                             {
                                 printf("%s", jt->value);
@@ -830,46 +832,206 @@ int main()
                     buschainlist_insert(d.buschain_list.root, new_bus_stations);
                 } else if (n == 3)//3.删除班车路线
                 {
-                    printf("");//TODO 陈骁恒的WORK，输出目前有的线路
-                    fflush(stdout);
-                    printf("请问您要删除第几条线路\n");
+                    printf("请问您要删除第几条线路\n\t"
+                           "（不清楚的话可以输入-1来返回并通过查询功能查看线路列表哦）\n");
                     fflush(stdout);
                     scanf("%104s", str);
-                    n = strtol(str, NULL, 10);
+                    long d_number = strtol(str, NULL, 10);
+                    if (d_number == -1)
+                    {
+
+                    } else if (d_number > 0)
+                    {
+                        int i = 0;
+                        for (BusChainNode *it = d.buschain_list.root->hou; it != NULL; it = it->hou)
+                        {
+                            ++i;
+                            if (i == d_number)
+                            {
+                                buschainlist_remove(it);
+                                printf("该线路已删除\n");
+                                break;
+                            }
+                        }
+                        if (i < d_number)
+                        {
+                            printf("删除失败，该路线不存在\n");
+                        }
+                    } else
+                        on_error();
                 } else if (n == 4)//4.修改班车路线
                 {
-                    printf("");//TODO 陈骁恒的WORK，输出目前有的线路(带编号）
-                    fflush(stdout);
-                    printf("请问您要修改第几条线路\n");
+                    printf("请问您要修改第几条线路\n"
+                           "（不清楚的话可以输入-1来返回并通过查询功能查看线路列表哦）");
                     fflush(stdout);
                     scanf("%104s", str);
                     n = strtol(str, NULL, 10);
-
-
-                    while (1)
+                    if (n == -1)
                     {
-                        //TODO 这里让选择一站，然后执行操作
-                        printf("您选择的是%ld\n"
-                               "您想要：\n"
-                               "1.*删除*\n"
-                               "2.*插入*\n"
-                               "3.*修改*\n", n);
-                        fflush(stdout);
-                        scanf("%104s", str);
-                        n = strtol(str, NULL, 10);
-                        // TODO cxh
-                        printf("您是否选择继续修改当前线路？\n"
-                               "1.退出\n"
-                               "2.继续\n");
-                        fflush(stdout);
-                        int flag;
-                        scanf("%104s", str);
-                        flag = strtol(str, NULL, 10);
-                        if (flag == 1)
+
+                    } else if (n > 0)
+                    {
+                        int i = 0;
+                        BusChainNode *pt;
+
+                        for (BusChainNode *it = d.buschain_list.root->hou; it != NULL; it = it->hou)
                         {
-                            break;
+                            ++i;
+                            if (i == n)
+                            {
+                                pt = it;
+                                int j = 0;
+                                for (BusStop *jt = it->value.root->hou; jt != NULL; jt = jt->hou)
+                                {
+                                    ++j;
+                                    printf("%d:%s", j, jt->value);
+                                    if (jt->hou != NULL)
+                                    {
+                                        printf("->");
+                                    }
+                                }
+                                printf("\n");
+                                break;
+                            }
                         }
+                        if (i < n)
+                        {
+                            printf("没有这条线路\n");
+                        }//大括号打上
+                        else
+                        {
+                            int cont = 1;
+                            while (cont)
+                            {
+                                //让他先输入操作，再输入第几站
+                                printf("请选择您的操作：\n"
+                                       "1.*删除一个站点*\n"
+                                       "2.*插入一个站点*\n"
+                                       "3.*修改一个站点*\n"
+                                       "4.*结束修改*\n", n);
+                                fflush(stdout);
+                                scanf("%104s", str);
+                                n = strtol(str, NULL, 10);
+                                switch (n)
+                                {
+                                    case 1://1.*删除一个站点
+                                    {
+                                        int station_number;
+                                        printf("请输入您想要删除的站点号：%d\n", station_number);
+                                        --station_number;
+                                        if (station_number < 0)
+                                            on_error();
+                                        else
+                                        {
+                                            int j = 0;
+                                            for (BusStop *jt = pt->value.root; jt->hou != NULL; jt = jt->hou)
+                                            {
+                                                if (j == station_number)
+                                                {
+                                                    buschain_remove(jt);
+                                                }
+                                                ++j;
+                                            }
+                                            printf("\n");
+                                        }
+                                        break;
+                                    }
+                                    case 2://2.*插入一个站点*
+                                    {
+                                        printf("您(>__<) 想～在哪个站点后插入新的站点？\n插在开头请输入0哦\n\t");
+                                        fflush(stdout);
+                                        scanf("%104s", str);
+                                        long newstation_number = strtol(str, NULL, 10);
+                                        if (newstation_number < 0)
+                                            on_error();
+                                        else
+                                        {
+                                            int j = 0;
+                                            for (BusStop *jt = pt->value.root; jt->hou != NULL; jt = jt->hou)
+                                            {
+                                                if (j == newstation_number)
+                                                {
+                                                    char newstation_name[100];
+                                                    printf("请输入新站点的名称\n");
+                                                    scanf("%99s", newstation_name);
+                                                    buschain_insert(jt, newstation_name);
+                                                }
+                                                ++j;
+                                            }
+                                            if (j < newstation_number)
+                                            {
+                                                printf("原站点不存在，插入失败\n");
+                                                fflush(stdout);
+                                            } else
+                                            {
+                                                printf("操作成功\n");
+                                                fflush(stdout);
+                                            }
+                                        }
+                                        break;
+                                    }
+                                    case 3://3.*修改一个站点*
+                                    {
+                                        printf("您(>__<) 想～修改哪个站点？\n修改起点请输入0哦\n\t");
+                                        scanf("%104s", str);
+                                        long changestation_number = strtol(str, NULL, 10);
+                                        if (changestation_number < 0)
+                                            on_error();
+                                        else
+                                        {
+                                            char changestation_name[100];
+                                            printf("请输入新站点的名称\n");
+                                            int j = 0;
+                                            for (BusStop *jt = pt->value.root; jt->hou != NULL; jt = jt->hou)
+                                            {
+                                                if (j == changestation_number)
+                                                {
+                                                    scanf("%99s", changestation_name);
+                                                    strcpy(jt->value, changestation_name);
+//                                                    buschain_remove(jt);
+//                                                    buschain_insert(jt, changestation_name);
+                                                }
+                                                ++j;
+                                            }
+                                            if (j < changestation_number)
+                                            {
+                                                printf("原站点不存在，修改失败\n");
+                                                fflush(stdout);
+                                            } else
+                                            {
+                                                printf("操作成功\n");
+                                                fflush(stdout);
+                                            }
+                                        }
+                                        break;
+                                    }
+                                    case 4:
+                                    {
+                                        cont = 0;
+                                        break;
+                                    }
+                                    default:
+                                        on_error();
+                                }
+                                int j = 0;
+                                printf("更新后的路线是：\n");
+                                for (BusStop *jt = pt->value.root->hou; jt != NULL; jt = jt->hou)
+                                {
+                                    ++j;
+                                    printf("%d:%s", j, jt->value);
+                                    if (jt->hou != NULL)
+                                    {
+                                        printf("->");
+                                    }
+                                }
+                                printf("\n");
+                            }
+                        }
+                    } else
+                    {
+                        on_error();
                     }
+
                 } else
                 {
                     on_error();
