@@ -186,19 +186,26 @@ int main()
                         n = strtol(str, NULL, 10);
                         if (n == 1)
                         {
-                            long ID, xiabiao;
+                            long ID;
                             printf("请输入您查询的ID:\n");
                             fflush(stdout);
                             scanf("%104s", str);clrbuf();
                             ID = strtol(str, NULL, 10);
-                            xiabiao = people_find_by_id(d.people_list, ID);
-                            if (xiabiao < 0)
+                            int *ans_list = people_find_by_id(d.people_list, ID);
+                            if (ans_list[0] == 0)
                             {
                                 printf("该用户不存在\n");
                                 fflush(stdout);
+                            } else if(ans_list[0] == 1)
+                            {
+                                printf("用户ID:%ld\n姓名:%s\n", ID, people_list_at(d.people_list, ans_list[1])->name);
                             } else
                             {
-                                printf("用户ID:%ld\n姓名:%s\n", ID, people_list_at(d.people_list, xiabiao)->name);
+                                printf("致命错误：ID重复！\n正在为您重建列表\n请注意，您不应该手动编辑数据文件\n");
+                                pl_rebuild(&d.people_list);
+                                //pl,hl,sl,fl
+                                for (int i = 0; i < d.people_list.size; ++i)
+                                    printf("用户ID:%d\n姓名:%s\n", people_list_at(d.people_list, i)->id, people_list_at(d.people_list, i)->name);
                                 fflush(stdout);
                             }
                         } else if (n == 2)
@@ -957,7 +964,7 @@ int main()
                                        "1.*删除一个站点*\n"
                                        "2.*插入一个站点*\n"
                                        "3.*修改一个站点*\n"
-                                       "4.*结束修改*\n", n);
+                                       "4.*结束修改*\n");
                                 fflush(stdout);
                                 scanf("%104s", str);clrbuf();
                                 n = strtol(str, NULL, 10);

@@ -167,4 +167,14 @@ People *people_list_at(PeopleList pl, int v)
     }
 }
 
+void pl_rebuild(PeopleList *pl)
+{
+    int i = 0;
+    for (PeopleNode *it = pl->root->hou; it != 0; it = it->hou)
+    {
+        ++i;
+        it->v.id = i;
+    }
+}
+
 #endif //ELDER_COMM_PEOPLE_H

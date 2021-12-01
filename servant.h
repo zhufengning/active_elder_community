@@ -119,4 +119,11 @@ int *servant_find_by_name(ServantList pl, char *name)
     return ret;
 }
 
+void sl_rebuild(ServantList *sl)
+{
+    for (int i = 0; i < sl->size; ++i)
+    {
+        sl->head[i].id = i + 1;
+    }
+}
 #endif //ELDER_COMM_SERVANT_H

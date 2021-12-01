@@ -130,4 +130,12 @@ int house_find_by_owner(HouseList pl, int owner)
     return -1;
 }
 
+void hl_rebuild(HouseList *hl)
+{
+    for (int i = 0; i < hl->size; ++i)
+    {
+        hl->head[i].id = i + 1;
+    }
+}
+
 #endif //ELDER_COMM_HOUSE_H

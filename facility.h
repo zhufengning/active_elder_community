@@ -117,5 +117,11 @@ int *facility_find_by_name(FacilityList pl, char *name)
     }
     return ret;
 }
-
+void fl_rebuild(FacilityList *fl)
+{
+    for (int i = 0; i < fl->size; ++i)
+    {
+        fl->head[i].id = i + 1;
+    }
+}
 #endif //ELDER_COMM_FACILITY_H
