@@ -206,6 +206,7 @@ int main()
                                 //pl,hl,sl,fl
                                 for (int i = 0; i < d.people_list.size; ++i)
                                     printf("用户ID:%d\n姓名:%s\n", people_list_at(d.people_list, i)->id, people_list_at(d.people_list, i)->name);
+                                printf("列表重建完毕，请重新查询！\n");
                                 fflush(stdout);
                             }
                         } else if (n == 2)
