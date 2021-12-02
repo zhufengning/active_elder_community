@@ -232,6 +232,7 @@ void bus_manage(Data *d)
                 }
                 printf("\n");
             }
+            printf("以上是所有路线\n");
         } else
         {
             on_error();
