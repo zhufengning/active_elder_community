@@ -6,7 +6,6 @@
 #define ELDER_COMM_MANAGING_H
 
 char INPUT_DATA[105];
-
 void on_error()
 {
     //printf("请好好地对待本系统，不然会被玩坏的哟\n");
@@ -84,6 +83,45 @@ void show_menu()
             "\t8.保存数据及退出系统：\n");
     say_sentence();
     fflush(stdout);
+}
+
+void open_data(Data *d)
+{
+    while (1)
+    {
+        long read_data;
+        printf("您是否需要读取已保存的数据？\n"
+               "\t1.是\n"
+               "\t2.否\n");
+        fflush(stdout);
+        scanf("%104s", INPUT_DATA);clrbuf();
+        read_data = strtol(INPUT_DATA, NULL, 10);
+
+        if (read_data == 1)
+        {
+            char file_name[105];
+            printf("请输入文件名：\n");
+            fflush(stdout);
+            scanf("%104s", file_name);clrbuf();
+            *d = data_from_file(file_name);
+            if (d->error != 0)
+            {
+                printf("文件加载失败\n");
+                on_error();
+                fflush(stdout);
+                continue;
+            } else break;
+
+        } else if (read_data == 2)
+        {
+            printf("请继续！ \n");
+            fflush(stdout);
+            break;
+        } else
+        {
+            on_error();
+        }
+    }
 }
 
 int save_and_exit(Data *d)
