@@ -116,7 +116,7 @@ int* people_find_by_id(PeopleList pl, int id)
         if (pt->v.id == id)
         {
             ++ret[0];
-            ret = realloc(ret, ret[0] + 1);
+            ret = realloc(ret, (ret[0] + 1) * sizeof(int));
             ret[ret[0]] = r;
         }
         pt = pt->hou;
@@ -137,7 +137,7 @@ int *people_find_by_name(PeopleList pl, char *name)
         if (strcmp(pt->v.name, name) == 0)
         {
             ++ret[0];
-            ret = realloc(ret, ret[0] + 1);
+            ret = realloc(ret, (ret[0] + 1) * sizeof(int));
             ret[ret[0]] = r;
         }
         pt = pt->hou;

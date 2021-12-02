@@ -94,7 +94,7 @@ int* facility_find_by_id(FacilityList pl, int id)
         if (pl.head[i].id == id)
         {
             ++ret[0];
-            ret = realloc(ret, ret[0] + 1);
+            ret = realloc(ret, (ret[0] + 1) * sizeof(int));
             ret[ret[0]] = i;
         }
     }
@@ -111,7 +111,7 @@ int *facility_find_by_name(FacilityList pl, char *name)
         if (strcmp(pl.head[i].name, name) == 0)
         {
             ++ret[0];
-            ret = realloc(ret, ret[0] + 1);
+            ret = realloc(ret, (ret[0] + 1) * sizeof(int));
             ret[ret[0]] = i;
         }
     }

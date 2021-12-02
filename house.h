@@ -96,7 +96,7 @@ int* house_find_by_id(HouseList pl, int id)
         if (pl.head[i].id == id)
         {
             ++ret[0];
-            ret = realloc(ret, ret[0] + 1);
+            ret = realloc(ret, (ret[0] + 1) * sizeof(int));
             ret[ret[0]] = i;
         }
     }
@@ -113,7 +113,7 @@ int* house_find_by_name(HouseList pl, char *name)
         if (strcmp(pl.head[i].name, name) == 0)
         {
             ++ret[0];
-            ret = realloc(ret, ret[0] + 1);
+            ret = realloc(ret, (ret[0] + 1) * sizeof(int));
             ret[ret[0]] = i;
         }
     }
