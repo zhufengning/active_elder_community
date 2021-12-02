@@ -731,7 +731,6 @@ void servant_manage(Data *d)
                     break;
                 }
                 case 2://2.修改您的服务人员
-                    //TODO
                 {
                     int in_xiabiao = -1;
                     for (int i = 0; i < d->servant_list.size; i++)
@@ -783,10 +782,13 @@ void servant_manage(Data *d)
                                    servant_list_at(d->servant_list, i)->name);
                         printf("列表重建完毕，请重新查询！\n");
                     }
+                    printf("修改完成\n");
+                    fflush(stdout);
                     break;
                 }
                 case 3://删除您的服务人员
                 {
+                    int flag = 0;
                     int in_xiabiao = -1;
                     for (int i = 0; i < d->servant_list.size; i++)
                     {
@@ -794,6 +796,7 @@ void servant_manage(Data *d)
                         {
                             if (in_xiabiao == -1)
                             {
+                                flag = 1;
                                 servant_list_at(d->servant_list, i)->target_id = -1;
                                 in_xiabiao = i;
                                 printf("您的服务人员已被删除。服务人员ID：%d,姓名：%s",
@@ -802,11 +805,17 @@ void servant_manage(Data *d)
                                 fflush(stdout);
                             } else
                             {
+                                flag = 2;
                                 servant_list_at(d->servant_list, i)->target_id = -1;
                                 printf("您好，本公司仅提供一对一服务，已自动为您去除多余的服务人员\n");
                                 fflush(stdout);
                             }
                         }
+                    }
+                    if (!flag)
+                    {
+                        printf("您似乎没有服务人员\n");
+                        fflush(stdout);
                     }
                     break;
                 }
