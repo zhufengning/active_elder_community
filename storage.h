@@ -59,16 +59,16 @@ Data data_from_file(char *path)
         cJSON *pp = cJSON_GetObjectItem(json, "people_list");
         PeopleList *pl = &ret.people_list;
         if (pp != NULL)
-        for (int i = 0; i < cJSON_GetArraySize(pp); ++i)
-        {
-            People new_people;
-            cJSON *t = cJSON_GetArrayItem(pp, i);
-            cJSON *t2 = cJSON_GetObjectItem(t, "id");
-            cJSON *t3 = cJSON_GetObjectItem(t, "name");
-            if (t2 != NULL) new_people.id = t2->valueint;
-            if (t3 != NULL) strcpy(new_people.name, t3->valuestring);
-            people_list_load(pl, new_people);
-        }
+            for (int i = 0; i < cJSON_GetArraySize(pp); ++i)
+            {
+                People new_people;
+                cJSON *t = cJSON_GetArrayItem(pp, i);
+                cJSON *t2 = cJSON_GetObjectItem(t, "id");
+                cJSON *t3 = cJSON_GetObjectItem(t, "name");
+                if (t2 != NULL) new_people.id = t2->valueint;
+                if (t3 != NULL) strcpy(new_people.name, t3->valuestring);
+                people_list_load(pl, new_people);
+            }
     }
 
     {
@@ -76,22 +76,22 @@ Data data_from_file(char *path)
         HouseList *pl = &ret.house_list;
 
         if (pp != NULL)
-        for (int i = 0; i < cJSON_GetArraySize(pp); ++i)
-        {
-            House new_house;
-            cJSON *t = cJSON_GetArrayItem(pp, i);
-            cJSON *t2 = cJSON_GetObjectItem(t, "id");
-            cJSON *t3 = cJSON_GetObjectItem(t, "name");
-            cJSON *t5 = cJSON_GetObjectItem(t, "owner");
-            cJSON *t6 = cJSON_GetObjectItem(t, "type");
-            cJSON *t7 = cJSON_GetObjectItem(t, "tenant");
-            if (t2 != NULL) new_house.id = t2->valueint;
-            if (t5 != NULL) new_house.owner = t5->valueint;
-            if (t3 != NULL) strcpy(new_house.name, t3->valuestring);
-            if (t6 != NULL) new_house.type = t6->valueint;
-            if (t7 != NULL) new_house.tenant = t7->valueint;
-            house_list_load(pl, new_house);
-        }
+            for (int i = 0; i < cJSON_GetArraySize(pp); ++i)
+            {
+                House new_house;
+                cJSON *t = cJSON_GetArrayItem(pp, i);
+                cJSON *t2 = cJSON_GetObjectItem(t, "id");
+                cJSON *t3 = cJSON_GetObjectItem(t, "name");
+                cJSON *t5 = cJSON_GetObjectItem(t, "owner");
+                cJSON *t6 = cJSON_GetObjectItem(t, "type");
+                cJSON *t7 = cJSON_GetObjectItem(t, "tenant");
+                if (t2 != NULL) new_house.id = t2->valueint;
+                if (t5 != NULL) new_house.owner = t5->valueint;
+                if (t3 != NULL) strcpy(new_house.name, t3->valuestring);
+                if (t6 != NULL) new_house.type = t6->valueint;
+                if (t7 != NULL) new_house.tenant = t7->valueint;
+                house_list_load(pl, new_house);
+            }
     }
 
     {
@@ -99,50 +99,50 @@ Data data_from_file(char *path)
         ServantList *pl = &ret.servant_list;
 
         if (pl != NULL)
-        for (int i = 0; i < cJSON_GetArraySize(pp); ++i)
-        {
-            Servant new_servant;
-            cJSON *t = cJSON_GetArrayItem(pp, i);
-            cJSON *t2 = cJSON_GetObjectItem(t, "id");
-            cJSON *t3 = cJSON_GetObjectItem(t, "name");
-            cJSON *t4 = cJSON_GetObjectItem(t, "target_id");
-            if (t2 != NULL) new_servant.id = t2->valueint;
-            if (t4 != NULL) new_servant.target_id = t4->valueint;
-            if (t3 != NULL) strcpy(new_servant.name, t3->valuestring);
-            servant_list_load(pl, new_servant);
-        }
+            for (int i = 0; i < cJSON_GetArraySize(pp); ++i)
+            {
+                Servant new_servant;
+                cJSON *t = cJSON_GetArrayItem(pp, i);
+                cJSON *t2 = cJSON_GetObjectItem(t, "id");
+                cJSON *t3 = cJSON_GetObjectItem(t, "name");
+                cJSON *t4 = cJSON_GetObjectItem(t, "target_id");
+                if (t2 != NULL) new_servant.id = t2->valueint;
+                if (t4 != NULL) new_servant.target_id = t4->valueint;
+                if (t3 != NULL) strcpy(new_servant.name, t3->valuestring);
+                servant_list_load(pl, new_servant);
+            }
     }
     {
         cJSON *pp = cJSON_GetObjectItem(json, "facility_list");
         FacilityList *pl = &ret.facility_list;
         if (pl != NULL)
-        for (int i = 0; i < cJSON_GetArraySize(pp); ++i)
-        {
-            Facility new_facility;
-            cJSON *t = cJSON_GetArrayItem(pp, i);
-            cJSON *t2 = cJSON_GetObjectItem(t, "id");
-            cJSON *t3 = cJSON_GetObjectItem(t, "name");
-            if (t2 != NULL) new_facility.id = t2->valueint;
-            if (t3 != NULL) strcpy(new_facility.name, t3->valuestring);
-            facility_list_load(pl, new_facility);
-        }
+            for (int i = 0; i < cJSON_GetArraySize(pp); ++i)
+            {
+                Facility new_facility;
+                cJSON *t = cJSON_GetArrayItem(pp, i);
+                cJSON *t2 = cJSON_GetObjectItem(t, "id");
+                cJSON *t3 = cJSON_GetObjectItem(t, "name");
+                if (t2 != NULL) new_facility.id = t2->valueint;
+                if (t3 != NULL) strcpy(new_facility.name, t3->valuestring);
+                facility_list_load(pl, new_facility);
+            }
     }
     {
         cJSON *pp = cJSON_GetObjectItem(json, "buschain_list");
         BusChainList *bcl = &ret.buschain_list;
 
         if (pp != NULL)
-        for (int i = cJSON_GetArraySize(pp) - 1; i >= 0; --i)
-        {
-            cJSON *t = cJSON_GetArrayItem(pp, i);
-            BusChain bc = buschain_create();
-            for (int j = cJSON_GetArraySize(t) - 1; j >= 0; --j)
+            for (int i = cJSON_GetArraySize(pp) - 1; i >= 0; --i)
             {
-                cJSON *t2 = cJSON_GetArrayItem(t, j);
-                buschain_insert(bc.root, t2->valuestring);
+                cJSON *t = cJSON_GetArrayItem(pp, i);
+                BusChain bc = buschain_create();
+                for (int j = cJSON_GetArraySize(t) - 1; j >= 0; --j)
+                {
+                    cJSON *t2 = cJSON_GetArrayItem(t, j);
+                    buschain_insert(bc.root, t2->valuestring);
+                }
+                buschainlist_insert(bcl->root, bc);
             }
-            buschainlist_insert(bcl->root, bc);
-        }
     }
     return ret;
 }

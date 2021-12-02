@@ -523,14 +523,15 @@ void servant_manage(Data *d)
                     fflush(stdout);
                 } else if (ans_list[0] == 1)
                 {
-                    printf("服务人员ID:%ld\n姓名:%s\n", ID, servant_list_at(d->servant_list, ans_list[1])->name);
+                    printf("服务人员ID:%ld\n姓名:%s\n服务对象：%d\n", ID, servant_list_at(d->servant_list, ans_list[1])->name,
+                           servant_list_at(d->servant_list, ans_list[1])->target_id);
                 } else
                 {
                     printf("致命错误：ID重复！\n正在为您重建列表\n请注意，您不应该手动编辑数据文件\n");
                     sl_rebuild(&d->servant_list);
                     //pl,hl,sl,fl
                     for (int i = 0; i < d->servant_list.size; ++i)
-                        printf("服务人员ID:%d\n姓名:%s\n", servant_list_at(d->servant_list, i)->id,
+                        printf("服务人员ID:%d\n\t姓名:%s\n", servant_list_at(d->servant_list, i)->id,
                                servant_list_at(d->servant_list, i)->name);
                     printf("列表重建完毕，请重新查询！\n");
                     fflush(stdout);
@@ -550,7 +551,8 @@ void servant_manage(Data *d)
                 } else
                 {
                     for (int i = 1; i <= x_list[0]; ++i)
-                        printf("服务人员ID:%d\n姓名:%s\n", servant_list_at(d->servant_list, x_list[i])->id, name);
+                        printf("服务人员ID:%d\n\t姓名:%s\n\t服务对象：%d\n", servant_list_at(d->servant_list, x_list[i])->id, name,
+                               servant_list_at(d->servant_list, x_list[i])->target_id);
                     fflush(stdout);
                 }
             } else if (n == 3)//3.输出所有服务人员
@@ -559,8 +561,9 @@ void servant_manage(Data *d)
                 {
                     for (int i = 0; i < d->servant_list.size; i++)
                     {
-                        printf("第%d个服务人员\n\tID:%d\n\t姓名:%s\n", i + 1, servant_list_at(d->servant_list, i)->id,
-                               servant_list_at(d->servant_list, i)->name);
+                        printf("第%d个服务人员\n\tID:%d\n\t姓名:%s\n\t服务对象：%d\n", i + 1, servant_list_at(d->servant_list, i)->id,
+                               servant_list_at(d->servant_list, i)->name,
+                               servant_list_at(d->servant_list, i)->target_id);
                         fflush(stdout);
                         if (servant_find_by_id(d->servant_list, servant_list_at(d->servant_list, i)->id)[0] > 1)
                         {
@@ -978,11 +981,10 @@ void facility_manage(Data *d)
                     printf("设施ID:%d\t设施名称:%s\n", t->id, t->name);
                     fflush(stdout);
                 }
-            }else if (c_number == 4)
+            } else if (c_number == 4)
             {
                 //back
-            }
-            else
+            } else
             {
                 on_error();
             }
