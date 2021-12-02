@@ -80,7 +80,13 @@ int main()
             case 8:
                 if (save_and_exit(&the_variable_that_saves_all_our_data))
                     break;
-                else return 0;
+                else
+                {
+                    printf("按回车退出\n");
+                    fflush(stdout);
+                    clrbuf();
+                    return 0;
+                }
 
             default:
                 on_error();

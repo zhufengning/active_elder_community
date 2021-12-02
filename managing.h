@@ -152,7 +152,7 @@ int save_and_exit(Data *d)
         return 0;
     } else if (new_number == 2)
     {
-        printf("数据未保存");
+        printf("数据未保存\n");
         fflush(stdout);
         return 0;
     } else
