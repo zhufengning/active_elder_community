@@ -232,7 +232,7 @@ void bus_manage(Data *d)
         scanf("%104s", INPUT_DATA);clrbuf();
         n = strtol(INPUT_DATA, NULL, 10);
         printf("请输入站点名字（以空格分隔）：\n");
-        fflush(stdout); // TODO 陈骁恒，这里根据输入的数量循环读入站点名字
+        fflush(stdout);
         BusChain new_bus_stations = buschain_create();
         for (int i = 1; i <= n; i++)
         {
@@ -822,7 +822,7 @@ void live_manage(Data *d)
                         is_his = 0;
                         break;
                     }
-                }// TODO 只有在拥有专属服务人员的情况下才能入住房屋
+                }
                 if (!is_his)
                     return;
                 int servant_xiabiao = -1;
