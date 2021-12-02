@@ -2,7 +2,7 @@
 // Created by hbl on 2021/11/12
 //
 
-/* Peopleæ˜¯ç”¨é“¾è¡¨å†™çš„ï¼Œå…¶ä»–ç»“æ„æ˜¯å†™çš„å˜é•¿æ•°ç»„ï¼Œåˆ«é—®ï¼Œé—®å°±æ˜¯æƒ³å°è¯•å¤šç§å†™æ³•ï¼ï¼ï¼ */
+/* PeopleÊÇÓÃÁ´±íĞ´µÄ£¬ÆäËû½á¹¹ÊÇĞ´µÄ±ä³¤Êı×é£¬±ğÎÊ£¬ÎÊ¾ÍÊÇÏë³¢ÊÔ¶àÖÖĞ´·¨£¡£¡£¡ */
 
 #ifndef ELDER_COMM_SERVANT_H
 #define ELDER_COMM_SERVANT_H
@@ -19,7 +19,7 @@ typedef struct ServantList
     int size, maxid;
 } ServantList;
 
-/// æ–°å»ºä¸€ä¸ªç¤¾åŒºæœåŠ¡äººå‘˜åˆ—è¡¨
+/// ĞÂ½¨Ò»¸öÉçÇø·şÎñÈËÔ±ÁĞ±í
 ServantList servant_list_new(void)
 {
     ServantList t;
@@ -29,7 +29,7 @@ ServantList servant_list_new(void)
     return t;
 }
 
-/// å¾€ä¸€ä¸ªæœåŠ¡äººå‘˜åˆ—è¡¨ä¸­æ’å…¥ä¸€ä¸ªæ–°çš„æœåŠ¡äººå‘˜å¹¶åˆ†é…id
+/// ÍùÒ»¸ö·şÎñÈËÔ±ÁĞ±íÖĞ²åÈëÒ»¸öĞÂµÄ·şÎñÈËÔ±²¢·ÖÅäid
 int servant_list_push(ServantList *p, char *name)
 {
     ++p->maxid;
@@ -47,7 +47,7 @@ int servant_list_push(ServantList *p, char *name)
     return p->maxid;
 }
 
-/// åŠ è½½æ•°æ®æ—¶ä½¿ç”¨
+/// ¼ÓÔØÊı¾İÊ±Ê¹ÓÃ
 void servant_list_load(ServantList *p, Servant v)
 {
     if (v.id >= p->maxid)
@@ -66,7 +66,7 @@ void servant_list_load(ServantList *p, Servant v)
     p->head[p->size - 1] = v;
 }
 
-///è·å–åˆ—è¡¨ä¸­ç¬¬inä¸ªæœåŠ¡äººå‘˜ï¼ˆä»é›¶å¼€å§‹æ•°ï¼‰
+///»ñÈ¡ÁĞ±íÖĞµÚin¸ö·şÎñÈËÔ±£¨´ÓÁã¿ªÊ¼Êı£©
 Servant *servant_list_at(ServantList p, int in)
 {
     static Servant r = {-1, "fuck!", -1};
@@ -74,7 +74,7 @@ Servant *servant_list_at(ServantList p, int in)
     else return &p.head[in];
 }
 
-/// åˆ é™¤ä¸€ä¸ªæœåŠ¡äººå‘˜
+/// É¾³ıÒ»¸ö·şÎñÈËÔ±
 void servant_list_delete(ServantList *pl, int v)
 {
     if (v >= pl->size) return;
@@ -85,7 +85,7 @@ void servant_list_delete(ServantList *pl, int v)
     pl->size -= 1;
 }
 
-/// æŒ‰idæŸ¥æ‰¾æœåŠ¡äººå‘˜
+/// °´id²éÕÒ·şÎñÈËÔ±
 int *servant_find_by_id(ServantList pl, int id)
 {
     int *ret = calloc(1, sizeof(int));
@@ -102,7 +102,7 @@ int *servant_find_by_id(ServantList pl, int id)
     return ret;
 }
 
-/// æŒ‰åå­—æŸ¥æ‰¾æœåŠ¡äººå‘˜
+/// °´Ãû×Ö²éÕÒ·şÎñÈËÔ±
 int *servant_find_by_name(ServantList pl, char *name)
 {
     int *ret = calloc(1, sizeof(int));

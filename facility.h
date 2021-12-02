@@ -2,7 +2,7 @@
 // Created by cxh on 2021/11/12.
 //
 
-/* Peopleæ˜¯ç”¨é“¾è¡¨å†™çš„ï¼Œå…¶ä»–ç»“æ„æ˜¯å†™çš„å˜é•¿æ•°ç»„ï¼Œåˆ«é—®ï¼Œé—®å°±æ˜¯æƒ³å°è¯•å¤šç§å†™æ³•ï¼ï¼ï¼ */
+/* PeopleÊÇÓÃÁ´±íĞ´µÄ£¬ÆäËû½á¹¹ÊÇĞ´µÄ±ä³¤Êı×é£¬±ğÎÊ£¬ÎÊ¾ÍÊÇÏë³¢ÊÔ¶àÖÖĞ´·¨£¡£¡£¡ */
 
 #ifndef ELDER_COMM_FACILITY_H
 #define ELDER_COMM_FACILITY_H
@@ -18,7 +18,7 @@ typedef struct FacilityList
     int size, maxid;
 } FacilityList;
 
-///æ–°å»ºä¸€ä¸ªç¤¾åŒºè®¾æ–½åˆ—è¡¨
+///ĞÂ½¨Ò»¸öÉçÇøÉèÊ©ÁĞ±í
 FacilityList facility_list_new(void)
 {
     FacilityList t;
@@ -28,7 +28,7 @@ FacilityList facility_list_new(void)
     return t;
 }
 
-///å¾€ä¸€ä¸ªè®¾æ–½åˆ—è¡¨ä¸­æ’å…¥ä¸€ä¸ªæ–°è®¾æ–½å¹¶åˆ†é…id
+///ÍùÒ»¸öÉèÊ©ÁĞ±íÖĞ²åÈëÒ»¸öĞÂÉèÊ©²¢·ÖÅäid
 int facility_list_push(FacilityList *p, char *name)
 {
     ++p->maxid;
@@ -46,7 +46,7 @@ int facility_list_push(FacilityList *p, char *name)
     return p->maxid;
 }
 
-/// åŠ è½½æ•°æ®æ—¶ä½¿ç”¨
+/// ¼ÓÔØÊı¾İÊ±Ê¹ÓÃ
 void facility_list_load(FacilityList *p, Facility v)
 {
     if (v.id >= p->maxid)
@@ -65,7 +65,7 @@ void facility_list_load(FacilityList *p, Facility v)
     p->head[p->size - 1] = v;
 }
 
-/// è·å–åˆ—è¡¨ä¸­ç¬¬inä¸ªè®¾æ–½ï¼ˆä»é›¶å¼€å§‹æ•°ï¼‰
+/// »ñÈ¡ÁĞ±íÖĞµÚin¸öÉèÊ©£¨´ÓÁã¿ªÊ¼Êı£©
 Facility *facility_list_at(FacilityList p, int in)
 {
     static Facility r = {-1, "fuck!"};
@@ -73,7 +73,7 @@ Facility *facility_list_at(FacilityList p, int in)
     else return &p.head[in];
 }
 
-/// åˆ é™¤ä¸€ä¸ªè®¾æ–½
+/// É¾³ıÒ»¸öÉèÊ©
 void facility_list_delete(FacilityList *pl, int v)
 {
     if (v >= pl->size) return;
@@ -84,7 +84,7 @@ void facility_list_delete(FacilityList *pl, int v)
     pl->size -= 1;
 }
 
-/// æŒ‰idæŸ¥æ‰¾è®¾æ–½
+/// °´id²éÕÒÉèÊ©
 int* facility_find_by_id(FacilityList pl, int id)
 {
     int *ret = calloc(1, sizeof(int));
@@ -101,7 +101,7 @@ int* facility_find_by_id(FacilityList pl, int id)
     return ret;
 }
 
-/// æŒ‰åå­—æŸ¥æ‰¾è®¾æ–½
+/// °´Ãû×Ö²éÕÒÉèÊ©
 int *facility_find_by_name(FacilityList pl, char *name)
 {
     int *ret = calloc(1, sizeof(int));

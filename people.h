@@ -2,7 +2,7 @@
 // Created by zfn on 2021/11/3.
 //
 
-/* Peopleæ˜¯ç”¨é“¾è¡¨å†™çš„ï¼Œå…¶ä»–ç»“æ„æ˜¯å†™çš„å˜é•¿æ•°ç»„ï¼Œåˆ«é—®ï¼Œé—®å°±æ˜¯æƒ³å°è¯•å¤šç§å†™æ³•ï¼ï¼ï¼ */
+/* PeopleÊÇÓÃÁ´±íĞ´µÄ£¬ÆäËû½á¹¹ÊÇĞ´µÄ±ä³¤Êı×é£¬±ğÎÊ£¬ÎÊ¾ÍÊÇÏë³¢ÊÔ¶àÖÖĞ´·¨£¡£¡£¡ */
 
 #ifndef ELDER_COMM_PEOPLE_H
 #define ELDER_COMM_PEOPLE_H
@@ -24,7 +24,7 @@ typedef struct PeopleList
     int size, maxid;
 } PeopleList;
 
-/// æ–°å»ºä¸€ä¸ªç¤¾åŒºä¼šå‘˜åˆ—è¡¨
+/// ĞÂ½¨Ò»¸öÉçÇø»áÔ±ÁĞ±í
 PeopleList people_list_new(void)
 {
     PeopleList t;
@@ -34,7 +34,7 @@ PeopleList people_list_new(void)
     return t;
 }
 
-/// å¾€ä¸€ä¸ªä¼šå‘˜åˆ—è¡¨ä¸­æ’å…¥ä¸€ä¸ªæ–°ä¼šå‘˜å¹¶åˆ†é…id
+/// ÍùÒ»¸ö»áÔ±ÁĞ±íÖĞ²åÈëÒ»¸öĞÂ»áÔ±²¢·ÖÅäid
 int people_list_push(PeopleList *p, char *name)
 {
     p->size += 1;
@@ -54,7 +54,7 @@ int people_list_push(PeopleList *p, char *name)
     return new_people->v.id;
 }
 
-/// åŠ è½½æ•°æ®æ—¶ä½¿ç”¨
+/// ¼ÓÔØÊı¾İÊ±Ê¹ÓÃ
 void people_list_load(PeopleList *p, int id, char *name)
 {
     p->size += 1;
@@ -76,7 +76,7 @@ void people_list_load(PeopleList *p, int id, char *name)
     }
 }
 
-/// åˆ é™¤ä¸€ä¸ªä¼šå‘˜
+/// É¾³ıÒ»¸ö»áÔ±
 void people_list_delete(PeopleList *pl, int v)
 {
     int p = 0;
@@ -104,7 +104,7 @@ void people_list_delete(PeopleList *pl, int v)
     }
 }
 
-/// æŒ‰idæŸ¥æ‰¾ä¼šå‘˜
+/// °´id²éÕÒ»áÔ±
 int* people_find_by_id(PeopleList pl, int id)
 {
     int *ret = calloc(1, sizeof(int));
@@ -125,7 +125,7 @@ int* people_find_by_id(PeopleList pl, int id)
     return ret;
 }
 
-/// æŒ‰åå­—æŸ¥æ‰¾ä¼šå‘˜
+/// °´Ãû×Ö²éÕÒ»áÔ±
 int *people_find_by_name(PeopleList pl, char *name)
 {
     int *ret = calloc(1, sizeof(int));
@@ -146,7 +146,7 @@ int *people_find_by_name(PeopleList pl, char *name)
     return ret;
 }
 
-///è·å–åˆ—è¡¨ä¸­ç¬¬inä¸ªä¼šå‘˜ï¼ˆä»é›¶å¼€å§‹æ•°ï¼‰
+///»ñÈ¡ÁĞ±íÖĞµÚin¸ö»áÔ±£¨´ÓÁã¿ªÊ¼Êı£©
 People *people_list_at(PeopleList pl, int v)
 {
     static People r = {-1, "fuck!"};

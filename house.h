@@ -2,7 +2,7 @@
 // Created by whx on 2021/11/12.
 //
 
-/* Peopleæ˜¯ç”¨é“¾è¡¨å†™çš„ï¼Œå…¶ä»–ç»“æ„æ˜¯å†™çš„å˜é•¿æ•°ç»„ï¼Œåˆ«é—®ï¼Œé—®å°±æ˜¯æƒ³å°è¯•å¤šç§å†™æ³•ï¼ï¼ï¼ */
+/* PeopleÊÇÓÃÁ´±íĞ´µÄ£¬ÆäËû½á¹¹ÊÇĞ´µÄ±ä³¤Êı×é£¬±ğÎÊ£¬ÎÊ¾ÍÊÇÏë³¢ÊÔ¶àÖÖĞ´·¨£¡£¡£¡ */
 
 #ifndef ELDER_COMM_HOUSE_H
 #define ELDER_COMM_HOUSE_H
@@ -10,7 +10,7 @@ typedef struct House
 {
     int id;
     char name[100];
-    int owner, type, tenant; //type: 0.æ²¡æœ‰å…¥ä½;1.ä¸šä¸»å…¥ä½;2.ç§Ÿå®¢å…¥ä½
+    int owner, type, tenant; //type: 0.Ã»ÓĞÈë×¡;1.ÒµÖ÷Èë×¡;2.×â¿ÍÈë×¡
 } House;
 
 typedef struct HouseList
@@ -19,7 +19,7 @@ typedef struct HouseList
     int size, maxid;
 } HouseList;
 
-///æ–°å»ºä¸€ä¸ªæˆ¿å±‹åˆ—è¡¨
+///ĞÂ½¨Ò»¸ö·¿ÎİÁĞ±í
 HouseList house_list_new(void)
 {
     HouseList t;
@@ -29,7 +29,7 @@ HouseList house_list_new(void)
     return t;
 }
 
-///å¾€ä¸€ä¸ªæˆ¿å±‹åˆ—è¡¨ä¸­æ’å…¥ä¸€ä¸ªæ–°æˆ¿å±‹å¹¶åˆ†é…id
+///ÍùÒ»¸ö·¿ÎİÁĞ±íÖĞ²åÈëÒ»¸öĞÂ·¿Îİ²¢·ÖÅäid
 int house_list_push(HouseList *p, char *name, int owner)
 {
     ++p->maxid;
@@ -48,7 +48,7 @@ int house_list_push(HouseList *p, char *name, int owner)
     return p->maxid;
 }
 
-/// åŠ è½½æ•°æ®æ—¶ä½¿ç”¨
+/// ¼ÓÔØÊı¾İÊ±Ê¹ÓÃ
 void house_list_load(HouseList *p, House v)
 {
     if (v.id >= p->maxid)
@@ -67,7 +67,7 @@ void house_list_load(HouseList *p, House v)
     p->head[p->size - 1] = v;
 }
 
-///è·å–åˆ—è¡¨ä¸­ç¬¬inä¸ªæˆ¿å±‹ï¼ˆä»é›¶å¼€å§‹æ•°ï¼‰
+///»ñÈ¡ÁĞ±íÖĞµÚin¸ö·¿Îİ£¨´ÓÁã¿ªÊ¼Êı£©
 House *house_list_at(HouseList p, int in)
 {
     static House r = {-1, "fuck!", -1, -1, -1};
@@ -75,7 +75,7 @@ House *house_list_at(HouseList p, int in)
     else return &p.head[in];
 }
 
-/// åˆ é™¤ä¸€ä¸ªæˆ¿å±‹
+/// É¾³ıÒ»¸ö·¿Îİ
 void house_list_delete(HouseList *pl, int v)
 {
     if (v >= pl->size) return;
@@ -86,7 +86,7 @@ void house_list_delete(HouseList *pl, int v)
     pl->size -= 1;
 }
 
-/// æŒ‰idæŸ¥æ‰¾æˆ¿å±‹
+/// °´id²éÕÒ·¿Îİ
 int* house_find_by_id(HouseList pl, int id)
 {
     int *ret = calloc(1, sizeof(int));
@@ -103,7 +103,7 @@ int* house_find_by_id(HouseList pl, int id)
     return ret;
 }
 
-/// æŒ‰åå­—æŸ¥æ‰¾æˆ¿å±‹
+/// °´Ãû×Ö²éÕÒ·¿Îİ
 int* house_find_by_name(HouseList pl, char *name)
 {
     int *ret = calloc(1, sizeof(int));
@@ -120,7 +120,7 @@ int* house_find_by_name(HouseList pl, char *name)
     return ret;
 }
 
-/// æŒ‰åå­—æŸ¥æ‰¾æˆ¿å±‹
+/// °´Ãû×Ö²éÕÒ·¿Îİ
 int house_find_by_owner(HouseList pl, int owner)
 {
     for (int i = 0; i < pl.size; ++i)
