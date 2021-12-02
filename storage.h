@@ -57,17 +57,16 @@ Data data_from_file(char *path)
     }
     {
         cJSON *pp = cJSON_GetObjectItem(json, "people_list");
-        cJSON_GetArrayItem(pp, 0);
         PeopleList *pl = &ret.people_list;
-
+        if (pp != NULL)
         for (int i = 0; i < cJSON_GetArraySize(pp); ++i)
         {
             People new_people;
             cJSON *t = cJSON_GetArrayItem(pp, i);
             cJSON *t2 = cJSON_GetObjectItem(t, "id");
             cJSON *t3 = cJSON_GetObjectItem(t, "name");
-            new_people.id = t2->valueint;
-            strcpy(new_people.name, t3->valuestring);
+            if (t2 != NULL) new_people.id = t2->valueint;
+            if (t3 != NULL) strcpy(new_people.name, t3->valuestring);
             people_list_load(pl, new_people);
         }
     }
@@ -76,6 +75,7 @@ Data data_from_file(char *path)
         cJSON *pp = cJSON_GetObjectItem(json, "house_list");
         HouseList *pl = &ret.house_list;
 
+        if (pp != NULL)
         for (int i = 0; i < cJSON_GetArraySize(pp); ++i)
         {
             House new_house;
@@ -83,9 +83,13 @@ Data data_from_file(char *path)
             cJSON *t2 = cJSON_GetObjectItem(t, "id");
             cJSON *t3 = cJSON_GetObjectItem(t, "name");
             cJSON *t5 = cJSON_GetObjectItem(t, "owner");
-            new_house.id = t2->valueint;
-            new_house.owner = t5->valueint;
-            strcpy(new_house.name, t3->valuestring);
+            cJSON *t6 = cJSON_GetObjectItem(t, "type");
+            cJSON *t7 = cJSON_GetObjectItem(t, "tenant");
+            if (t2 != NULL) new_house.id = t2->valueint;
+            if (t5 != NULL) new_house.owner = t5->valueint;
+            if (t3 != NULL) strcpy(new_house.name, t3->valuestring);
+            if (t6 != NULL) new_house.type = t6->valueint;
+            if (t7 != NULL) new_house.tenant = t7->valueint;
             house_list_load(pl, new_house);
         }
     }
@@ -94,6 +98,7 @@ Data data_from_file(char *path)
         cJSON *pp = cJSON_GetObjectItem(json, "servant_list");
         ServantList *pl = &ret.servant_list;
 
+        if (pl != NULL)
         for (int i = 0; i < cJSON_GetArraySize(pp); ++i)
         {
             Servant new_servant;
@@ -101,24 +106,24 @@ Data data_from_file(char *path)
             cJSON *t2 = cJSON_GetObjectItem(t, "id");
             cJSON *t3 = cJSON_GetObjectItem(t, "name");
             cJSON *t4 = cJSON_GetObjectItem(t, "target_id");
-            new_servant.id = t2->valueint;
-            new_servant.target_id = t4->valueint;
-            strcpy(new_servant.name, t3->valuestring);
+            if (t2 != NULL) new_servant.id = t2->valueint;
+            if (t4 != NULL) new_servant.target_id = t4->valueint;
+            if (t3 != NULL) strcpy(new_servant.name, t3->valuestring);
             servant_list_load(pl, new_servant);
         }
     }
     {
         cJSON *pp = cJSON_GetObjectItem(json, "facility_list");
         FacilityList *pl = &ret.facility_list;
-
+        if (pl != NULL)
         for (int i = 0; i < cJSON_GetArraySize(pp); ++i)
         {
             Facility new_facility;
             cJSON *t = cJSON_GetArrayItem(pp, i);
             cJSON *t2 = cJSON_GetObjectItem(t, "id");
             cJSON *t3 = cJSON_GetObjectItem(t, "name");
-            new_facility.id = t2->valueint;
-            strcpy(new_facility.name, t3->valuestring);
+            if (t2 != NULL) new_facility.id = t2->valueint;
+            if (t3 != NULL) strcpy(new_facility.name, t3->valuestring);
             facility_list_load(pl, new_facility);
         }
     }
@@ -126,6 +131,7 @@ Data data_from_file(char *path)
         cJSON *pp = cJSON_GetObjectItem(json, "buschain_list");
         BusChainList *bcl = &ret.buschain_list;
 
+        if (pp != NULL)
         for (int i = cJSON_GetArraySize(pp) - 1; i >= 0; --i)
         {
             cJSON *t = cJSON_GetArrayItem(pp, i);
@@ -163,6 +169,8 @@ void data_save(Data d, char *path)
         cJSON_AddItemToObject(ht, "id", cJSON_CreateNumber(house_list_at(d.house_list, i)->id));
         cJSON_AddItemToObject(ht, "owner", cJSON_CreateNumber(house_list_at(d.house_list, i)->owner));
         cJSON_AddItemToObject(ht, "name", cJSON_CreateString(house_list_at(d.house_list, i)->name));
+        cJSON_AddItemToObject(ht, "type", cJSON_CreateNumber(house_list_at(d.house_list, i)->type));
+        cJSON_AddItemToObject(ht, "tenant", cJSON_CreateNumber(house_list_at(d.house_list, i)->tenant));
         cJSON_AddItemToArray(hl, ht);
     }
     cJSON_AddItemToObject(j, "house_list", hl);
