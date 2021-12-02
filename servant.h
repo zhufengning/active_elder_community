@@ -35,7 +35,7 @@ int servant_list_push(ServantList *p, char *name)
     ++p->maxid;
     if (p->size == 0)
     {
-        p->head = calloc(1, sizeof(People));
+        p->head = calloc(1, sizeof(Servant));
         ++p->size;
     } else
     {
@@ -44,6 +44,7 @@ int servant_list_push(ServantList *p, char *name)
     }
     p->head[p->size - 1].id = p->size;
     strcpy(p->head[p->size - 1].name, name);
+    p->head[p->size - 1].target_id = -1;
     return p->maxid;
 }
 

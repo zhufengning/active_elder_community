@@ -1,5 +1,5 @@
 //
-// Created by zfn on 2021/11/3.
+// Created by cxh on 2021/11/12.
 //
 
 /* People是用链表写的，其他结构是写的变长数组，别问，问就是想尝试多种写法！！！ */
@@ -12,169 +12,116 @@ typedef struct People
     char name[100];
 } People;
 
-typedef struct PeopleNode
-{
-    struct PeopleNode *hou;
-    People v;
-} PeopleNode;
-
 typedef struct PeopleList
 {
-    PeopleNode *root;
+    People *head;
     int size, maxid;
 } PeopleList;
 
-/// 新建一个社区会员列表
+///新建一个社区设施列表
 PeopleList people_list_new(void)
 {
     PeopleList t;
-    t.root = NULL;
+    t.head = NULL;
     t.size = 0;
     t.maxid = 0;
     return t;
 }
 
-/// 往一个会员列表中插入一个新会员并分配id
+///往一个设施列表中插入一个新设施并分配id
 int people_list_push(PeopleList *p, char *name)
 {
-    p->size += 1;
-    PeopleNode *new_people = (PeopleNode *) calloc(1, sizeof(PeopleNode));
-    new_people->v.id = p->maxid + 1;
-    strcpy(new_people->v.name, name);
-    if (p->root == NULL)
+    ++p->maxid;
+    if (p->size == 0)
     {
-        p->root = new_people;
+        p->head = malloc(sizeof(People));
+        ++p->size;
     } else
     {
-        PeopleNode *tail = p->root;
-        while (tail->hou != NULL) tail = tail->hou;
-        tail->hou = new_people;
+        ++p->size;
+        p->head = realloc(p->head, sizeof(People) * p->size);
     }
-    p->maxid += 1;
-    return new_people->v.id;
+    p->head[p->size - 1].id = p->size;
+    strcpy(p->head[p->size - 1].name, name);
+    return p->maxid;
 }
 
 /// 加载数据时使用
-void people_list_load(PeopleList *p, int id, char *name)
+void people_list_load(PeopleList *p, People v)
 {
-    p->size += 1;
-    PeopleNode *new_people = (PeopleNode *) calloc(1, sizeof(PeopleNode));
-    new_people->v.id = id;
-    if (id >= p->maxid)
+    if (v.id >= p->maxid)
     {
-        p->maxid = id + 1;
+        p->maxid = v.id + 1;
     }
-    strcpy(new_people->v.name, name);
-    if (p->root == NULL)
+    if (p->size == 0)
     {
-        p->root = new_people;
+        p->head = malloc(sizeof(People));
+        ++p->size;
     } else
     {
-        PeopleNode *tail = p->root;
-        while (tail->hou != NULL) tail = tail->hou;
-        tail->hou = new_people;
+        ++p->size;
+        p->head = realloc(p->head, sizeof(People) * p->size);
     }
+    p->head[p->size - 1] = v;
 }
 
-/// 删除一个会员
+/// 获取列表中第in个设施（从零开始数）
+People *people_list_at(PeopleList p, int in)
+{
+    static People r = {-1, "fuck!"};
+    if (in >= p.size) return &r;
+    else return &p.head[in];
+}
+
+/// 删除一个设施
 void people_list_delete(PeopleList *pl, int v)
 {
-    int p = 0;
-    PeopleNode *pt = pl->root;
-    while (pt->hou != NULL)
+    if (v >= pl->size) return;
+    for (int i = v; i < pl->size - 1; ++i)
     {
-        if (p + 1 == v) break;
-        if (p == v)
-        {
-            PeopleNode *tmp = pl->root;
-            pl->root = pl->root->hou;
-            pl->size -= 1;
-            free(tmp);
-            return;
-        }
-        ++p;
-        pt = pt->hou;
+        pl->head[i] = pl->head[i + 1];
     }
-    if (p + 1 == v)
-    {
-        PeopleNode *tmp = pt->hou;
-        pt->hou = pt->hou->hou;
-        free(tmp);
-        pl->size -= 1;
-    }
+    pl->size -= 1;
 }
 
-/// 按id查找会员
+/// 按id查找设施
 int* people_find_by_id(PeopleList pl, int id)
 {
     int *ret = calloc(1, sizeof(int));
     ret[0] = 0;
-    PeopleNode *pt = pl.root;
-    int r = 0;
-    while (pt != NULL)
+    for (int i = 0; i < pl.size; ++i)
     {
-        if (pt->v.id == id)
+        if (pl.head[i].id == id)
         {
             ++ret[0];
             ret = realloc(ret, (ret[0] + 1) * sizeof(int));
-            ret[ret[0]] = r;
+            ret[ret[0]] = i;
         }
-        pt = pt->hou;
-        ++r;
     }
     return ret;
 }
 
-/// 按名字查找会员
+/// 按名字查找设施
 int *people_find_by_name(PeopleList pl, char *name)
 {
     int *ret = calloc(1, sizeof(int));
     ret[0] = 0;
-    PeopleNode *pt = pl.root;
-    int r = 0;
-    while (pt != NULL)
+    for (int i = 0; i < pl.size; ++i)
     {
-        if (strcmp(pt->v.name, name) == 0)
+        if (strcmp(pl.head[i].name, name) == 0)
         {
             ++ret[0];
             ret = realloc(ret, (ret[0] + 1) * sizeof(int));
-            ret[ret[0]] = r;
+            ret[ret[0]] = i;
         }
-        pt = pt->hou;
-        ++r;
     }
     return ret;
 }
-
-///获取列表中第in个会员（从零开始数）
-People *people_list_at(PeopleList pl, int v)
+void pl_rebuild(PeopleList *fl)
 {
-    static People r = {-1, "fuck!"};
-    int p = 0;
-    PeopleNode *pt = pl.root;
-    while (pt->hou != NULL)
+    for (int i = 0; i < fl->size; ++i)
     {
-        if (p == v) break;
-        ++p;
-        pt = pt->hou;
-    }
-    if (p == v)
-    {
-        return &pt->v;
-    } else
-    {
-        return &r;
+        fl->head[i].id = i + 1;
     }
 }
-
-void pl_rebuild(PeopleList *pl)
-{
-    int i = 0;
-    for (PeopleNode *it = pl->root; it != NULL; it = it->hou)
-    {
-        ++i;
-        it->v.id = i;
-    }
-}
-
 #endif //ELDER_COMM_PEOPLE_H

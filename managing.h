@@ -182,7 +182,7 @@ void bus_manage(Data *d)
         scanf("%104s", INPUT_DATA);
         clrbuf();
         long c_number = strtol(INPUT_DATA, NULL, 10);
-        if (c_number == 1)
+        if (c_number == 1)//1.*查看某条班车路线*
         {
             printf("你要查看第几条的班车路线？（不清楚的话可以输入-1返回并查询全部路线）\n");
             fflush(stdout);
@@ -213,9 +213,9 @@ void bus_manage(Data *d)
                         break;
                     }
                 }
-                if (i < list_number)on_error();
+                if (i < list_number) printf("请检查该路线是否存在！\n");
             }
-        } else if (c_number == 2)
+        } else if (c_number == 2)//2.*查看全部路线*
         {
             int i = 0;
             for (BusChainNode *it = d->buschain_list.root->hou; it != NULL; it = it->hou)
@@ -371,7 +371,7 @@ void bus_manage(Data *d)
                         }
                         case 2://2.*插入一个站点*
                         {
-                            printf("您(>__<) 想～在哪个站点后插入新的站点？\n插在开头请输入0哦\n\t");
+                            printf("您(>__<) 想～在哪个站点后插入新的站点？\n插在开头请输入0哦\n");
                             fflush(stdout);
                             scanf("%104s", INPUT_DATA);
                             clrbuf();
@@ -407,11 +407,11 @@ void bus_manage(Data *d)
                         }
                         case 3://3.*修改一个站点*
                         {
-                            printf("您(>__<) 想～修改哪个站点？\n修改起点请输入0哦\n\t");
+                            printf("您(>__<) 想～修改哪个站点？\n");
                             scanf("%104s", INPUT_DATA);
                             clrbuf();
                             long changestation_number = strtol(INPUT_DATA, NULL, 10);
-                            if (changestation_number < 0)
+                            if (changestation_number <= 0)
                                 on_error();
                             else
                             {
@@ -508,7 +508,7 @@ void servant_manage(Data *d)
             scanf("%104s", INPUT_DATA);
             clrbuf();
             n = strtol(INPUT_DATA, NULL, 10);
-            if (n == 1)
+            if (n == 1)//1.按ID查询
             {
                 long ID;
                 printf("请输入您查询的ID:\n");
@@ -535,7 +535,7 @@ void servant_manage(Data *d)
                     printf("列表重建完毕，请重新查询！\n");
                     fflush(stdout);
                 }
-            } else if (n == 2)
+            } else if (n == 2)//2.按名字查询
             {
                 char name[100];
                 printf("请输入需要查询的名字：\n");
@@ -553,7 +553,7 @@ void servant_manage(Data *d)
                         printf("服务人员ID:%d\n姓名:%s\n", servant_list_at(d->servant_list, x_list[i])->id, name);
                     fflush(stdout);
                 }
-            } else if (n == 3)
+            } else if (n == 3)//3.输出所有服务人员
             {
                 while (1)
                 {
@@ -573,7 +573,7 @@ void servant_manage(Data *d)
                             break;
                         }
                     }
-                    printf("您是否要再看一遍？1.确认\t2.取消\n");
+                    printf("以上是所有服务人员，\n您是否要再看一遍？1.确认\t2.取消\n");
                     fflush(stdout);
                     long one_more_time;
                     scanf("%104s", INPUT_DATA);
@@ -602,7 +602,8 @@ void servant_manage(Data *d)
             scanf("%99s", name2);
             clrbuf();
             int new_id = servant_list_push(&d->servant_list, name2);
-            printf("注册成功，您的ID为%d", new_id);
+            printf("注册成功，您的ID为%d\n", new_id);
+            fflush(stdout);
         } else if (n == 3)//3.*修改服务人员信息*
         {
             printf("请输入ID：\n");
@@ -624,7 +625,7 @@ void servant_manage(Data *d)
                 fflush(stdout);
                 scanf("%99s", new_name);
                 clrbuf();
-                strcpy(facility_list_at(d->facility_list, x_list[1])->name, new_name);
+                strcpy(servant_list_at(d->servant_list, x_list[1])->name, new_name);
                 printf("操作成功，ID为%d的服务人员已重命名为%s\n", s_id, new_name);
             } else
             {
@@ -764,6 +765,7 @@ void servant_manage(Data *d)
                         if (servant_list_at(d->servant_list, list[1])->target_id <= 0)
                         {
                             servant_list_at(d->servant_list, list[1])->target_id = p_id;
+                            printf("修改完成\n");
                         } else
                         {
                             printf("该服务人员已被占用，请选择新的服务人员\n");
@@ -782,7 +784,6 @@ void servant_manage(Data *d)
                                    servant_list_at(d->servant_list, i)->name);
                         printf("列表重建完毕，请重新查询！\n");
                     }
-                    printf("修改完成\n");
                     fflush(stdout);
                     break;
                 }
@@ -799,7 +800,7 @@ void servant_manage(Data *d)
                                 flag = 1;
                                 servant_list_at(d->servant_list, i)->target_id = -1;
                                 in_xiabiao = i;
-                                printf("您的服务人员已被删除。服务人员ID：%d,姓名：%s",
+                                printf("您的服务人员已被删除。服务人员ID：%d,姓名：%s\n",
                                        servant_list_at(d->servant_list, i)->id,
                                        servant_list_at(d->servant_list, i)->name);
                                 fflush(stdout);
@@ -906,7 +907,7 @@ void facility_manage(Data *d)
                    "\t1.按ID查询\n"
                    "\t2.按名称查询\n"
                    "\t3.输出所有设施\n"
-                   "注意：输入其它数字将返回上一级\n");
+                   "\t4.返回上一级\n");
             fflush(stdout);
             int c_number;
             scanf("%104s", INPUT_DATA);
@@ -977,7 +978,11 @@ void facility_manage(Data *d)
                     printf("设施ID:%d\t设施名称:%s\n", t->id, t->name);
                     fflush(stdout);
                 }
-            } else
+            }else if (c_number == 4)
+            {
+                //back
+            }
+            else
             {
                 on_error();
             }
@@ -1285,8 +1290,22 @@ void house_manage(Data *d)
             {
                 if (house_list_at(d->house_list, i)->owner == people_id)
                 {
-                    printf("第%d间房屋\n\tID:%d\n\t名称:%s\n", i + 1, house_list_at(d->house_list, i)->id,
+                    printf("第%d间房屋\n\tID:%d\n\t名称:%s\n\t状态：\n", i + 1, house_list_at(d->house_list, i)->id,
                            house_list_at(d->house_list, i)->name);
+                    switch (house_list_at(d->house_list, i)->type)
+                    {
+                        case 0:
+                            printf("\t\t无人入住\n");
+                            break;
+                        case 1:
+                            printf("\t\t您本人入住\n");
+                            break;
+                        case 2:
+                            printf("\t\t已出租，租客ID为%d\n", house_list_at(d->house_list, i)->tenant);
+                            break;
+                        default:
+                            printf("\t\t卧槽，这是什么鬼状态？？\n");
+                    }
                     fflush(stdout);
                 }
             }
@@ -1342,7 +1361,7 @@ void vip_manage(Data *d)
             scanf("%104s", INPUT_DATA);
             clrbuf();
             n = strtol(INPUT_DATA, NULL, 10);
-            if (n == 1)
+            if (n == 1)//1.按ID查询
             {
                 long ID;
                 printf("请输入您查询的ID:\n");
@@ -1369,7 +1388,7 @@ void vip_manage(Data *d)
                     printf("列表重建完毕，请重新查询！\n");
                     fflush(stdout);
                 }
-            } else if (n == 2)
+            } else if (n == 2)//2.按名字查询
             {
                 char name[100];
                 printf("请输入需要查询的名字：\n");
@@ -1387,7 +1406,7 @@ void vip_manage(Data *d)
                         printf("用户ID:%d\n姓名:%s\n", people_list_at(d->people_list, x_list[i])->id, name);
                     fflush(stdout);
                 }
-            } else if (n == 3)
+            } else if (n == 3)//3.输出所有会员
             {
                 while (1)
                 {
@@ -1407,7 +1426,7 @@ void vip_manage(Data *d)
                             break;
                         }
                     }
-                    printf("您是否要再看一遍？1.确认\t2.取消\n");
+                    printf("以上为所有的会员，您是否要再看一遍？1.确认\t2.取消\n");
                     fflush(stdout);
                     long one_more_time;
                     scanf("%104s", INPUT_DATA);
@@ -1434,7 +1453,7 @@ void vip_manage(Data *d)
             printf("请输入会员ID:\n");
             fflush(stdout);
             //  根据编号选择要修改的会员
-            long xiabiao, ID;
+            long ID;
 
             scanf("%104s", INPUT_DATA);
             clrbuf();
@@ -1446,8 +1465,8 @@ void vip_manage(Data *d)
                 fflush(stdout);
             } else if (x_list[0] == 1)
             {
-                printf("用户ID:%d\n姓名:%s\n", people_list_at(d->people_list, xiabiao)->id,
-                       people_list_at(d->people_list, xiabiao)->name);
+                printf("用户ID:%d\n姓名:%s\n", people_list_at(d->people_list, x_list[1])->id,
+                       people_list_at(d->people_list, x_list[1])->name);
                 printf("请选择您的操作? 1.修改\t2.删除\t3.取消\n");
                 fflush(stdout);
                 int confirm;
@@ -1461,11 +1480,11 @@ void vip_manage(Data *d)
                     fflush(stdout);
                     scanf("%99s", new_name);
                     clrbuf();
-                    strcpy(people_list_at(d->people_list, xiabiao)->name, new_name);
+                    strcpy(people_list_at(d->people_list, x_list[1])->name, new_name);
                     printf("操作成功，已重命名为%s\n", new_name);
                 } else if (confirm == 2)
                 {
-                    people_list_delete(&d->people_list, xiabiao);
+                    people_list_delete(&d->people_list, x_list[1]);
                     printf("删除成功\n");
                     fflush(stdout);
                 } else if (confirm == 3)

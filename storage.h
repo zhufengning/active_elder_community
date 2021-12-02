@@ -62,10 +62,13 @@ Data data_from_file(char *path)
 
         for (int i = 0; i < cJSON_GetArraySize(pp); ++i)
         {
+            People new_people;
             cJSON *t = cJSON_GetArrayItem(pp, i);
             cJSON *t2 = cJSON_GetObjectItem(t, "id");
             cJSON *t3 = cJSON_GetObjectItem(t, "name");
-            people_list_load(pl, t2->valueint, t3->valuestring);
+            new_people.id = t2->valueint;
+            strcpy(new_people.name, t3->valuestring);
+            people_list_load(pl, new_people);
         }
     }
 
