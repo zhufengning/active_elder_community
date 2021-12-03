@@ -31,7 +31,7 @@ int main()
         long the_n;
         if (!fst_time)
         {
-            printf("输入1继续使用本系统，输入其他数字保存并退出\n");
+            printf("输入1继续使用本系统，输入其他东西保存并退出\n");
             fflush(stdout);
             long cont;
             scanf("%104s", INPUT_DATA);
