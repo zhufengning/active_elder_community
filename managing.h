@@ -1,3 +1,6 @@
+/******************************************
+ * This file should be encoded with GB2312*
+ ******************************************/
 //
 // Created by zfn on 2021/12/2.
 //
@@ -261,6 +264,7 @@ void bus_manage(Data *d) /// 7.选择*班车线路管理*
         }
         clrbuf();
         buschainlist_insert(d->buschain_list.root, new_bus_stations);
+        printf("操作成功\n");
     } else if (n == 3)//3.删除班车路线
     {
         printf("请问您要删除第几条线路\n\t"

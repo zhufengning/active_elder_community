@@ -1,3 +1,6 @@
+/******************************************
+ * This file should be encoded with GB2312*
+ ******************************************/
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -29,7 +32,7 @@ int main()
         long the_n;
         if (!fst_time)
         {
-            printf("输入1继续使用本系统，输入其他东西保存并退出\n");
+            printf("输入1继续使用本系统，输入其他东西退出并选择是否保存数据\n");
             fflush(stdout);
             long cont;
             scanf("%104s", INPUT_DATA);
