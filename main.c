@@ -72,10 +72,10 @@ int main()
                        "添加客服微信：川酱今天吃什么：zhangyichuan_33 获取一对一帮助\n");
                 fflush(stdout);
                 break;
-            case 7:
+            case 7://7.选择*班车线路管理*
                 bus_manage(&the_variable_that_saves_all_our_data);
                 break;
-            case 8:
+            case 8://8.保存数据及退出系统
                 if (save_and_exit(&the_variable_that_saves_all_our_data))
                     break;
                 else

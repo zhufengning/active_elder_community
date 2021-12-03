@@ -17,7 +17,7 @@ typedef struct HouseList
     int size, maxid;
 } HouseList;
 
-///新建一个房屋列表
+/// 新建一个房屋列表
 HouseList house_list_new(void)
 {
     HouseList t;
@@ -27,7 +27,7 @@ HouseList house_list_new(void)
     return t;
 }
 
-///往一个房屋列表中插入一个新房屋并分配id
+/// 往一个房屋列表中插入一个新房屋并分配id
 int house_list_push(HouseList *p, char *name, int owner)
 {
     ++p->maxid;
@@ -65,7 +65,7 @@ void house_list_load(HouseList *p, House v)
     p->head[p->size - 1] = v;
 }
 
-///获取列表中第in个房屋（从零开始数）
+/// 获取列表中第in个房屋（从零开始数）
 House *house_list_at(HouseList p, int in)
 {
     static House r = {-1, "fuck!", -1, -1, -1};
@@ -127,7 +127,7 @@ int house_find_by_owner(HouseList pl, int owner)
     }
     return -1;
 }
-
+/// 重建，确保id不重复
 void hl_rebuild(HouseList *hl)
 {
     for (int i = 0; i < hl->size; ++i)

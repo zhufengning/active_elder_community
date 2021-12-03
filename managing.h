@@ -7,7 +7,7 @@
 
 char INPUT_DATA[105];
 
-void on_error()/// 错误处理模块
+void on_error() /// 错误处理
 {
     //printf("请好好地对待本系统，不然会被玩坏的哟\n");
     printf("*************FBI WARING**************\n"
@@ -31,7 +31,7 @@ void clrbuf()/// 清空输入缓冲区
     } while (t != '\n' && t != EOF);
 }
 
-void ani_play()
+void ani_play() /// 播放动画
 {
 
     printf("您是否想观看我们的宣传动画？\n\t1.观看\n\t2.取消\n");
@@ -49,7 +49,7 @@ void ani_play()
     }
 }
 
-void readme()
+void readme() /// 注意事项
 {
 
     while (1)
@@ -73,7 +73,7 @@ void readme()
 }
 
 
-void show_menu()
+void show_menu() /// 主菜单
 {
     printf("********************************\n    欢迎进入活力长者社区系统    \n********************************\n");
     printf(
@@ -90,7 +90,7 @@ void show_menu()
     fflush(stdout);
 }
 
-void open_data(Data *d)
+void open_data(Data *d) /// 读取数据
 {
     while (1)
     {
@@ -131,7 +131,7 @@ void open_data(Data *d)
     }
 }
 
-int save_and_exit(Data *d)
+int save_and_exit(Data *d) /// 保存数据
 {
     printf("是否保存数据？ 1.是\t2.否\n");
     fflush(stdout);
@@ -163,7 +163,7 @@ int save_and_exit(Data *d)
     }
 }
 
-void bus_manage(Data *d)
+void bus_manage(Data *d) /// 7.选择*班车线路管理*
 {
     printf("您想进行什么操作？\n"
            "1.查看班车路线\n"
@@ -477,7 +477,7 @@ void bus_manage(Data *d)
     }
 }
 
-void servant_manage(Data *d)
+void servant_manage(Data *d) /// 5.选择*服务人员管理*
 {
     printf("请选择您的操作：\n"
            "\t1.查询或编辑服务人员信息\n"
@@ -852,7 +852,7 @@ void servant_manage(Data *d)
     }
 }
 
-void facility_manage(Data *d)
+void facility_manage(Data *d) /// 4.选择*场馆设施管理*
 {
     printf("请选择您的操作：\n"
            "\t1.*用户：申请使用娱乐设施*\n"
@@ -1059,7 +1059,7 @@ void facility_manage(Data *d)
     }
 }
 
-void live_manage(Data *d)
+void live_manage(Data *d) /// 选择*入住管理*
 {
     printf("您是否已经购买房屋？\n"
            "\t1.是\n"
@@ -1202,7 +1202,7 @@ void live_manage(Data *d)
     }
 }
 
-void house_manage(Data *d)
+void house_manage(Data *d) /// 选择*房屋管理*
 {
     printf("您下一步想要干什么？\n"
            "请输入相应数字：\n"
@@ -1326,7 +1326,7 @@ void house_manage(Data *d)
     }
 }
 
-void vip_manage(Data *d)
+void vip_manage(Data *d) /// 会员管理
 {
     printf(
             "您下一步想要干什么？\n"

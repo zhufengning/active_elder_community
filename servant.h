@@ -65,7 +65,7 @@ void servant_list_load(ServantList *p, Servant v)
     p->head[p->size - 1] = v;
 }
 
-///获取列表中第in个服务人员（从零开始数）
+/// 获取列表中第in个服务人员（从零开始数）
 Servant *servant_list_at(ServantList p, int in)
 {
     static Servant r = {-1, "fuck!", -1};
@@ -117,7 +117,7 @@ int *servant_find_by_name(ServantList pl, char *name)
     }
     return ret;
 }
-
+/// 重建，确保id不重复
 void sl_rebuild(ServantList *sl)
 {
     for (int i = 0; i < sl->size; ++i)

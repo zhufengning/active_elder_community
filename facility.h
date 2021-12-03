@@ -16,7 +16,7 @@ typedef struct FacilityList
     int size, maxid;
 } FacilityList;
 
-///新建一个社区设施列表
+/// 新建一个社区设施列表
 FacilityList facility_list_new(void)
 {
     FacilityList t;
@@ -26,7 +26,7 @@ FacilityList facility_list_new(void)
     return t;
 }
 
-///往一个设施列表中插入一个新设施并分配id
+/// 往一个设施列表中插入一个新设施并分配id
 int facility_list_push(FacilityList *p, char *name)
 {
     ++p->maxid;
@@ -115,6 +115,7 @@ int *facility_find_by_name(FacilityList pl, char *name)
     }
     return ret;
 }
+/// 重建，确保id不重复
 void fl_rebuild(FacilityList *fl)
 {
     for (int i = 0; i < fl->size; ++i)

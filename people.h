@@ -16,7 +16,7 @@ typedef struct PeopleList
     int size, maxid;
 } PeopleList;
 
-///新建一个社区设施列表
+/// 新建一个社区设施列表
 PeopleList people_list_new(void)
 {
     PeopleList t;
@@ -26,7 +26,7 @@ PeopleList people_list_new(void)
     return t;
 }
 
-///往一个设施列表中插入一个新设施并分配id
+/// 往一个设施列表中插入一个新设施并分配id
 int people_list_push(PeopleList *p, char *name)
 {
     ++p->maxid;
@@ -115,6 +115,8 @@ int *people_find_by_name(PeopleList pl, char *name)
     }
     return ret;
 }
+
+/// 重建，确保id不重复
 void pl_rebuild(PeopleList *fl)
 {
     for (int i = 0; i < fl->size; ++i)
