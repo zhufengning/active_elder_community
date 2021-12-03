@@ -8,13 +8,13 @@
 #include <stdio.h>
 #include <time.h>
 
-void mysleep(double t)
+void mysleep(double t)/// 动画时间
 {
     clock_t st = clock();
     while ((double) (clock() - st) / CLOCKS_PER_SEC < t);
 }
 
-void play_ani()
+void play_ani()/// 动画内容
 {
     printf("系统加载中");
     fflush(stdout);
@@ -50,7 +50,7 @@ void play_ani()
 }
 
 
-void say_sentence()
+void say_sentence()/// 诗句
 {
     //诗句来源：https://yijuzhan.com/api/word.php
     const static char a[][1005] = {
