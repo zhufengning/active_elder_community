@@ -563,7 +563,8 @@ void servant_manage(Data *d) /// 5.选择*服务人员管理*
                 {
                     for (int i = 0; i < d->servant_list.size; i++)
                     {
-                        printf("第%d个服务人员\n\tID:%d\n\t姓名:%s\n\t服务对象：%d\n", i + 1, servant_list_at(d->servant_list, i)->id,
+                        printf("第%d个服务人员\n\tID:%d\n\t姓名:%s\n\t服务对象：%d\n", i + 1,
+                               servant_list_at(d->servant_list, i)->id,
                                servant_list_at(d->servant_list, i)->name,
                                servant_list_at(d->servant_list, i)->target_id);
                         fflush(stdout);
@@ -747,7 +748,7 @@ void servant_manage(Data *d) /// 5.选择*服务人员管理*
                             {
                                 servant_list_at(d->servant_list, i)->target_id = -1;
                                 in_xiabiao = i;
-                                printf("您的服务人员已被删除。服务人员ID：%d,姓名：%s",
+                                printf("您的服务人员已被删除。服务人员ID：%d,姓名：%s\n",
                                        servant_list_at(d->servant_list, i)->id,
                                        servant_list_at(d->servant_list, i)->name);
                                 fflush(stdout);
@@ -771,6 +772,9 @@ void servant_manage(Data *d) /// 5.选择*服务人员管理*
                         {
                             servant_list_at(d->servant_list, list[1])->target_id = p_id;
                             printf("修改完成\n");
+                            printf("服务人员ID：%d,姓名：%s\n",
+                                   servant_list_at(d->servant_list, list[1])->id,
+                                   servant_list_at(d->servant_list, list[1])->name);
                         } else
                         {
                             printf("该服务人员已被占用，请选择新的服务人员\n");
@@ -1153,18 +1157,27 @@ void live_manage(Data *d) /// 选择*入住管理*
                     scanf("%104s", INPUT_DATA);
                     clrbuf();
                     rent_id = strtol(INPUT_DATA, NULL, 10);
-                    int *z_list = people_find_by_id(d->people_list, rent_id);
-                    if (z_list[0] < 1)
+                    if (rent_id == people_id)
                     {
-                        printf("该用户不存在\n");
+                        on_error();
+                        printf("您不能租给自己！\n");
                         fflush(stdout);
-                    } else if (z_list[0] == 1)
+                    } else
                     {
-                        house_list_at(d->house_list, y_list[1])->type = 2;
-                        house_list_at(d->house_list, y_list[1])->tenant = rent_id;
-                        printf("操作成功，您的房屋信息已更改为出租中，出租对象的ID为%d\n", rent_id);
-                        fflush(stdout);
+                        int *z_list = people_find_by_id(d->people_list, rent_id);
+                        if (z_list[0] < 1)
+                        {
+                            printf("该用户不存在\n");
+                            fflush(stdout);
+                        } else if (z_list[0] == 1)
+                        {
+                            house_list_at(d->house_list, y_list[1])->type = 2;
+                            house_list_at(d->house_list, y_list[1])->tenant = rent_id;
+                            printf("操作成功，您的房屋信息已更改为出租中，出租对象的ID为%d\n", rent_id);
+                            fflush(stdout);
+                        }
                     }
+
                 } else if (n == 3)
                 {
                     house_list_at(d->house_list, y_list[1])->type = 0;
