@@ -6,6 +6,8 @@
  * 注意，在用codeblocks编译时，请只将main.c添加到工程。
  * 文件中包含 CMakeLists.txt，使用VS，CLion，配置好CMake的Qt Creator等支持CMake的IDE，
  * 直接打开CMakeLists.txt所在的文件夹，可自动配置好项目，此后直接运行即可。
+ * 以VS为例，在文件-打开中选择打开文件夹（而不是项目）即可运行；
+ * 或者选择文件-打开-CMake，然后在本项目的文件夹中选择CMakeLists.txt。
  * 如果使用的编译器版本较老（默认使用c89标准的），可能编译失败，请在编译命令中加上-std=c99
  */
 #include <stdio.h>
