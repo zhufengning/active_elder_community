@@ -590,6 +590,7 @@ void servant_manage(Data *d) /// 5.选择*服务人员管理*
                     printf("列表重建完毕，请重新查询！\n");
                     fflush(stdout);
                 }
+                free(ans_list);
             } else if (n == 2)//2.按名字查询
             {
                 char name[100];
@@ -609,6 +610,7 @@ void servant_manage(Data *d) /// 5.选择*服务人员管理*
                                servant_list_at(d->servant_list, x_list[i])->target_id);
                     fflush(stdout);
                 }
+                free(x_list);
             } else if (n == 3)//3.输出所有服务人员
             {
                 while (1)
@@ -620,7 +622,8 @@ void servant_manage(Data *d) /// 5.选择*服务人员管理*
                                servant_list_at(d->servant_list, i)->name,
                                servant_list_at(d->servant_list, i)->target_id);
                         fflush(stdout);
-                        if (servant_find_by_id(d->servant_list, servant_list_at(d->servant_list, i)->id)[0] > 1)
+                        int *svl = servant_find_by_id(d->servant_list, servant_list_at(d->servant_list, i)->id);
+                        if (svl[0] > 1)
                         {
                             printf("致命错误：ID重复！\n正在为您重建列表\n请注意，您不应该手动编辑数据文件\n");
                             sl_rebuild(&d->servant_list);
@@ -630,6 +633,7 @@ void servant_manage(Data *d) /// 5.选择*服务人员管理*
                             printf("列表重建完毕，请重新查询！\n");
                             break;
                         }
+                        free(svl);
                     }
                     printf("以上是所有服务人员，\n您是否要再看一遍？1.确认\t2.取消\n");
                     fflush(stdout);
@@ -694,6 +698,7 @@ void servant_manage(Data *d) /// 5.选择*服务人员管理*
                            servant_list_at(d->servant_list, i)->name);
                 printf("列表重建完毕，请重新查询！\n");
             }
+            free(x_list);
         } else if (n == 4)//4.*删除服务人员*
         {
             printf("请输入ID：\n");
@@ -724,6 +729,7 @@ void servant_manage(Data *d) /// 5.选择*服务人员管理*
                 printf("列表重建完毕，请重新查询！\n");
                 fflush(stdout);
             }
+            free(x_list);
         } else if (n == 5)//5.*点错了*
         {
         } else
@@ -845,6 +851,7 @@ void servant_manage(Data *d) /// 5.选择*服务人员管理*
                                    servant_list_at(d->servant_list, i)->name);
                         printf("列表重建完毕，请重新查询！\n");
                     }
+                    free(list);
                     fflush(stdout);
                     break;
                 }
@@ -900,6 +907,7 @@ void servant_manage(Data *d) /// 5.选择*服务人员管理*
             printf("列表重建完毕，请重新查询！\n");
             fflush(stdout);
         }
+        free(xiabiaos);
     } else if (n == 3)//.Do nothing
     {
     } else
@@ -950,6 +958,7 @@ void facility_manage(Data *d) /// 4.选择*场馆设施管理*
                            facility_list_at(d->facility_list, i)->name);
                 printf("列表重建完毕，请重新查询！\n");
             }
+            free(x_list);
         }
     } else if (n == 2)
     {
@@ -1001,6 +1010,7 @@ void facility_manage(Data *d) /// 4.选择*场馆设施管理*
                                facility_list_at(d->facility_list, i)->name);
                     printf("列表重建完毕，请重新查询！\n");
                 }
+                free(x_list);
             } else if (c_number == 2)//2.按名称查询
             {
                 printf("请输入您想查询的娱乐设施名称\n");
@@ -1015,7 +1025,8 @@ void facility_manage(Data *d) /// 4.选择*场馆设施管理*
                     if (strcmp(facility_list_at(d->facility_list, i)->name, f_name) == 0)
                     {
                         Facility *t = facility_list_at(d->facility_list, i);
-                        if (facility_find_by_id(d->facility_list, t->id)[0] > 1)
+                        int *fcl = facility_find_by_id(d->facility_list, t->id);
+                        if (fcl[0] > 1)
                         {
                             printf("致命错误：ID重复！\n正在为您重建列表\n请注意，您不应该手动编辑数据文件\n");
                             fl_rebuild(&d->facility_list);
@@ -1027,6 +1038,7 @@ void facility_manage(Data *d) /// 4.选择*场馆设施管理*
                         }
                         printf("设施ID:%d\t设施名称:%s\n", t->id, t->name);
                         fflush(stdout);
+                        free(fcl);
                     }
                 }
                 printf("查询完毕，以上为所有查询结果\n");
@@ -1108,6 +1120,7 @@ void facility_manage(Data *d) /// 4.选择*场馆设施管理*
                            facility_list_at(d->facility_list, i)->name);
                 printf("列表重建完毕，请重新查询！\n");
             }
+            free(x_list);
         } else
         {
             on_error();
@@ -1161,7 +1174,7 @@ void live_manage(Data *d) /// 选择*入住管理*
                     fflush(stdout);
                     return;
                 }
-                    
+
                 int servant_xiabiao = -1;
 
                 for (int i = 0; i < d->servant_list.size; i++)
@@ -1223,8 +1236,8 @@ void live_manage(Data *d) /// 选择*入住管理*
                             printf("操作成功，您的房屋信息已更改为出租中，出租对象的ID为%d\n", rent_id);
                             fflush(stdout);
                         }
+                        free(z_list);
                     }
-
                 } else if (n == 3)
                 {
                     house_list_at(d->house_list, y_list[1])->type = 0;
@@ -1243,6 +1256,7 @@ void live_manage(Data *d) /// 选择*入住管理*
                            house_list_at(d->house_list, i)->name);
                 printf("列表重建完毕，请重新查询！\n");
             }
+            free(y_list);
         } else
         {
             printf("致命错误：ID重复！\n正在为您重建列表\n请注意，您不应该手动编辑数据文件\n");
@@ -1252,6 +1266,7 @@ void live_manage(Data *d) /// 选择*入住管理*
                        people_list_at(d->people_list, i)->name);
             printf("列表重建完毕，请重新查询！\n");
         }
+        free(x_list);
     } else if (n == 2)//在是否购买房屋中选择否
     {
         printf("请返回购买房屋\n");
@@ -1325,6 +1340,7 @@ void house_manage(Data *d) /// 选择*房屋管理*
                            people_list_at(d->people_list, i)->name);
                 printf("列表重建完毕，请重新查询！\n");
             }
+            free(x_list);
         } else if (n == 2)
         {
             printf("您还不是会员！\n"
@@ -1452,6 +1468,7 @@ void vip_manage(Data *d) /// 会员管理
                     printf("列表重建完毕，请重新查询！\n");
                     fflush(stdout);
                 }
+                free(ans_list);
             } else if (n == 2)//2.按名字查询
             {
                 char name[100];
@@ -1470,6 +1487,7 @@ void vip_manage(Data *d) /// 会员管理
                         printf("用户ID:%d\n姓名:%s\n", people_list_at(d->people_list, x_list[i])->id, name);
                     fflush(stdout);
                 }
+                free(x_list);
             } else if (n == 3)//3.输出所有会员
             {
                 printf("请选择排序方式：\n\t1.输出按创建时间排序的完整信息列表\n\t2.输出排序后的名字列表\n");
@@ -1485,7 +1503,8 @@ void vip_manage(Data *d) /// 会员管理
                             printf("第%d个用户\n\tID:%d\n\t姓名:%s\n", i + 1, people_list_at(d->people_list, i)->id,
                                    people_list_at(d->people_list, i)->name);
                             fflush(stdout);
-                            if (people_find_by_id(d->people_list, people_list_at(d->people_list, i)->id)[0] > 1)
+                            int *ppl = people_find_by_id(d->people_list, people_list_at(d->people_list, i)->id);
+                            if (ppl[0] > 1)
                             {
                                 printf("致命错误：ID重复！\n正在为您重建列表\n请注意，您不应该手动编辑数据文件\n");
                                 pl_rebuild(&d->people_list);
@@ -1495,6 +1514,7 @@ void vip_manage(Data *d) /// 会员管理
                                 printf("列表重建完毕，请重新查询！\n");
                                 break;
                             }
+                            free(ppl);
                         }
                         printf("以上为所有的会员，您是否要再看一遍？1.确认\t2.取消\n");
                         fflush(stdout);
@@ -1612,6 +1632,10 @@ void vip_manage(Data *d) /// 会员管理
                            people_list_at(d->people_list, i)->name);
                 printf("列表重建完毕，请重新查询！\n");
             }
+            free(x_list);
+        } else
+        {
+            on_error();
         }
     }
 
