@@ -86,6 +86,7 @@ void facility_list_delete(FacilityList *pl, int v)
 }
 
 /// 按id查找设施
+/// 返回数组a,a[0]表示结果数量,a[1-a[0]]为结果
 int* facility_find_by_id(FacilityList pl, int id)
 {
     int *ret = calloc(1, sizeof(int));
@@ -103,6 +104,7 @@ int* facility_find_by_id(FacilityList pl, int id)
 }
 
 /// 按名字查找设施
+/// 返回数组a,a[0]表示结果数量,a[1-a[0]]为结果
 int *facility_find_by_name(FacilityList pl, char *name)
 {
     int *ret = calloc(1, sizeof(int));

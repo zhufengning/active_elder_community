@@ -1,6 +1,9 @@
 /******************************************
  * This file should be encoded with GB2312*
  ******************************************/
+/*
+ * 在
+ */
 //
 // Created by zfn on 2021/12/2.
 //
@@ -9,6 +12,51 @@
 #define ELDER_COMM_MANAGING_H
 
 char INPUT_DATA[105];
+
+void str_merge_sort(char **a, int l, int r)
+{
+    if (l == r)
+    {
+        return;
+    }
+
+    int mid = (l + r) / 2;
+    str_merge_sort(a, l, mid);
+    str_merge_sort(a, mid + 1, r);
+    int lenl = mid - l + 1;
+    int lenr = r - mid;
+    char **tmp1 = calloc(lenl, sizeof(char**));
+    char **tmp2 = calloc(lenr, sizeof(char**));
+    for (int i = l; i <= mid; ++i)
+    {
+        tmp1[i - l] = a[i];
+    }
+    for (int i = mid + 1; i <= r; ++i)
+    {
+        tmp2[i - mid - 1] = a[i];
+    }
+    int newa = l, t1 = 0, t2 = 0;
+    while (t1 < lenl && t2 < lenr)
+    {
+        if (strcmp(tmp1[t1], tmp2[t2]) <= 0)
+        {
+            a[newa++] = tmp1[t1++];
+        } else
+        {
+            a[newa++] = tmp2[t2++];
+        }
+    }
+    while (t1 < lenl)
+    {
+        a[newa++] = tmp1[t1++];
+    }
+    while (t2 < lenr)
+    {
+        a[newa++] = tmp2[t2++];
+    }
+    free(tmp1);
+    free(tmp2);
+}
 
 void on_error() /// 错误处理
 {
@@ -1429,41 +1477,83 @@ void vip_manage(Data *d) /// 会员管理
                 }
             } else if (n == 3)//3.输出所有会员
             {
-                while (1)
-                {
-                    for (int i = 0; i < d->people_list.size; i++)
+                printf("请选择排序方式：\n\t1.输出按创建时间排序的完整信息列表\n\t2.输出排序后的名字列表\n");
+                fflush(stdout);
+                scanf("%104s", INPUT_DATA);
+                clrbuf();
+                long way = strtol(INPUT_DATA, NULL, 10);
+                if (way == 1)
+                    while (1)
                     {
-                        printf("第%d个用户\n\tID:%d\n\t姓名:%s\n", i + 1, people_list_at(d->people_list, i)->id,
-                               people_list_at(d->people_list, i)->name);
-                        fflush(stdout);
-                        if (people_find_by_id(d->people_list, people_list_at(d->people_list, i)->id)[0] > 1)
+                        for (int i = 0; i < d->people_list.size; i++)
                         {
-                            printf("致命错误：ID重复！\n正在为您重建列表\n请注意，您不应该手动编辑数据文件\n");
-                            pl_rebuild(&d->people_list);
-                            for (int i = 0; i < d->people_list.size; ++i)
-                                printf("用户ID:%d\n姓名:%s\n", people_list_at(d->people_list, i)->id,
-                                       people_list_at(d->people_list, i)->name);
-                            printf("列表重建完毕，请重新查询！\n");
+                            printf("第%d个用户\n\tID:%d\n\t姓名:%s\n", i + 1, people_list_at(d->people_list, i)->id,
+                                   people_list_at(d->people_list, i)->name);
+                            fflush(stdout);
+                            if (people_find_by_id(d->people_list, people_list_at(d->people_list, i)->id)[0] > 1)
+                            {
+                                printf("致命错误：ID重复！\n正在为您重建列表\n请注意，您不应该手动编辑数据文件\n");
+                                pl_rebuild(&d->people_list);
+                                for (int i = 0; i < d->people_list.size; ++i)
+                                    printf("用户ID:%d\n姓名:%s\n", people_list_at(d->people_list, i)->id,
+                                           people_list_at(d->people_list, i)->name);
+                                printf("列表重建完毕，请重新查询！\n");
+                                break;
+                            }
+                        }
+                        printf("以上为所有的会员，您是否要再看一遍？1.确认\t2.取消\n");
+                        fflush(stdout);
+                        long one_more_time;
+                        scanf("%104s", INPUT_DATA);
+                        clrbuf();
+                        one_more_time = strtol(INPUT_DATA, NULL, 10);
+                        if (one_more_time == 2)
+                        {
                             break;
+                        } else if (one_more_time == 1)
+                        {
+                            //do nothing
+                        } else
+                        {
+                            printf("输入错误，我猜您不想看了\n");
+                            fflush(stdout);
                         }
                     }
-                    printf("以上为所有的会员，您是否要再看一遍？1.确认\t2.取消\n");
-                    fflush(stdout);
-                    long one_more_time;
-                    scanf("%104s", INPUT_DATA);
-                    clrbuf();
-                    one_more_time = strtol(INPUT_DATA, NULL, 10);
-                    if (one_more_time == 2)
+                else if (way == 2)
+                {
+                    while (1)
                     {
-                        break;
-                    } else if (one_more_time == 1)
-                    {
-                        //do nothing
-                    } else
-                    {
-                        printf("输入错误，我猜您不想看了\n");
+                        char **tmp = calloc(d->people_list.size, sizeof(char*));
+                        for (int i = 0; i < d->people_list.size; ++i)
+                        {
+                            tmp[i] = d->people_list.head[i].name;
+                        }
+                        str_merge_sort(tmp, 0, d->people_list.size - 1);
+                        for (int i = 0; i < d->people_list.size; ++i)
+                        {
+                            printf("%d.%s", i + 1, tmp[i]);
+                        }
+                        printf("\n以上为所有的会员，您是否要再看一遍？1.确认\t2.取消\n");
                         fflush(stdout);
+                        long one_more_time;
+                        scanf("%104s", INPUT_DATA);
+                        clrbuf();
+                        one_more_time = strtol(INPUT_DATA, NULL, 10);
+                        if (one_more_time == 2)
+                        {
+                            break;
+                        } else if (one_more_time == 1)
+                        {
+                            //do nothing
+                        } else
+                        {
+                            printf("输入错误，我猜您不想看了\n");
+                            fflush(stdout);
+                        }
                     }
+                } else
+                {
+                    on_error();
                 }
             } else
             {

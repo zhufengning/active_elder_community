@@ -88,6 +88,7 @@ void house_list_delete(HouseList *pl, int v)
 }
 
 /// 按id查找房屋
+/// 返回数组a,a[0]表示结果数量,a[1-a[0]]为结果
 int* house_find_by_id(HouseList pl, int id)
 {
     int *ret = calloc(1, sizeof(int));
@@ -105,6 +106,7 @@ int* house_find_by_id(HouseList pl, int id)
 }
 
 /// 按名字查找房屋
+/// 返回数组a,a[0]表示结果数量,a[1-a[0]]为结果
 int* house_find_by_name(HouseList pl, char *name)
 {
     int *ret = calloc(1, sizeof(int));
@@ -122,6 +124,7 @@ int* house_find_by_name(HouseList pl, char *name)
 }
 
 /// 按名字查找房屋
+/// 返回数组a,a[0]表示结果数量,a[1-a[0]]为结果
 int house_find_by_owner(HouseList pl, int owner)
 {
     for (int i = 0; i < pl.size; ++i)

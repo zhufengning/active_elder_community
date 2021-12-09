@@ -8,7 +8,6 @@
 #ifndef ELDER_COMM_STORAGE_H
 #define ELDER_COMM_STORAGE_H
 
-#include "cJSON.h"
 #include "cJSON.c"
 
 /// 一个变量，存有整个社区的所有数据
