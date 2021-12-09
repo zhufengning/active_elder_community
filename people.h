@@ -19,7 +19,7 @@ typedef struct PeopleList
     int size, maxid;
 } PeopleList;
 
-/// 新建一个社区设施列表
+/// 新建一个社区会员列表
 PeopleList people_list_new(void)
 {
     PeopleList t;
@@ -29,7 +29,7 @@ PeopleList people_list_new(void)
     return t;
 }
 
-/// 往一个设施列表中插入一个新设施并分配id
+/// 往一个会员列表中插入一个新会员并分配id
 int people_list_push(PeopleList *p, char *name)
 {
     ++p->maxid;
@@ -66,7 +66,7 @@ void people_list_load(PeopleList *p, People v)
     p->head[p->size - 1] = v;
 }
 
-/// 获取列表中第in个设施（从零开始数）
+/// 获取列表中第in个会员（从零开始数）
 People *people_list_at(PeopleList p, int in)
 {
     static People r = {-1, "fuck!"};
@@ -74,7 +74,7 @@ People *people_list_at(PeopleList p, int in)
     else return &p.head[in];
 }
 
-/// 删除一个设施
+/// 删除一个会员
 void people_list_delete(PeopleList *pl, int v)
 {
     if (v >= pl->size) return;
@@ -85,7 +85,7 @@ void people_list_delete(PeopleList *pl, int v)
     pl->size -= 1;
 }
 
-/// 按id查找设施
+/// 按id查找会员
 /// 返回数组a,a[0]表示结果数量,a[1-a[0]]为结果
 int* people_find_by_id(PeopleList pl, int id)
 {
@@ -103,7 +103,7 @@ int* people_find_by_id(PeopleList pl, int id)
     return ret;
 }
 
-/// 按名字查找设施
+/// 按名字查找会员
 /// 返回数组a,a[0]表示结果数量,a[1-a[0]]为结果
 int *people_find_by_name(PeopleList pl, char *name)
 {

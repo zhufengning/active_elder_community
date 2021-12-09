@@ -3,7 +3,7 @@
  *******************************************/
 /*
  * 在vs 2022，codeblocks20.03，gcc 11，clang 13下可直接编译，若版本略有不同，亦可尝试。
- * 注意，在用codeblocks编译时，请只将main.c添加到工程。
+ * 注意，在用codeblocks编译时，请只将main.c添加到工程(加了些宏定义，应该也可以添加所有文件了)。
  * 文件中包含 CMakeLists.txt，使用VS，CLion，配置好CMake的Qt Creator等支持CMake的IDE，
  * 直接打开CMakeLists.txt所在的文件夹，可自动配置好项目，此后直接运行即可。
  * 以VS为例，选择文件-打开-文件夹（而不是项目），即可运行；
