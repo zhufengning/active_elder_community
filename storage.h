@@ -63,7 +63,7 @@ Data data_from_file(char *path)
         if (pp != NULL)
             for (int i = 0; i < cJSON_GetArraySize(pp); ++i)
             {
-                People new_people;
+                People new_people={0, ""};
                 cJSON *t = cJSON_GetArrayItem(pp, i);
                 cJSON *t2 = cJSON_GetObjectItem(t, "id");
                 cJSON *t3 = cJSON_GetObjectItem(t, "name");
@@ -80,7 +80,7 @@ Data data_from_file(char *path)
         if (pp != NULL)
             for (int i = 0; i < cJSON_GetArraySize(pp); ++i)
             {
-                House new_house;
+                House new_house={0, "", 0, 0, 0};
                 cJSON *t = cJSON_GetArrayItem(pp, i);
                 cJSON *t2 = cJSON_GetObjectItem(t, "id");
                 cJSON *t3 = cJSON_GetObjectItem(t, "name");
@@ -103,7 +103,7 @@ Data data_from_file(char *path)
         if (pl != NULL)
             for (int i = 0; i < cJSON_GetArraySize(pp); ++i)
             {
-                Servant new_servant;
+                Servant new_servant={0, "", 0};
                 cJSON *t = cJSON_GetArrayItem(pp, i);
                 cJSON *t2 = cJSON_GetObjectItem(t, "id");
                 cJSON *t3 = cJSON_GetObjectItem(t, "name");
@@ -120,7 +120,7 @@ Data data_from_file(char *path)
         if (pl != NULL)
             for (int i = 0; i < cJSON_GetArraySize(pp); ++i)
             {
-                Facility new_facility;
+                Facility new_facility={0, ""};
                 cJSON *t = cJSON_GetArrayItem(pp, i);
                 cJSON *t2 = cJSON_GetObjectItem(t, "id");
                 cJSON *t3 = cJSON_GetObjectItem(t, "name");
