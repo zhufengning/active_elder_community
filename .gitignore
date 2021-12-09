@@ -3,3 +3,4 @@ cmake-build-debug
 out
 .vs
 CMakeSettings.json
+/a.json

@@ -45,6 +45,8 @@ int house_list_push(HouseList *p, char *name, int owner)
     }
     p->head[p->size - 1].owner = owner;
     p->head[p->size - 1].id = p->maxid;
+    p->head[p->size - 1].type = 0;
+    p->head[p->size - 1].tenant = 0;
     strcpy(p->head[p->size - 1].name, name);
     return p->maxid;
 }

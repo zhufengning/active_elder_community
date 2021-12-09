@@ -1154,19 +1154,14 @@ void live_manage(Data *d) /// 选择*入住管理*
                 fflush(stdout);
             } else if (y_list[0] == 1)
             {
-                int is_his = 1;
-                for (int i = 0; i < d->house_list.size; i++)
-                {
-                    if (house_list_at(d->house_list, i)->owner != people_id)
-                    {
-                        printf("这根本就不是您的房子( ^ω^)\n");
-                        fflush(stdout);
-                        is_his = 0;
-                        break;
-                    }
-                }
+                int is_his = house_list_at(d->house_list, y_list[1])->owner == people_id;
                 if (!is_his)
+                {
+                    printf("这根本就不是您的房子( ^ω^)\n");
+                    fflush(stdout);
                     return;
+                }
+                    
                 int servant_xiabiao = -1;
 
                 for (int i = 0; i < d->servant_list.size; i++)

@@ -42,7 +42,7 @@ int facility_list_push(FacilityList *p, char *name)
         ++p->size;
         p->head = realloc(p->head, sizeof(Facility) * p->size);
     }
-    p->head[p->size - 1].id = p->size;
+    p->head[p->size - 1].id = p->maxid;
     strcpy(p->head[p->size - 1].name, name);
     return p->maxid;
 }

@@ -43,7 +43,7 @@ int servant_list_push(ServantList *p, char *name)
         ++p->size;
         p->head = realloc(p->head, sizeof(Servant) * p->size);
     }
-    p->head[p->size - 1].id = p->size;
+    p->head[p->size - 1].id = p->maxid;
     strcpy(p->head[p->size - 1].name, name);
     p->head[p->size - 1].target_id = -1;
     return p->maxid;
